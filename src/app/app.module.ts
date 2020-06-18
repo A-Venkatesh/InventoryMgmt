@@ -48,7 +48,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     NgbModule.forRoot(),
     BrowserAnimationsModule,
     AngularMaterialModule,
-    FormsModule, ReactiveFormsModule,
+    FormsModule,
     FlexLayoutModule,
 
   ],
