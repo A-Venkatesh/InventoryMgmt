@@ -42,13 +42,14 @@ body {
   float: left;
   padding: 60px 50px 40px 50px;
   width: 100%;
-  background: rgb(143, 38, 38);
+  background: rgb(255, 255, 255);
   border-radius: 10px;
   transform: scale(1);
   -webkit-transform: scale(1);
   -ms-transform: scale(1);
   z-index: 5;
-  max-width: 330px;
+  max-width: 400px;
+  max-height: 400px;
 }
 
 .box.back {
@@ -111,3 +112,4 @@ body {
 .login-wrapper .mat-form-field-appearance-legacy .mat-form-field-infix {
   padding: 0.8375em 0;
 }
+

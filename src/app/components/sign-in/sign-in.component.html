@@ -16,19 +16,28 @@
         </mat-form-field>
       </mat-card-content>
       <button mat-stroked-button color="accent" class="btn-block" (click)="authService.SignIn(userName.value, userPassword.value)" >Log in</button>
+      <div>
+        <div style="text-align: center;">
+        <a mat-button  (click)="authService.GoogleAuth()"  target="_blank">
+          <small>Log in with Google</small>
+        </a>    
+      
+        <a mat-button routerLink="/forgot-password">
+          <small>Forgot Password?</small>
+        </a>
+        
+          <p><small>Don't have an account?</small>
+            <a mat-button  target="_blank" routerLink="/register-user">
+              <small>Sign Up</small>
+            </a>
+          </p>
+        </div>
+        
+      
+    </div>
     </form>
-    <s>
-      <button type="button"  (click)="authService.GoogleAuth()">
-        Log in with Google
-      </button>
-      <div>
-        <span routerLink="/forgot-password">Forgot Password?</span>
-      </div>
-      <div>
-        <span>Don't have an account?<span routerLink="/register-user"> Sign Up</span></span>
-      </div>
-    </s>
-  
+    
+    
 
   </mat-card>
 
