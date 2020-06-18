@@ -9,6 +9,7 @@ import { AuthService } from "../../auth.service";
 
 export class SignUpComponent implements OnInit {
   Roles: any = ['Admin', 'Author', 'Reader'];
+  selected = ''
   constructor(
     public authService: AuthService
   ) { }

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import {
+   MatCardModule,
    MatButtonModule,
    MatToolbarModule,
    MatIconModule,
@@ -40,7 +41,8 @@ import {
       MatChipsModule,
       MatTooltipModule,
       MatTableModule,
-      MatPaginatorModule
+      MatPaginatorModule,
+      MatCardModule
    ],
    exports: [
       MatButtonModule,
@@ -58,7 +60,8 @@ import {
       MatChipsModule,
       MatTooltipModule,
       MatTableModule,
-      MatPaginatorModule
+      MatPaginatorModule,
+      MatCardModule
    ],
    providers: [
       MatDatepickerModule,

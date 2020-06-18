@@ -7,35 +7,34 @@
     <form class="example-form">
 
       <mat-card-content>
+
         <mat-form-field class="example-full-width">
-          <input matInput placeholder="Username">
+          <input matInput placeholder="Email Address" #userEmail>
         </mat-form-field>
 
         <mat-form-field class="example-full-width">
-          <input matInput placeholder="Email">
-        </mat-form-field>
-
-        <mat-form-field class="example-full-width">
-          <input matInput placeholder="Password">
-        </mat-form-field>
-
-        <mat-form-field class="example-full-width">
-          <mat-label>Choose a role...</mat-label>
-          <mat-select [(value)]="selected">
-            <mat-option [value]="roles" *ngFor="let roles of Roles">{{roles}}
-            </mat-option>
-          </mat-select>
+          <input matInput placeholder="Password" #userPwd>
         </mat-form-field>
 
       </mat-card-content>
 
-      <button mat-stroked-button color="accent" class="btn-block">Register</button>
+      <button mat-stroked-button color="accent" class="btn-block" (click)="authService.SignUp(userEmail.value, userPwd.value)">Register</button>
 
     </form>
+
+    <div>
+      <button type="button"  (click)="authService.GoogleAuth()">
+        <i ></i>
+        Continue with Google
+      </button>
+    </div>
+    <div >
+      <span>Already have an account? <span routerLink="/sign-in">Log In</span></span>
+    </div>
   </mat-card>
 </div>
 
-<div class="displayTable">
+<!-- <div class="displayTable">
     <div class="displayTableCell">
   
       <div class="authBlock">
@@ -57,7 +56,7 @@
           <span class="or"><span class="orInner">Or</span></span>
         </div>
   
-        <!-- Continue with Google -->
+  
         <div class="formGroup">
           <button type="button" class="btn googleBtn" (click)="authService.GoogleAuth()">
             <i class="fab fa-google-plus-g"></i>
@@ -65,13 +64,7 @@
           </button>
         </div>
   
-        <!-- Continue with Facebook -->
-        <!-- <div class="formGroup">
-          <button type="button" class="btn facebookBtn" (click)="authService.FacebookAuth()">
-            <i class="fab fa-facebook"></i>
-            Continue with Facebook
-          </button>
-        </div> -->
+
       </div>
   
       <div class="redirectToLogin">
@@ -79,4 +72,4 @@
       </div>
     </div>
   
-  </div>
+  </div> -->
