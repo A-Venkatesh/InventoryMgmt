@@ -12,10 +12,10 @@
         </mat-form-field>
 
         <mat-form-field class="example-full-width">
-          <input matInput placeholder="Password" #userPassword>
+          <input type="password" matInput placeholder="Password" #userPassword>
         </mat-form-field>
       </mat-card-content>
-      <button mat-stroked-button color="accent" class="btn-block" (click)="authService.SignIn(userName.value, userPassword.value)" >Log in</button>
+      <button mat-stroked-button color="accent" class="btn-block" (click)="signinCheck(userName.value, userPassword.value)" >Log in</button>
       <div>
         <div style="text-align: center;">
         <a mat-button  (click)="authService.GoogleAuth()"  target="_blank">

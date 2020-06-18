@@ -8,7 +8,7 @@ body {
 }
 
 body {
-  background-image: url(https://lh4.googleusercontent.com/-XplyTa1Za-I/VMSgIyAYkHI/AAAAAAAADxM/oL-rD6VP4ts/w1184-h666/Android-Lollipop-wallpapers-Google-Now-Wallpaper-2.png);
+  background-image: url(https://storage.needpix.com/rsynced_images/farmers-market-1495206921lwW.jpg);
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -30,11 +30,15 @@ body {
   height: 100%;
 }
 
-.positronx {
-  text-decoration: none;
+.title {
+  text-decoration: #ffdfeb;
+  color: #ffffff;
+  
+}
+.title:active{
+  text-decoration: #ffdfeb;
   color: #ffffff;
 }
-
 .box {
   position: relative;
   top: 0;
