@@ -2,17 +2,20 @@
 <mat-card>Simple card</mat-card>
 
 
-<div style="padding-top: 10px;" *ngIf="authService.userData as user">
-  <div >
-    <div >
+<div class="whiteFont" style="padding-top: 10px;" *ngIf="authService.userData as user">
+
       <!-- <img src="{{(user.photoURL) ? user.photoURL : '/assets/dummy-user.png'}}"
         alt="{{user.displayName}}"> -->
-      <div class="whiteFont">
+
         <!-- <h1>Hello: <strong>{{(user.displayName) ? user.displayName : 'User'}}</strong></h1> -->
-        <p>User ID: <strong>{{user.uid}}</strong></p>
-        <p>Email: <strong>{{user.email}}</strong></p>
-        <p>Email Verified: <strong>{{user.emailVerified}}</strong></p>
-      </div>
-    </div>
-  </div>
+        <p>User ID: <strong>{{user.uid}}</strong>Email: <strong>{{user.email}}</strong>Email Verified: <strong>{{user.emailVerified}}</strong></p>
+      
 </div>
+<mat-grid-list cols="2" >
+  <mat-grid-tile>
+    <app-orders></app-orders>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <app-order-list></app-order-list>
+  </mat-grid-tile>
+</mat-grid-list>
