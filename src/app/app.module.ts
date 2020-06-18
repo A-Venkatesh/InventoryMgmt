@@ -23,8 +23,12 @@ import { environment } from '../environments/environment';
 
 // Auth service
 import { AuthService } from "./auth.service";
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AngularMaterialModule } from './angular-material/angular-material.module';
 
-
+import { FlexLayoutModule, LAYOUT_CONFIG, BREAKPOINT } from '@angular/flex-layout';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,7 +44,13 @@ import { AuthService } from "./auth.service";
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
     AngularFirestoreModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgbModule.forRoot(),
+    BrowserAnimationsModule,
+    AngularMaterialModule,
+    FormsModule, ReactiveFormsModule,
+    FlexLayoutModule,
+
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]
