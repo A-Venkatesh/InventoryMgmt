@@ -29,6 +29,9 @@ import { AngularMaterialModule } from './angular-material/angular-material.modul
 
 import { FlexLayoutModule, LAYOUT_CONFIG, BREAKPOINT } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
+import { OrdersComponent } from './components/orders/orders.component';
+import { OrderListComponent } from './components/order-list/order-list.component';
+import { OrdersService } from "./shared/services/orders.service";
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,7 +39,9 @@ import { FormsModule } from '@angular/forms';
     SignUpComponent,
     DashboardComponent,
     ForgotPasswordComponent,
-    VerifyEmailComponent
+    VerifyEmailComponent,
+    OrdersComponent,
+    OrderListComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +57,7 @@ import { FormsModule } from '@angular/forms';
     FlexLayoutModule,
 
   ],
-  providers: [AuthService],
+  providers: [AuthService,OrdersService],
   bootstrap: [AppComponent]
 })
 
