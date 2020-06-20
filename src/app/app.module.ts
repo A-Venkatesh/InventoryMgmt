@@ -32,6 +32,7 @@ import { FormsModule } from '@angular/forms';
 import { OrdersComponent } from './components/orders/orders.component';
 import { OrderListComponent } from './components/order-list/order-list.component';
 import { OrdersService } from "./shared/services/orders.service";
+import { AddProductComponent } from './components/add-product/add-product.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,7 +42,8 @@ import { OrdersService } from "./shared/services/orders.service";
     ForgotPasswordComponent,
     VerifyEmailComponent,
     OrdersComponent,
-    OrderListComponent
+    OrderListComponent,
+    AddProductComponent
   ],
   imports: [
     BrowserModule,

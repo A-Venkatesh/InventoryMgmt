@@ -1,0 +1,159 @@
+<form [formGroup]="form" novalidate>
+  <mat-card>
+
+
+    <!-- Name -->
+    <div class="row">
+      <mat-form-field style="overflow: hidden; padding-right: .5em;width: 50%">
+        <input matInput placeholder="Product Name" formControlName="ProductName" style="width: 100%" required>
+        <mat-error *ngIf="!form.controls['ProductName'].valid">{{getErrorMessage('ProductName')}}</mat-error>
+      </mat-form-field>
+      <mat-form-field style="overflow: hidden; padding-right: .5em;width: 50%">
+        <input matInput placeholder="Product Local Name" formControlName="ProductLocalName" style="width: 100%">
+        <mat-error *ngIf="!form.controls['ProductLocalName'].valid">{{getErrorMessage('ProductName')}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- //Discriptions -->
+
+    <mat-form-field class="example-full-width">
+      <textarea matInput placeholder="Product Description" formControlName="ProductDescription"></textarea>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <textarea matInput placeholder="Product Detail" formControlName="ProductDetail"></textarea>
+    </mat-form-field>
+
+    <!-- Brand -->
+    <div class="row">
+      <div class="cell">
+
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Product Brand/Author/Owner" formControlName="ProductOwner">
+
+        </mat-form-field>
+      </div>
+    </div>
+
+
+    <!-- Category -->
+    <div class="row">
+      <div class="cell">
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Category" formControlName="Category">
+        </mat-form-field>
+      </div>
+      <div class="cell">
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Sub Category" formControlName="SubCategory">
+        </mat-form-field>
+      </div>
+    </div>
+    <!-- Key -->
+    <div>
+      <mat-form-field class="example-full-width">
+        <mat-chip-list #chipList aria-label="Category selection">
+          <mat-chip [selectable]="selectable" [removable]="removable" (removed)="remove(keys)" *ngFor="let cat of keys">
+            {{cat}}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+          </mat-chip>
+          <input placeholder="Key Words" [matChipInputFor]="chipList"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+            (matChipInputTokenEnd)="add($event)">
+        </mat-chip-list>
+      </mat-form-field>
+    </div>
+
+    <!-- Window -->
+    <mat-slide-toggle>Slide me!</mat-slide-toggle>
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Quantity availavle" formControlName="category">
+    </mat-form-field>
+
+    <div class="row">
+      <div class="cell"> <input type="file" name="photo" (change)="onFileSelect($event)" multiple></div>
+      <div class="cell"> <button type="button" mat-raised-button (click)="Uploader()">Upload an Image</button></div>
+
+    </div>
+
+    <!-- price -->
+    <div class="row example-full-width">
+      <div class="cell">
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Product MRP" type="number" formControlName="ProductMRP" required>
+          <span matPrefix>₹&nbsp;</span>
+          <span matSuffix>.00</span>
+          <mat-error *ngIf="!form.controls['ProductPrice'].valid">{{getErrorMessage('ProductPrice')}}</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="cell">
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="ProductPrice" formControlName="ProductPrice" type="number" required>
+          <span matPrefix>₹&nbsp;</span>
+          <span matSuffix>.00</span>
+          <mat-error *ngIf="!form.controls['ProductPrice'].valid">{{getErrorMessage('ProductPrice')}}</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <button type="submit" mat-raised-button (click)="addProduct(form.value)">Submit</button>
+    </div>
+  </mat-card>
+</form>
+
+<form [formGroup]="dynamicForm" (ngSubmit)="onSubmit()">
+  <mat-form-field>
+    <mat-select formControlName ="numberOfVariants" (selectionChange)="onChangeVariants($event)" [ngClass]="{ 'is-invalid': submitted && f.numberOfVariants.errors }">
+
+    <mat-option *ngFor="let i of [2,3,4,5,6,7,8,9,10]" [value]="i">{{i}}</mat-option>
+
+</mat-select>
+  </mat-form-field>
+
+  <div class="card m-3">
+      <h5 class="card-header">Angular 8 Dynamic Reactive Forms Example</h5>
+      <div class="card-body">
+          <div class="form-row">
+              <div class="form-group">
+                  <label>Number of Variants</label>
+                  <!-- <select formControlName="numberOfVariants" class="form-control" (change)="onChangeVariants($event)" [ngClass]="{ 'is-invalid': submitted && f.numberOfVariants.errors }">
+                      <option value=""></option>
+                      <option *ngFor="let i of [1,2,3,4,5,6,7,8,9,10]">{{i}}</option>
+                  </select> -->
+                  
+                  <div *ngIf="submitted && f.numberOfVariants.errors" class="invalid-feedback">
+                      <div *ngIf="f.numberOfVariants.errors.required">Number of variants is required</div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div *ngFor="let variant of t.controls; let i = index" class="list-group list-group-flush">
+          <div class="list-group-item">
+              <h5 class="card-title">Variant {{i + 1}}</h5>
+              <div [formGroup]="variant" class="form-row">
+                  <div class="form-group col-6">
+                      <label>Name</label>
+                      <input type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && variant.controls.name.errors }" />
+                      <div *ngIf="submitted && variant.controls.name.errors" class="invalid-feedback">
+                          <div *ngIf="variant.controls.name.errors.required">Name is required</div>
+                      </div>
+                  </div>
+                  <div class="form-group col-6">
+                      <label>Email</label>
+                      <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && variant.controls.email.errors }" />
+                      <div *ngIf="submitted && variant.controls.email.errors" class="invalid-feedback">
+                          <div *ngIf="variant.controls.email.errors.required">Email is required</div>
+                          <div *ngIf="variant.controls.email.errors.email">Email must be a valid email address</div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="card-footer text-center">
+          <button class="btn btn-primary mr-1">Buy Variants</button>
+          <button class="btn btn-secondary mr-1" type="reset" (click)="onReset()">Reset</button>
+          <button class="btn btn-secondary" type="button" (click)="onClear()">Clear</button>
+      </div>
+  </div>
+</form>
