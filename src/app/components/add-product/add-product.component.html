@@ -112,9 +112,44 @@
       <mat-slide-toggle formControlName="imaageAvil">Image available</mat-slide-toggle>
 
       <div class="row" *ngIf="variant.get('imaageAvil').value">
-        <div class="cell"> <input type="file" name="photo" (change)="onFileSelect($event)" multiple></div>
+        <!-- <div class="cell"> <input type="file" name="photo" (change)="onFileSelect($event)" multiple></div>
         <div class="cell"> <button type="button" mat-raised-button (click)="Uploader()">Upload an Image</button></div>
+       -->
+
+
+       <div class="row">
+        <div class="cell"> <input type="file" name="photo" (change)="onFileSelect($event)" multiple></div>
+        <div class="cell" > <button  type="button" mat-raised-button (click)="Uploader()">Upload an Image</button></div>
+        
+          
+        </div>
       
+        
+          <!-- <button type="button" class="btn btn-success btn-s" 
+            (click)="Uploader()"  >
+                Upload an Image
+          </button> -->
+          <div class="example-full-width">
+            <table>
+              <tr *ngFor="let images of map | keyvalue" class="example-full-width">
+                <th style="width:50%;">
+                    <img  [src]="images.value.file" class="img-thumbnail thumbImage" > 
+                  
+                </th>
+                <td style="width:45%">
+                    <label>{{images.key}}</label>
+                  <mat-progress-bar mode="determinate" [value]="images.value.Progress"></mat-progress-bar>
+                </td>
+                <td style="width: auto">
+                  <button type="button" class="close" aria-label="Close" (click)="removeImage(images.key)">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </td>
+              </tr>
+            </table>
+      
+          </div>
+
       </div>
 
     </div>
