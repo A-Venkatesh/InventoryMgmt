@@ -63,8 +63,7 @@ export class AddProductComponent implements OnInit {
   form = this.fb.group({
     ProductName: ['', [Validators.required]],
     ProductLocalName: [''],
-    ProductMRP: [''],
-    ProductPrice: ['', [Validators.required, Validators.min(1), Validators.max(100000000)]],
+
     ProductDescription: [''],
     ProductDetail: [''],
     ProductOwner: [''],
@@ -177,7 +176,12 @@ bar.then(() => {
 
 
 //   }
-
+log(){
+  console.log(this.form);
+  console.log(this.dynamicForm);
+  
+  
+}
   findContentFromMatch(data: Tile) {
     console.log(data);
 
@@ -197,6 +201,7 @@ bar.then(() => {
   }
   dynamicForm: FormGroup;
   submitted = false;
+  metoptions : string[] =  ['qty','gram','kg','litre','cm'];
   ngOnInit() {
     this.dynamicForm = this.fb.group({
       numberOfVariants: ['', Validators.required],
@@ -204,8 +209,12 @@ bar.then(() => {
   });
 
   this.t.push(this.fb.group({
-    name: ['', Validators.required],
-    email: ['', [Validators.required, Validators.email]]
+    ProductMRP: [''],
+    ProductPrice: ['', [Validators.required, Validators.min(1), Validators.max(100000000)]],
+    quantity: ['', Validators.required],
+    metric: ['', Validators.required],
+    imaageAvil:[''],
+    availStock:[''],
 }));
   // this.dynamicForm.controls.numberOfVariants.setValue(1);
   }
@@ -221,8 +230,12 @@ bar.then(() => {
     if (this.t.length < numberOfVariants) {
         for (let i = this.t.length; i < numberOfVariants; i++) {
             this.t.push(this.fb.group({
-                name: ['', Validators.required],
-                email: ['', [Validators.required, Validators.email]]
+                    ProductMRP: [''],
+    ProductPrice: ['', [Validators.required, Validators.min(1), Validators.max(100000000)]],
+                quantity: ['', Validators.required],
+    metric: ['', Validators.required],
+    imaageAvil:[''],
+    availStock: ['']
             }));
         }
     } else {
