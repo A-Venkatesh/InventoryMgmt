@@ -104,7 +104,7 @@ export class AddProductComponent implements OnInit {
   
   dynamicForm: FormGroup;
   submitted = false;
-  metoptions: string[] = ['qty', 'gram', 'kg', 'litre', 'cm'];
+  metoptions: string[] = ['qty', 'gram', 'kg', 'litre', 'ml', 'cm'];
   ngOnInit() {
     this.dynamicForm = this.fb.group({
       numberOfVariants: [1],
@@ -174,7 +174,12 @@ export class AddProductComponent implements OnInit {
           
           element.UploadedImages = this.map.get(key);
           element.UploadedImages.forEach(ele => {
-            ele.file = ele.fileUrl.data.display_url;
+            if (ele.fileUrl.data.display_url === undefined) {
+              ele.file = "";
+            } else {
+              ele.file = ele.fileUrl.data.display_url;
+            }
+            
             element.UploadedImages[element.UploadedImages.indexOf(ele)] = ele;
           });
         }
@@ -210,6 +215,7 @@ export class AddProductComponent implements OnInit {
     this.dynamicForm.reset();
     this.form.reset();
     this.t.clear();
+    this.keys =[];
   }
 
   onClear() {
