@@ -1,4 +1,5 @@
 export interface Product {
+    pID: number;
     ProductName: string;
     ProductLocalName: string;
     ProductDescription: string;

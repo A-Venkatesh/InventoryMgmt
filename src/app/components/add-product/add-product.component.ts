@@ -12,7 +12,8 @@ import { ImgUploadService } from '../../shared/services/img-upload.service';
 import { map } from 'rxjs/operators';
 import { element } from 'protractor';
 import { Product } from "../../shared/services/product";
-
+import { ProductService } from "../../shared/services/product.service";
+import { DatePipe } from '@angular/common';
 
 export interface PreviewData {
   file: any;
@@ -51,7 +52,7 @@ export class AddProductComponent implements OnInit {
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   keys = [];
 
-  constructor(private _snackBar: MatSnackBar, private fb: FormBuilder, private is: ImgUploadService) {
+  constructor(public datepipe: DatePipe, private _snackBar: MatSnackBar, private fb: FormBuilder, private is: ImgUploadService, private ps: ProductService) {
     // this.createForm();
   }
 
@@ -98,29 +99,7 @@ export class AddProductComponent implements OnInit {
 
   }
   private pRow: Product;
-  log() {
-    console.log(this.form);
-    console.log(this.dynamicForm);
-    console.log(this.map);
-    console.log(this.form.value);
-   // console.log(JSON.stringify(this.dynamicForm.value));
-    this.pRow = <Product> this.form.value;
-    this.pRow.numberOfVariants = this.dynamicForm.value.numberOfVariants;
-    let varArr = new Array();
-    varArr = this.dynamicForm.value.variants;
-    varArr.forEach(element => {
-      let key = varArr.indexOf(element);
-      if (this.map.has(key)) {
-        element.UploadedImages = this.map.get(key);
-      }
-      this.dynamicForm.value.variants[key] = element;
-      
-    });
-    this.pRow.variants = this.dynamicForm.value.variants;
-    console.log(this.pRow);
-    
-    
-  }
+
 
   
   dynamicForm: FormGroup;
@@ -128,15 +107,15 @@ export class AddProductComponent implements OnInit {
   metoptions: string[] = ['qty', 'gram', 'kg', 'litre', 'cm'];
   ngOnInit() {
     this.dynamicForm = this.fb.group({
-      numberOfVariants: [1, Validators.required],
+      numberOfVariants: [1],
       variants: new FormArray([])
     });
     this.t.push(this.fb.group({
       vID: [''],
-      ProductMRP: [''],
+      ProductMRP: ['', Validators.required],
       ProductPrice: ['', [Validators.required, Validators.min(1), Validators.max(100000000)]],
       quantity: ['', Validators.required],
-      metric: ['qty', Validators.required],
+      metric: ['qty'],
       imageAvl: [true],
       availStock: [''],
       UploadedImages: [[]],
@@ -156,8 +135,8 @@ export class AddProductComponent implements OnInit {
       for (let i = this.t.length; i < numberOfVariants; i++) {
         this.t.push(this.fb.group({
           vID: [''],
-          ProductMRP: [''],
-          ProductPrice: ['', [Validators.required, Validators.min(1), Validators.max(100000000)]],
+          ProductMRP: ['',Validators.required],
+          ProductPrice: ['', [Validators.required, Validators.min(1), Validators.max(1000000)]],
           quantity: ['', Validators.required],
           metric: ['', Validators.required],
           imageAvl: [''],
@@ -178,10 +157,45 @@ export class AddProductComponent implements OnInit {
     // stop here if form is invalid
     if (this.dynamicForm.invalid) {
       return;
+    }else{
+      console.log(this.form);
+      console.log(this.dynamicForm);
+      console.log(this.map);
+      console.log(this.form.value);
+     // console.log(JSON.stringify(this.dynamicForm.value));
+      this.pRow = <Product> this.form.value;
+      this.pRow.numberOfVariants = this.dynamicForm.value.numberOfVariants;
+      let varArr = new Array();
+      varArr = this.dynamicForm.value.variants;
+      varArr.forEach(element => {
+        let key = varArr.indexOf(element);
+        if (this.map.has(key)) {
+          element.UploadedImages = this.map.get(key);
+          element.UploadedImages.forEach(ele => {
+            ele.file = '';
+            element.UploadedImages[element.UploadedImages.indexOf(ele)] = ele;
+          });
+        }
+        this.dynamicForm.value.variants[key] = element;
+        
+      });
+      this.pRow.variants = this.dynamicForm.value.variants;
+      console.log(this.pRow);
+     let  date= new Date();
+
+  this.pRow.pID = Number(this.datepipe.transform(date, 'yyMMddHHmmss'));
+  let data =this.pRow;
+  this.ps.createProduct(data).then(res => {
+    /*do something here....maybe clear the form or give a success message*/
+    console.log(res);
+    
+  });
+  //this.ps.createProduct(this.pRow);
+     
     }
 
     // display form values on success
-    alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.dynamicForm.value, null, 4));
+    // alert('SUCCESS!! :-)\n\n' + JSON.stringify(, null, 4));
   }
 
   onReset() {

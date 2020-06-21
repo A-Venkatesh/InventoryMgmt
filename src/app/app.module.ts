@@ -37,6 +37,7 @@ import { AddProductComponent } from './components/add-product/add-product.compon
 
 
 import { HttpClientModule } from '@angular/common/http';
+import { DatePipe } from '@angular/common'
 @NgModule({
   declarations: [
     AppComponent,
@@ -66,7 +67,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 
   ],
-  providers: [AuthService,OrdersService],
+  providers: [AuthService,OrdersService,DatePipe],
   bootstrap: [AppComponent]
 })
 
