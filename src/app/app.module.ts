@@ -33,6 +33,10 @@ import { OrdersComponent } from './components/orders/orders.component';
 import { OrderListComponent } from './components/order-list/order-list.component';
 import { OrdersService } from "./shared/services/orders.service";
 import { AddProductComponent } from './components/add-product/add-product.component';
+
+
+
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,7 +47,8 @@ import { AddProductComponent } from './components/add-product/add-product.compon
     VerifyEmailComponent,
     OrdersComponent,
     OrderListComponent,
-    AddProductComponent
+    AddProductComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -57,6 +62,8 @@ import { AddProductComponent } from './components/add-product/add-product.compon
     AngularMaterialModule,
     FormsModule,
     FlexLayoutModule,
+    HttpClientModule,
+
 
   ],
   providers: [AuthService,OrdersService],

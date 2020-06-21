@@ -27,7 +27,7 @@
       <div class="cell">
 
         <mat-form-field class="example-full-width">
-          <input matInput placeholder="Product Brand/Author/Owner" formControlName="ProductOwner">
+          <input matInput placeholder="Product Brand/Owner" formControlName="ProductOwner">
 
         </mat-form-field>
       </div>
@@ -51,7 +51,7 @@
     <div>
       <mat-form-field class="example-full-width">
         <mat-chip-list #chipList aria-label="Category selection">
-          <mat-chip [selectable]="selectable" [removable]="removable" (removed)="remove(keys)" *ngFor="let cat of keys">
+          <mat-chip [selectable]="selectable" [removable]="removable" (removed)="remove(cat)" *ngFor="let cat of keys">
             {{cat}}
             <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
           </mat-chip>
@@ -66,15 +66,15 @@
 <!-- Dynamic window -->
 <form [formGroup]="dynamicForm" (ngSubmit)="onSubmit()">
   <mat-form-field>
-    <mat-select formControlName="numberOfVariants" (selectionChange)="onChangeVariants($event)"
-      [ngClass]="{ 'is-invalid': submitted && f.numberOfVariants.errors }">
-      <mat-option *ngFor="let i of [2,3,4,5,6,7,8,9,10]" [value]="i">{{i}}</mat-option>
+    <mat-select placeholder="No. of Variant" formControlName="numberOfVariants" (selectionChange)="onChangeVariants($event)"
+      [ngClass]="{ 'is-invalid': submitted && f.numberOfVariants.errors }" [value]>
+      <mat-option *ngFor="let i of [1,2,3,4,5,6,7,8,9,10]" [value]="i">{{i}}</mat-option>
     </mat-select>
   </mat-form-field>
   <mat-card *ngFor="let variant of t.controls; let i = index" class="list-group list-group-flush">
-      <h5 class="card-title">Variant {{i + 1}}</h5>
+    
     <div [formGroup]="variant" class="form-row">
-      
+      <mat-label class="card-title">Variant {{i + 1}}</mat-label>
       <!-- price -->
       <div class="row example-full-width">
         <div class="cell">
@@ -96,30 +96,31 @@
       <mat-form-field style="overflow: hidden; padding-right: .5em;width: 50%">
         <input matInput placeholder="Quantiy" formControlName="quantity" style="width: 100%" required>
         <mat-error *ngIf="!form.controls['ProductName'].valid">{{getErrorMessage('ProductName')}}</mat-error>
+      
       </mat-form-field>
-      <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
-        formControlName="metric">
-        <mat-radio-button class="example-radio-button" *ngFor="let metric of metoptions" [value]="metric">
-          {{metric}}
-        </mat-radio-button>
-      </mat-radio-group>
-
-<!-- Window -->
-      <mat-form-field class="example-full-width">
-        <input matInput placeholder="Stock availavle" formControlName="availStock">
+      <mat-form-field>
+        <mat-label>Choose an option</mat-label>
+        <mat-select formControlName="metric" >
+          <mat-option *ngFor="let metric of metoptions" [value]="metric">{{metric}}</mat-option>
+        </mat-select>
       </mat-form-field>
       
-      <mat-slide-toggle formControlName="imaageAvil">Image available</mat-slide-toggle>
+<!-- Window -->
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Stock available" formControlName="availStock">
+      </mat-form-field>
+      
+      <mat-slide-toggle formControlName="imageAvl">Image available</mat-slide-toggle>
 
-      <div class="row" *ngIf="variant.get('imaageAvil').value">
+      <div class="row" *ngIf="variant.get('imageAvl').value">
         <!-- <div class="cell"> <input type="file" name="photo" (change)="onFileSelect($event)" multiple></div>
         <div class="cell"> <button type="button" mat-raised-button (click)="Uploader()">Upload an Image</button></div>
        -->
 
 
        <div class="row">
-        <div class="cell"> <input type="file" name="photo" (change)="onFileSelect($event)" multiple></div>
-        <div class="cell" > <button  type="button" mat-raised-button (click)="Uploader()">Upload an Image</button></div>
+        <div class="cell"> <input type="file" name="photo" (change)="onFileSelect($event,variant)" multiple></div>
+        <div class="cell" > <button  type="button" mat-raised-button (click)="Uploader(variant)">Upload an Image</button></div>
         
           
         </div>
@@ -131,17 +132,17 @@
           </button> -->
           <div class="example-full-width">
             <table>
-              <tr *ngFor="let images of map | keyvalue" class="example-full-width">
+              <tr *ngFor="let images of map.get(this.t.controls.indexOf(variant))" class="example-full-width">
                 <th style="width:50%;">
-                    <img  [src]="images.value.file" class="img-thumbnail thumbImage" > 
+                    <img  [src]="images.file" class="img-thumbnail thumbImage" > 
                   
                 </th>
                 <td style="width:45%">
-                    <label>{{images.key}}</label>
-                  <mat-progress-bar mode="determinate" [value]="images.value.Progress"></mat-progress-bar>
+                    <label>{{images.fileData.name}}</label>
+                  <mat-progress-bar mode="determinate" [value]="images.Progress"></mat-progress-bar>
                 </td>
                 <td style="width: auto">
-                  <button type="button" class="close" aria-label="Close" (click)="removeImage(images.key)">
+                  <button type="button" class="close" aria-label="Close" (click)="removeImage(images,variant)">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </td>
@@ -165,7 +166,7 @@
       <button type="submit" mat-raised-button (click)="addProduct(form.value)">Submit</button>
     </div> -->
     <div class="card-footer text-center">
-      <button mat-raised-button (click)="log()">Buy Variants</button>
+      <button mat-raised-button (click)="log()">Submit</button>
       <button mat-raised-button type="reset" (click)="onReset()">Reset</button>
       <button mat-raised-button type="button" (click)="onClear()">Clear</button>
     </div>
