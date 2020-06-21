@@ -5,24 +5,31 @@ export interface Product {
     ProductDescription: string;
     ProductDetail: string;
     ProductOwner: string;
-    ProductKeys: any[];
+    ProductKeys: string[];
     Category: string;
     SubCategory: string;
 numberOfVariants: number;
     variants: Variant[];
 }
 export interface Variant {
-    vID: string;
-    ProductMRP: string;
-    ProductPrice: string;
-    quantity: string;
+    vID: number;
+    ProductMRP: number;
+    ProductPrice: number;
+    quantity: number;
     metric: string;
     imageAvl: boolean;
-    availStock: string;
+    availStock: number;
     UploadedImages: ImageData[];
 }
  
-export interface ImageData {
+
+export interface ImageData{
+    Progress: number;
+file: string;
+fileData: {};
+fileUrl:ImgData;
+}
+export interface ImgData {
     data: Data;
     success: boolean;
     status: number;

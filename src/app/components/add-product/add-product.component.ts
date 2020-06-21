@@ -112,12 +112,12 @@ export class AddProductComponent implements OnInit {
     });
     this.t.push(this.fb.group({
       vID: [''],
-      ProductMRP: ['', Validators.required],
-      ProductPrice: ['', [Validators.required, Validators.min(1), Validators.max(100000000)]],
-      quantity: ['', Validators.required],
+      ProductMRP: [, Validators.required],
+      ProductPrice: [, [Validators.required, Validators.min(1), Validators.max(100000000)]],
+      quantity: [, Validators.required],
       metric: ['qty'],
       imageAvl: [true],
-      availStock: [''],
+      availStock: [],
       UploadedImages: [[]],
     }));
     // this.dynamicForm.controls.numberOfVariants.setValue(1);
@@ -135,12 +135,12 @@ export class AddProductComponent implements OnInit {
       for (let i = this.t.length; i < numberOfVariants; i++) {
         this.t.push(this.fb.group({
           vID: [''],
-          ProductMRP: ['',Validators.required],
-          ProductPrice: ['', [Validators.required, Validators.min(1), Validators.max(1000000)]],
-          quantity: ['', Validators.required],
+          ProductMRP: [,Validators.required],
+          ProductPrice: [, [Validators.required, Validators.min(1), Validators.max(1000000)]],
+          quantity: [, Validators.required],
           metric: ['', Validators.required],
-          imageAvl: [''],
-          availStock: [''],
+          imageAvl: [false],
+          availStock: [],
           UploadedImages: [[]],
         }));
       }
@@ -155,7 +155,7 @@ export class AddProductComponent implements OnInit {
     this.submitted = true;
 
     // stop here if form is invalid
-    if (this.dynamicForm.invalid) {
+    if (this.dynamicForm.invalid || this.form.invalid) {
       return;
     }else{
       console.log(this.form);
@@ -169,10 +169,12 @@ export class AddProductComponent implements OnInit {
       varArr = this.dynamicForm.value.variants;
       varArr.forEach(element => {
         let key = varArr.indexOf(element);
+        element.vID = key;
         if (this.map.has(key)) {
+          
           element.UploadedImages = this.map.get(key);
           element.UploadedImages.forEach(ele => {
-            ele.file = '';
+            ele.file = ele.fileUrl.data.display_url;
             element.UploadedImages[element.UploadedImages.indexOf(ele)] = ele;
           });
         }
@@ -184,8 +186,12 @@ export class AddProductComponent implements OnInit {
      let  date= new Date();
 
   this.pRow.pID = Number(this.datepipe.transform(date, 'yyMMddHHmmss'));
-  let data =this.pRow;
-  this.ps.createProduct(data).then(res => {
+  let data =<Product>this.pRow;
+
+  
+  console.log(JSON.parse(JSON.stringify(data)));
+  
+  this.ps.createProduct(JSON.parse(JSON.stringify(data))).then(res => {
     /*do something here....maybe clear the form or give a success message*/
     console.log(res);
     
@@ -202,6 +208,7 @@ export class AddProductComponent implements OnInit {
     // reset whole form back to initial state
     this.submitted = false;
     this.dynamicForm.reset();
+    this.form.reset();
     this.t.clear();
   }
 
