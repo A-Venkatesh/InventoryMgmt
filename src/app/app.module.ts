@@ -37,7 +37,8 @@ import { AddProductComponent } from './components/add-product/add-product.compon
 
 
 import { HttpClientModule } from '@angular/common/http';
-import { DatePipe } from '@angular/common'
+import { DatePipe } from '@angular/common';
+import { ProductListComponent } from './components/product-list/product-list.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,6 +50,7 @@ import { DatePipe } from '@angular/common'
     OrdersComponent,
     OrderListComponent,
     AddProductComponent,
+    ProductListComponent,
 
   ],
   imports: [
