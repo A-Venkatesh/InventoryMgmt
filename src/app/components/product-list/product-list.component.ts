@@ -10,10 +10,13 @@ export class ProductListComponent implements OnInit {
   constructor(private ts:TranslationService) { }
 
   ngOnInit(): void {
-    this.ts.getText();
+  //  this.ts.getText();
   }
-  getTransalation(){
-this.ts.getText();
+  text ='';
+  getTransalation(text){
+    console.log(this.text);
+    
+this.ts.getText(this.text);
   }
 
 }
