@@ -12,6 +12,8 @@ export class ProductListComponent implements OnInit {
   ngOnInit(): void {
   //  this.ts.getText();
   }
+
+  // JUNK
   text ='';
   getTransalation(text){
     console.log(this.text);
