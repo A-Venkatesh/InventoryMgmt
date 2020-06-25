@@ -4,7 +4,7 @@
     <!-- Name -->
     <div class="row">
       <mat-form-field style="overflow: hidden; padding-right: .5em;width: 50%">
-        <input matInput placeholder="Product Name" formControlName="ProductName" style="width: 100%" required>
+        <input matInput (keyup.enter)="getTransalation()" placeholder="Product Name" formControlName="ProductName" style="width: 100%" required>
         <mat-error *ngIf="!form.controls['ProductName'].valid">{{getErrorMessage('ProductName')}}</mat-error>
       </mat-form-field>
       <mat-form-field style="overflow: hidden; padding-right: .5em;width: 50%">

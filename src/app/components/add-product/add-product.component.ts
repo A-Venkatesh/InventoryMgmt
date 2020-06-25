@@ -14,6 +14,7 @@ import { element } from 'protractor';
 import { Product } from "../../shared/services/product";
 import { ProductService } from "../../shared/services/product.service";
 import { DatePipe } from '@angular/common';
+import { TranslationService } from "../../shared/services/translation.service";
 
 export interface PreviewData {
   file: any;
@@ -52,7 +53,7 @@ export class AddProductComponent implements OnInit {
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   keys = [];
 
-  constructor(public datepipe: DatePipe, private _snackBar: MatSnackBar, private fb: FormBuilder, private is: ImgUploadService, private ps: ProductService) {
+  constructor(private ts:TranslationService, public datepipe: DatePipe, private _snackBar: MatSnackBar, private fb: FormBuilder, private is: ImgUploadService, private ps: ProductService) {
     // this.createForm();
   }
 
@@ -68,6 +69,16 @@ export class AddProductComponent implements OnInit {
     SubCategory: [''],
 
   });
+
+  //text ='How are you';
+  async getTransalation(){
+   // console.log(this.text);
+    
+     await this.ts.getText(this.form.controls.ProductName.value);
+     await this.form.controls.ProductLocalName.setValue(this.ts.inTelugu);
+    // console.log();
+    
+  }
 
 
   getErrorMessage(filedName: string) {
