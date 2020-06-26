@@ -6,7 +6,9 @@ import { AngularFirestore } from '@angular/fire/firestore';
 })
 export class ProductService {
 
-  constructor(private firestore: AngularFirestore) {}
+  constructor(private firestore: AngularFirestore) {
+
+  }
 
 
   //Firestore CRUD actions example
@@ -15,7 +17,7 @@ export class ProductService {
       this.firestore
         .collection("products")
         .add(data)
-        .then(res => {}, err => reject(err));
+        .then(res => { }, err => reject(err));
     });
   }
 
@@ -27,7 +29,9 @@ export class ProductService {
   }
 
   getProducts() {
+
     return this.firestore.collection("products").snapshotChanges();
+
   }
 
   deleteProduct(data) {

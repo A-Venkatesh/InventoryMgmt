@@ -23,7 +23,7 @@ import {
    MatSnackBarModule,
    MatSlideToggleModule,
    MatAutocompleteModule,
-   MatProgressBarModule
+   MatProgressBarModule,
 } from '@angular/material';
 
 @NgModule({

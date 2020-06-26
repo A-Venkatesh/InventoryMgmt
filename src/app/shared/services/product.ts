@@ -1,4 +1,5 @@
 export interface Product {
+    fID: string;
     pID: number;
     ProductName: string;
     ProductLocalName: string;
