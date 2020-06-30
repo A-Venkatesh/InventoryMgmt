@@ -2,8 +2,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { StorageService } from 'src/app/shared/services/storage.service';
 import { Product } from "src/app/shared/services/product";
 import { ProductService } from 'src/app/shared/services/product.service';
-import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
+import { MatTableDataSource, MatPaginator } from '@angular/material';
 import {animate, state, style, transition, trigger} from '@angular/animations';
+import {MatSort} from '@angular/material/sort';
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',animations: [
@@ -27,7 +28,10 @@ export class ProductListComponent implements OnInit {
   
 
   constructor(public ss: StorageService, private ps: ProductService) {
-
+    this.ss.sharedData.subscribe(storage => {
+      this.list = storage;
+      console.log(JSON.stringify('size' + this.list.length));
+    });
   }
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -44,13 +48,16 @@ export class ProductListComponent implements OnInit {
       this.setData();
     });
 
+    
+
   }
+  
   setData() {
 
     this.dataSource = new MatTableDataSource<Product>(this.list);
-    
-    this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+    
     console.log(this.list.length);
     
     this.ss.nextData(this.list);
