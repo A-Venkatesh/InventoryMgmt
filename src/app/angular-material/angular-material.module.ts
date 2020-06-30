@@ -24,6 +24,7 @@ import {
    MatSlideToggleModule,
    MatAutocompleteModule,
    MatProgressBarModule,
+   MatSortModule,
 } from '@angular/material';
 
 @NgModule({
@@ -50,7 +51,8 @@ import {
       MatSnackBarModule,
       MatSlideToggleModule,
       MatAutocompleteModule,
-      MatProgressBarModule
+      MatProgressBarModule,
+      MatSortModule
    ],
    exports: [
       MatButtonModule,

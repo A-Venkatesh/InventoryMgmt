@@ -1,16 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl, NumberValueAccessor, } from '@angular/forms';
-// import { ProductsService} from '../service/products.service';
-// import { ImgUploadService} from '../service/img-upload.service';
-import { TitleCasePipe } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { isString } from 'util';
 import { MatChipInputEvent } from '@angular/material';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { format } from 'url';
 import { ImgUploadService } from '../../shared/services/img-upload.service';
 import { map } from 'rxjs/operators';
-import { element } from 'protractor';
 import { Product } from "../../shared/services/product";
 import { ProductService } from "../../shared/services/product.service";
 import { DatePipe } from '@angular/common';
@@ -53,17 +47,17 @@ export class AddProductComponent implements OnInit {
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   keys = [];
 
-  constructor(private ts:TranslationService, public datepipe: DatePipe, private _snackBar: MatSnackBar, private fb: FormBuilder, private is: ImgUploadService, private ps: ProductService) {
+  constructor(private ts: TranslationService, public datepipe: DatePipe, private _snackBar: MatSnackBar, private fb: FormBuilder, private is: ImgUploadService, private ps: ProductService) {
     // this.createForm();
   }
 
 
   form = this.fb.group({
     ProductName: ['', [Validators.required]],
-    ProductLocalName: [''],
-    ProductDescription: [''],
-    ProductDetail: [''],
-    ProductOwner: [''],
+    ProductLocalName: [' '],
+    ProductDescription: [' '],
+    ProductDetail: [' '],
+    ProductOwner: [' '],
     ProductKeys: [this.keys],
     Category: [''],
     SubCategory: [''],
@@ -71,13 +65,9 @@ export class AddProductComponent implements OnInit {
   });
 
   //text ='How are you';
-  async getTransalation(){
-   // console.log(this.text);
-    
-     await this.ts.getText(this.form.controls.ProductName.value);
-     await this.form.controls.ProductLocalName.setValue(this.ts.inTelugu);
-    // console.log();
-    
+  async getTransalation() {
+    await this.ts.getText(this.form.controls.ProductName.value);
+    await this.form.controls.ProductLocalName.setValue(this.ts.inTelugu);
   }
 
 
@@ -112,7 +102,7 @@ export class AddProductComponent implements OnInit {
   private pRow: Product;
 
 
-  
+
   dynamicForm: FormGroup;
   submitted = false;
   metoptions: string[] = ['qty', 'gram', 'kg', 'litre', 'ml', 'cm'];
@@ -124,7 +114,7 @@ export class AddProductComponent implements OnInit {
     this.t.push(this.fb.group({
       vID: [''],
       ProductMRP: [, Validators.required],
-      ProductPrice: [, [Validators.required, Validators.min(1), Validators.max(100000000)]],
+      ProductPrice: [, [Validators.required, Validators.min(1), Validators.max(1000000)]],
       quantity: [, Validators.required],
       metric: ['qty'],
       imageAvl: [true],
@@ -146,7 +136,7 @@ export class AddProductComponent implements OnInit {
       for (let i = this.t.length; i < numberOfVariants; i++) {
         this.t.push(this.fb.group({
           vID: [''],
-          ProductMRP: [,Validators.required],
+          ProductMRP: [, Validators.required],
           ProductPrice: [, [Validators.required, Validators.min(1), Validators.max(1000000)]],
           quantity: [, Validators.required],
           metric: ['', Validators.required],
@@ -168,13 +158,13 @@ export class AddProductComponent implements OnInit {
     // stop here if form is invalid
     if (this.dynamicForm.invalid || this.form.invalid) {
       return;
-    }else{
+    } else {
       console.log(this.form);
       console.log(this.dynamicForm);
       console.log(this.map);
       console.log(this.form.value);
-     // console.log(JSON.stringify(this.dynamicForm.value));
-      this.pRow = <Product> this.form.value;
+      // console.log(JSON.stringify(this.dynamicForm.value));
+      this.pRow = <Product>this.form.value;
       this.pRow.numberOfVariants = this.dynamicForm.value.numberOfVariants;
       let varArr = new Array();
       varArr = this.dynamicForm.value.variants;
@@ -182,7 +172,7 @@ export class AddProductComponent implements OnInit {
         let key = varArr.indexOf(element);
         element.vID = key;
         if (this.map.has(key)) {
-          
+
           element.UploadedImages = this.map.get(key);
           element.UploadedImages.forEach(ele => {
             if (ele.fileUrl.data.display_url === undefined) {
@@ -190,34 +180,31 @@ export class AddProductComponent implements OnInit {
             } else {
               ele.file = ele.fileUrl.data.display_url;
             }
-            
+
             element.UploadedImages[element.UploadedImages.indexOf(ele)] = ele;
           });
         }
         this.dynamicForm.value.variants[key] = element;
-        
+
       });
       this.pRow.variants = this.dynamicForm.value.variants;
       console.log(this.pRow);
-     let  date= new Date();
+      let date = new Date();
 
-  this.pRow.pID = Number(this.datepipe.transform(date, 'yyMMddHHmmss'));
-  let data =<Product>this.pRow;
+      this.pRow.pID = Number(this.datepipe.transform(date, 'yyMMddHHmmss'));
+      let data = <Product>this.pRow;
 
-  
-  console.log(JSON.parse(JSON.stringify(data)));
-  
-  this.ps.createProduct(JSON.parse(JSON.stringify(data))).then(res => {
-    /*do something here....maybe clear the form or give a success message*/
-    console.log(res);
-    
-  });
-  //this.ps.createProduct(this.pRow);
-     
+
+      console.log(JSON.parse(JSON.stringify(data)));
+
+      this.ps.createProduct(JSON.parse(JSON.stringify(data))).then(res => {
+        /*do something here....maybe clear the form or give a success message*/
+        console.log(res);
+
+      });
+
     }
 
-    // display form values on success
-    // alert('SUCCESS!! :-)\n\n' + JSON.stringify(, null, 4));
   }
 
   onReset() {
@@ -226,7 +213,7 @@ export class AddProductComponent implements OnInit {
     this.dynamicForm.reset();
     this.form.reset();
     this.t.clear();
-    this.keys =[];
+    this.keys = [];
   }
 
   onClear() {
@@ -236,22 +223,22 @@ export class AddProductComponent implements OnInit {
   }
 
 
-    openSnackBar(message: string) {
+  openSnackBar(message: string) {
     this._snackBar.open(message, '', {
       duration: 2000,
     });
   }
   map = new Map();
-  onFileSelect(event,variant) {
-  //  console.log('-------------------'+ this.dynamicForm.controls.variants.value.);
-let index = this.t.controls.indexOf(variant);
-    
-    
+  onFileSelect(event, variant) {
+    //  console.log('-------------------'+ this.dynamicForm.controls.variants.value.);
+    let index = this.t.controls.indexOf(variant);
+
+
     this.files = event.target.files;
     console.log(this.files);
 
     for (const sta of this.files) {
- 
+
       let file: any;
       let fileData: any;
       let Progress: number;
@@ -266,18 +253,18 @@ let index = this.t.controls.indexOf(variant);
         let variantArray = new Array();
         console.log('map size :' + this.map.size);
         console.log(viewFile);
-        
-if (this.map.size>0 && this.map.get(index) !== undefined) {
-  variantArray = this.map.get(index);
-} 
-variantArray.push(viewFile);
-this.map.set(index,variantArray);
-      //  this.map.set(sta.name, viewFile);
+
+        if (this.map.size > 0 && this.map.get(index) !== undefined) {
+          variantArray = this.map.get(index);
+        }
+        variantArray.push(viewFile);
+        this.map.set(index, variantArray);
+        //  this.map.set(sta.name, viewFile);
       };
 
     }
     console.log(this.map);
-    
+
   }
 
   Uploader(variant) {
@@ -287,53 +274,43 @@ this.map.set(index,variantArray);
     let oneVar = this.map.get(index);
     const fd = new FormData();
 
-oneVar.forEach(element => {
-  console.log(element);
-  let position = oneVar.indexOf(element);
-  fd.append('image', element.fileData, element.fileData.name);
-  if (element.Progress < 98) {
-    this.is.addImages(fd, element.fileData.name).subscribe(
-      (res) => {
-        this.serverData = res;   
-        if (typeof this.serverData === 'string') {
-          console.log('if');
-          console.log(res);
-        }else if (res.hasOwnProperty('data')) {
-          console.log('pdata');
-          console.log(res);
-         // this.imgBBList.push(this.serverData.data);
-          // const a = this.serverData.data.image.filename;
-          // console.log(a);
+    oneVar.forEach(element => {
+      console.log(element);
+      let position = oneVar.indexOf(element);
+      fd.append('image', element.fileData, element.fileData.name);
+      if (element.Progress < 98) {
+        this.is.addImages(fd, element.fileData.name).subscribe(
+          (res) => {
+            this.serverData = res;
+            if (typeof this.serverData === 'string') {
+              console.log('if');
+              console.log(res);
+            } else if (res.hasOwnProperty('data')) {
+              console.log('pdata');
+              console.log(res);
+              element.fileUrl = this.serverData;
+              oneVar[position] = element;
+              this.map.set(index, oneVar);
+              console.log(map);
 
-
-
-          element.fileUrl = this.serverData;
-          oneVar[position]= element;
-          this.map.set(index, oneVar);
-          console.log(map);
-
-        }else {
-          console.log('else');
-          console.log(this.serverData.fname);
-          console.log(this.serverData.message);
-          const a = this.serverData.fname;
-          const b = oneVar[position];
-          b.Progress = this.serverData.message;
-          oneVar[position]= b;
-          // this.indexedArray[a]=b;
-          // console.log(this.indexedArray);
-this.map.set(index,oneVar);
-          // variant.set('UploadedImages').value = map;
-          // console.log(this.uploadResponse);
-        }
-      },
-      (err) => {
-        this.error = err;
-        console.log(this.error);
+            } else {
+              console.log('else');
+              console.log(this.serverData.fname);
+              console.log(this.serverData.message);
+              const a = this.serverData.fname;
+              const b = oneVar[position];
+              b.Progress = this.serverData.message;
+              oneVar[position] = b;
+              this.map.set(index, oneVar);
+            }
+          },
+          (err) => {
+            this.error = err;
+            console.log(this.error);
+          }
+        );
       }
-    );
-  }
-});  
+    });
   }
 
   removeImage(key: any, variant) {
@@ -341,14 +318,14 @@ this.map.set(index,oneVar);
     let index = this.t.controls.indexOf(variant);
     console.log(this.map.get(index));
     let imgArr = this.map.get(index);
-   
+
     imgArr = imgArr.filter(obj => obj !== key);
-console.log(imgArr);
-this.map.set(index,imgArr);
-   // variant.set('UploadedImages').value = variant.get('UploadedImages').value.delete(key);
+    console.log(imgArr);
+    this.map.set(index, imgArr);
+    // variant.set('UploadedImages').value = variant.get('UploadedImages').value.delete(key);
   }
 
-  
+
   add(event: MatChipInputEvent): void {
 
     const input = event.input;
