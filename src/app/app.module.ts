@@ -35,7 +35,7 @@ import { OrdersService } from "./shared/services/orders.service";
 import { AddProductComponent } from './components/add-product/add-product.component';
 
 
-
+import {DeviceDetectorModule} from 'ngx-device-detector';
 import { HttpClientModule } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { StorageService } from "./shared/services/storage.service";
@@ -67,6 +67,7 @@ import { ProductListComponent } from './components/product-list/product-list.com
     FormsModule,
     FlexLayoutModule,
     HttpClientModule,
+    DeviceDetectorModule.forRoot(),
 
 
   ],
