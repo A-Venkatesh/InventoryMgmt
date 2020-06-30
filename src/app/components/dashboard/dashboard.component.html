@@ -11,13 +11,15 @@
         <p>User ID: <strong>{{user.uid}}</strong>Email: <strong>{{user.email}}</strong>Email Verified: <strong>{{user.emailVerified}}</strong></p>
       
 </div>
-<!-- <mat-grid-list cols="2" >
+<mat-grid-list *ngIf="isDesktopvar" cols="2" >
   <mat-grid-tile>
-    <app-orders></app-orders>
+    <app-product-list></app-product-list>
   </mat-grid-tile>
   <mat-grid-tile>
-    <app-order-list></app-order-list>
+    <app-add-product></app-add-product>
   </mat-grid-tile>
-</mat-grid-list> -->
-<app-add-product></app-add-product>
-<app-product-list></app-product-list>
+</mat-grid-list>
+<app-add-product *ngIf="isMobilevar"></app-add-product>
+
+
+
