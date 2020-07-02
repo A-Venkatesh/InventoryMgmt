@@ -10,6 +10,7 @@ import { ProductService } from "../../shared/services/product.service";
 import { DatePipe } from '@angular/common';
 import { TranslationService } from "../../shared/services/translation.service";
 
+
 export interface PreviewData {
   file: any;
   fileData: any;
@@ -157,7 +158,7 @@ export class AddProductComponent implements OnInit {
 
     // stop here if form is invalid
     if (this.dynamicForm.invalid || this.form.invalid) {
-      return;
+      this.openSnackBar('Invalid Data');
     } else {
       console.log(this.form);
       console.log(this.dynamicForm);

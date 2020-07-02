@@ -5,6 +5,7 @@ import { ProductService } from 'src/app/shared/services/product.service';
 import { MatTableDataSource, MatPaginator } from '@angular/material';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {MatSort} from '@angular/material/sort';
+import { DeviceDetectorService } from 'ngx-device-detector';
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',animations: [
@@ -17,17 +18,28 @@ import {MatSort} from '@angular/material/sort';
   styleUrls: ['./product-list.component.css']
 })
 export class ProductListComponent implements OnInit {
-  public columnsToDisplay = ['pID',"ProductName","ProductLocalName",'ProductOwner','numberOfVariants', 'Category', 'SubCategory'];
+  public columnsToDisplay = [];
   public colums = ['ID','Name', 'LName', 'Brand', 'Variants','Category', 'SubCategory'];
 
   list: Product[];
+  public isMobilevar = false;
+  public isDesktopvar = false;
   // dataSource = ELEMENT_DATA;
   // columnsToDisplay = ['name', 'weight', 'symbol', 'position'];
   expandedElement: Product | null;
   public dataSource = new MatTableDataSource<Product>(this.list);
   
 
-  constructor(public ss: StorageService, private ps: ProductService) {
+  constructor(public ss: StorageService, private ps: ProductService,private deviceService: DeviceDetectorService) {
+    this.isMobile();
+    this.isDesktop();
+  if (this.isDesktopvar) {
+    this.columnsToDisplay = ['pID',"ProductName","ProductLocalName",'ProductOwner','numberOfVariants', 'Category', 'SubCategory', 'actions'];
+
+  } else {
+    this.columnsToDisplay = ['pID',"ProductName","ProductLocalName",'ProductOwner','numberOfVariants'];
+
+  }  
     this.ss.sharedData.subscribe(storage => {
       this.list = storage;
       console.log(JSON.stringify('size' + this.list.length));
@@ -89,5 +101,12 @@ export class ProductListComponent implements OnInit {
  
   public redirectToDelete = (id: string) => {
     
+  }
+
+  public isDesktop() {
+    this.isDesktopvar = this.deviceService.isDesktop();
+  }
+  public isMobile() {
+    this.isMobilevar = this.deviceService.isMobile();
   }
 }

@@ -1,5 +1,5 @@
 <!-- Top navigation -->
-<mat-card>Simple card</mat-card>
+<!-- <mat-card>Simple card</mat-card>
 
 
 <div class="whiteFont" style="padding-top: 10px;" *ngIf="authService.userData as user">
@@ -8,18 +8,46 @@
         alt="{{user.displayName}}"> -->
 
         <!-- <h1>Hello: <strong>{{(user.displayName) ? user.displayName : 'User'}}</strong></h1> -->
-        <p>User ID: <strong>{{user.uid}}</strong>Email: <strong>{{user.email}}</strong>Email Verified: <strong>{{user.emailVerified}}</strong></p>
+        <!-- <p>User ID: <strong>{{user.uid}}</strong>Email: <strong>{{user.email}}</strong>Email Verified: <strong>{{user.emailVerified}}</strong></p>
       
+</div> --> -->
+<div *ngIf="isDesktopvar">
+  <mat-drawer-container class="example-container"  >
+    <mat-drawer mode="side" opened>
+      <mat-nav-list>
+        <a mat-list-item routerLink="add"> Add Product</a>
+        <a mat-list-item routerLink="all"> Product List</a>
+        <a mat-list-item routerLink="edit"> Others</a>
+      </mat-nav-list>
+    </mat-drawer>
+    <mat-drawer-content>
+      <router-outlet ></router-outlet>
+      <!-- <app-product-list></app-product-list> -->
+    </mat-drawer-content>
+  </mat-drawer-container>
+ 
 </div>
-<mat-grid-list *ngIf="isDesktopvar" cols="2" >
+
+
+
+<!-- <mat-grid-list *ngIf="isDesktopvar" cols="2" >
   <mat-grid-tile>
-    <app-product-list></app-product-list>
+   
   </mat-grid-tile>
   <mat-grid-tile>
-    <app-add-product></app-add-product>
+    <app-add-product></app-add-product->
   </mat-grid-tile>
-</mat-grid-list>
-<app-add-product *ngIf="isMobilevar"></app-add-product>
+</mat-grid-list> -->
+<div *ngIf="isMobilevar">
+  <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+    <mat-button-toggle value="bold" mat-list-item routerLink="all" >All</mat-button-toggle>
+    <mat-button-toggle value="italic" mat-list-item routerLink="edit" >Edit</mat-button-toggle>
+    <mat-button-toggle value="underline" mat-list-item routerLink="add" >Add</mat-button-toggle>
+  </mat-button-toggle-group>
+  <router-outlet ></router-outlet>
+</div>
+
+<!-- <app-add-product *ngIf="isMobilevar"></app-add-product> -->
 
 
 

@@ -1,5 +1,6 @@
 table {
     width: 100%;
+    padding-top: 30;
   }
   th.mat-sort-header-sorted {
     color: black;
@@ -7,7 +8,8 @@ table {
   .pTable{
     
     margin: 0 auto; 
-    max-width: 900px;
+    /* margin-top: 50px; */
+    max-width: 1000px;
   }
   
   tr.example-detail-row {
@@ -65,7 +67,4 @@ table {
   }
   .flexer{
     display: flex
-  }
-  .pageWidth {
-
   }
