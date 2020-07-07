@@ -6,6 +6,7 @@ import { MatTableDataSource, MatPaginator } from '@angular/material';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {MatSort} from '@angular/material/sort';
 import { DeviceDetectorService } from 'ngx-device-detector';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',animations: [
@@ -30,11 +31,11 @@ export class ProductListComponent implements OnInit {
   public dataSource = new MatTableDataSource<Product>(this.list);
   
 
-  constructor(public ss: StorageService, private ps: ProductService,private deviceService: DeviceDetectorService) {
+  constructor(private router: Router, public ss: StorageService, private ps: ProductService,private deviceService: DeviceDetectorService) {
     this.isMobile();
     this.isDesktop();
   if (this.isDesktopvar) {
-    this.columnsToDisplay = ['pID',"ProductName","ProductLocalName",'ProductOwner','numberOfVariants', 'Category', 'SubCategory', 'actions'];
+    this.columnsToDisplay = ['pID',"ProductName","ProductLocalName",'ProductOwner','numberOfVariants', 'Category', 'SubCategory'];
 
   } else {
     this.columnsToDisplay = ['pID',"ProductName","ProductLocalName",'ProductOwner','numberOfVariants'];
@@ -108,5 +109,9 @@ export class ProductListComponent implements OnInit {
   }
   public isMobile() {
     this.isMobilevar = this.deviceService.isMobile();
+  }
+
+  onEdit(id: string){
+    this.router.navigate(['dashboard/edit', id]); 
   }
 }

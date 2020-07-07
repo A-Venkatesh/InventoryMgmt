@@ -65,6 +65,11 @@ table {
     padding: 0 5px; 
     display: table-cell;
   }
+  .cell3{
+    width: 25%;
+    padding: 0 5px; 
+    display: table-cell;
+  }
   .flexer{
     display: flex
   }

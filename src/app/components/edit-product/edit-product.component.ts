@@ -9,6 +9,8 @@ import { Product } from "../../shared/services/product";
 import { ProductService } from "../../shared/services/product.service";
 import { DatePipe } from '@angular/common';
 import { TranslationService } from "../../shared/services/translation.service";
+import { ActivatedRoute } from '@angular/router';
+import { StorageService } from 'src/app/shared/services/storage.service';
 
 
 export interface PreviewData {
@@ -46,20 +48,15 @@ export class EditProductComponent implements OnInit {
   addOnBlur = true;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   keys = [];
-  list: Product[];
+  list = [];
+  id = '';
 
-  constructor(private ts: TranslationService, public datepipe: DatePipe, private _snackBar: MatSnackBar, private fb: FormBuilder, private is: ImgUploadService, private ps: ProductService) {
+  constructor(private ss:StorageService, private route: ActivatedRoute, private ts: TranslationService, public datepipe: DatePipe, private _snackBar: MatSnackBar, private fb: FormBuilder, private is: ImgUploadService, private ps: ProductService) {
     // this.createForm();
-    this.ps.getProducts().subscribe(actionArray => {
-      this.list = actionArray.map(item => {
-        return {
-          id: item.payload.doc.id,
-          ...item.payload.doc.data() as Product
-        } as Product;
-      })
-      this.setData();
+    this.ss.sharedData.subscribe(storage => {
+      this.list = storage;
+      // console.log(JSON.stringify('size' + this.list.length));
     });
-
   }
 
 
@@ -76,8 +73,40 @@ export class EditProductComponent implements OnInit {
   });
 
   setData(){
+   
+    console.log(this.id);
+    console.log(this.list);
     
+    const product = this.list.find(p => p.id === this.id);
+    console.log(product);
+    this.form.controls.ProductName.setValue(product.ProductName); 
+    this.form.controls.SubCategory.setValue(product.SubCategory); 
+    this.form.controls.Category.setValue(product.Category); 
+    this.form.controls.ProductOwner.setValue(product.ProductOwner); 
+    this.form.controls.ProductLocalName.setValue(product.ProductLocalName); 
+    this.form.controls.ProductDescription.setValue(product.ProductDescription); 
+    this.form.controls.ProductDetail.setValue(product.ProductDetail); 
+    // this.form.controls.ProductKeys.setValue(this.keys); 
+    console.log(5);
     
+    for (let i = 0; i < product.numberOfVariants; i++) {
+      this.t.push(this.fb.group({
+        vID: [product.variants[i].vID],
+        ProductMRP: [product.variants[i].ProductMRP, Validators.required],
+        ProductPrice: [product.variants[i].ProductPrice, [Validators.required, Validators.min(1), Validators.max(1000000),]],
+        quantity: [product.variants[i].quantity, Validators.required],
+        metric: [product.variants[i].metric],
+        imageAvl: [product.variants[i].imageAvl],
+        availStock: [product.variants[i].availStock],
+        UploadedImages: [product.variants[i].UploadedImages],
+      }));
+console.log(6);
+
+      if (product.variants[i].imageAvl) {
+        this.map.set(i,product.variants[i].UploadedImages );
+      }
+    }
+    this.keys = product.ProductKeys;
   }
 
   //text ='How are you';
@@ -142,20 +171,18 @@ export class EditProductComponent implements OnInit {
   submitted = false;
   metoptions: string[] = ['qty', 'gram', 'kg', 'litre', 'ml', 'cm'];
   ngOnInit() {
+
     this.dynamicForm = this.fb.group({
       numberOfVariants: [1],
       variants: new FormArray([])
     });
-    this.t.push(this.fb.group({
-      vID: [''],
-      ProductMRP: [, Validators.required],
-      ProductPrice: [, [Validators.required, Validators.min(1), Validators.max(1000000),]],
-      quantity: [, Validators.required],
-      metric: ['qty'],
-      imageAvl: [true],
-      availStock: [],
-      UploadedImages: [[]],
-    }));
+    this.route.params.subscribe(params => {
+      this.id = params['id'];
+      console.log(this.id);
+      
+      this.setData();
+    });
+    
     // this.dynamicForm.controls.numberOfVariants.setValue(1);
   }
 
@@ -232,14 +259,14 @@ export class EditProductComponent implements OnInit {
 
       console.log(JSON.parse(JSON.stringify(data)));
 
-      this.ps.createProduct(JSON.parse(JSON.stringify(data))).then(res => {
+      this.ps.updateProduct(JSON.parse(JSON.stringify(data)), this.id).then(res => {
         /*do something here....maybe clear the form or give a success message*/
         console.log(res);
 
       });
 
     }
-    this.keys = [];
+    // this.keys = [];
 
   }
 

@@ -10,6 +10,7 @@ import { AuthGuard } from "./shared/guard/auth.guard";
 import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
 import { AddProductComponent } from './components/add-product/add-product.component';
 import { ProductListComponent } from './components/product-list/product-list.component';
+import { EditProductComponent } from './components/edit-product/edit-product.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
@@ -22,8 +23,12 @@ const routes: Routes = [
       component: AddProductComponent// child route component that the router renders
     },
     {
+      path: 'edit/:id',
+      component: EditProductComponent // another child route component that the router renders
+    },
+    {
       path: '',
-      component: AddProductComponent // another child route component that the router renders
+      component: ProductListComponent // another child route component that the router renders
     },
     {
       path: 'all',

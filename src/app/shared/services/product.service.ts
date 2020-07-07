@@ -21,11 +21,12 @@ export class ProductService {
     });
   }
 
-  updateProduct(data) {
-    return this.firestore
+  updateProduct(data, id) {
+    return new Promise<any>((resolve, reject) => {
+       this.firestore
       .collection("products")
-      .doc(data.payload.doc.id)
-      .set({ completed: true }, { merge: true });
+      .doc(id).update(data) .then(res => { }, err => reject(err));
+    });
   }
 
   getProducts() {
