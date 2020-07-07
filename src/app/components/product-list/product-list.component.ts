@@ -42,7 +42,7 @@ export class ProductListComponent implements OnInit {
   }  
     this.ss.sharedData.subscribe(storage => {
       this.list = storage;
-      console.log(JSON.stringify('size' + this.list.length));
+      // console.log(JSON.stringify('size' + this.list.length));
     });
   }
 
@@ -70,7 +70,7 @@ export class ProductListComponent implements OnInit {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     
-    console.log(this.list.length);
+    console.log(this.list);
     
     this.ss.nextData(this.list);
   }
