@@ -5,7 +5,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   providedIn: 'root'
 })
 export class TranslationService {
-   require: any
+  //  require: any
+
 
   constructor(private http: HttpClient) { }
 
@@ -24,7 +25,8 @@ export class TranslationService {
   // }
   inTelugu = '';
   async getText(text) {
-    const axios = this.require("axios");
+    var require: any;
+    const axios = require("axios");
     console.log('inside service' + text);
 
     await axios({
