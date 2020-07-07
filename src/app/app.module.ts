@@ -39,7 +39,8 @@ import {DeviceDetectorModule} from 'ngx-device-detector';
 import { HttpClientModule } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { StorageService } from "./shared/services/storage.service";
-import { ProductListComponent } from './components/product-list/product-list.component'
+import { ProductListComponent } from './components/product-list/product-list.component';
+import { EditProductComponent } from './components/edit-product/edit-product.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,6 +53,7 @@ import { ProductListComponent } from './components/product-list/product-list.com
     OrderListComponent,
     AddProductComponent,
     ProductListComponent,
+    EditProductComponent,
 
   ],
   imports: [
