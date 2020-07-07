@@ -55,13 +55,13 @@ export class AddProductComponent implements OnInit {
 
   form = this.fb.group({
     ProductName: ['', [Validators.required]],
-    ProductLocalName: [' '],
-    ProductDescription: [' '],
-    ProductDetail: [' '],
-    ProductOwner: [' '],
+    ProductLocalName: [''],
+    ProductDescription: [''],
+    ProductDetail: [''],
+    ProductOwner: ['', [Validators.required]],
     ProductKeys: [this.keys],
-    Category: [''],
-    SubCategory: [''],
+    Category: ['', [Validators.required]],
+    SubCategory: ['', [Validators.required]],
 
   });
 
@@ -72,19 +72,25 @@ export class AddProductComponent implements OnInit {
   }
 
 
-  getErrorMessage(filedName: string) {
-
+  getErrorMessage(filedName: string, i) {
     switch (filedName) {
       case 'ProductName':
         return this.form.controls.ProductName.hasError('required') ? 'You must enter a value' : '';
         break;
 
       case 'ProductPrice':
-        return this.form.controls.ProductPrice.hasError('required') ? 'You must enter a value' :
-          this.form.controls.ProductPrice.hasError('min') ? 'You can not sale anything free' :
-            this.form.controls.ProductPrice.hasError('max') ? 'Value exceed the limit' :
+        return this.t.controls[i].get('ProductPrice').hasError('required') ? 'You must enter a value' :
+        this.t.controls[i].get('ProductMRP').value < this.t.controls[i].get('ProductPrice').value ? 'Should not be less than MRP' :
+        this.t.controls[i].get('ProductPrice').hasError('min') ? 'You can not sale anything free' :
+        this.t.controls[i].get('ProductPrice').hasError('max') ? 'Value exceed the limit' :
               '';
         break;
+        case 'ProductMRP':
+          return this.t.controls[i].get('ProductMRP').hasError('required') ? 'You must enter a value' :''
+          break;
+          case 'quantity':
+            return this.t.controls[i].get('quantity').hasError('required') ? 'You must enter a value' :''
+            break;
 
       case 'Suggestion':
         return 'No suggestions found.Please try diffrent keyword';
@@ -93,6 +99,18 @@ export class AddProductComponent implements OnInit {
       case 'API_issue':
         return 'Unexpected API issue. Please try again.';
         break;
+
+      case 'ProductOwner':
+        return this.form.controls.ProductOwner.hasError('required') ? 'You must enter a bramd name' : '';
+        break;
+
+      case 'Category':
+        return this.form.controls.Category.hasError('required') ? 'You must enter a Category' : '';
+        break;
+      case 'SubCategory':
+        return this.form.controls.SubCategory.hasError('required') ? 'You must enter a SubCategory' : '';
+        break;
+      
 
       default:
         break;
@@ -115,7 +133,7 @@ export class AddProductComponent implements OnInit {
     this.t.push(this.fb.group({
       vID: [''],
       ProductMRP: [, Validators.required],
-      ProductPrice: [, [Validators.required, Validators.min(1), Validators.max(1000000)]],
+      ProductPrice: [, [Validators.required, Validators.min(1), Validators.max(1000000), ]],
       quantity: [, Validators.required],
       metric: ['qty'],
       imageAvl: [true],
@@ -205,22 +223,25 @@ export class AddProductComponent implements OnInit {
       });
 
     }
-
-  }
-
-  onReset() {
-    // reset whole form back to initial state
-    this.submitted = false;
-    this.dynamicForm.reset();
-    this.form.reset();
-    this.t.clear();
     this.keys = [];
+
   }
+
+  // onReset() {
+  //   // reset whole form back to initial state
+  //   this.submitted = false;
+  //   this.dynamicForm.reset();
+  //   this.form.reset();
+  //   this.t.clear();
+  //   this.keys = [];
+  // }
 
   onClear() {
     // clear errors and reset variant fields
     this.submitted = false;
     this.t.reset();
+    this.keys = [];
+    this.form.reset();
   }
 
 
@@ -233,8 +254,6 @@ export class AddProductComponent implements OnInit {
   onFileSelect(event, variant) {
     //  console.log('-------------------'+ this.dynamicForm.controls.variants.value.);
     let index = this.t.controls.indexOf(variant);
-
-
     this.files = event.target.files;
     console.log(this.files);
 
