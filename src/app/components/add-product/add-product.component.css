@@ -3,6 +3,11 @@ form {
     max-width: 600px;
     }
 
+    .main { 
+      margin: 0 auto; 
+      max-width: 750px;
+      }
+
     .pageWidth {
       margin: 0 auto; 
     max-width: 600px;
