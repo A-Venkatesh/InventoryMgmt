@@ -35,10 +35,10 @@ export class ProductService {
 
   }
 
-  deleteProduct(data) {
+  deleteProduct(id) {
     return this.firestore
       .collection("products")
-      .doc(data.payload.doc.id)
+      .doc(id)
       .delete();
   }
 }

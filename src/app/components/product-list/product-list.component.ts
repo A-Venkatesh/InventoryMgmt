@@ -114,4 +114,14 @@ export class ProductListComponent implements OnInit {
   onEdit(id: string){
     this.router.navigate(['dashboard/edit', id]); 
   }
+  onDelete(id: string){
+    console.log(id);
+    
+    this.ps.deleteProduct(id).then(res => {
+      /*do something here....maybe clear the form or give a success message*/
+      console.log(res);
+
+    });
+
+  }
 }

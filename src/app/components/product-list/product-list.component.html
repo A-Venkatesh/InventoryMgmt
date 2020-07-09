@@ -53,7 +53,7 @@
             <div class="row">
               <div class="cell"><span>Description</span> </div>
               <div class="cell3"><button mat-button (click) ="onEdit(element.id)" >Edit</button></div>
-              <div class="cell3"><button mat-button>Delete</button></div>
+              <div class="cell3"><button mat-button (click) ="onDelete(element.id)" >Delete</button></div>
             </div>
             <div class="row">
               {{element.ProductDescription}}
