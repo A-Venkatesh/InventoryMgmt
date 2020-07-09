@@ -18,11 +18,16 @@ export class OrdersService {
     });
   }
 
-  updateOrder(data) {
-    return this.firestore
-      .collection("orders")
-      .doc(data.payload.doc.id)
-      .set({ completed: true }, { merge: true });
+  updateOrder(data, id) {
+    // return this.firestore
+    //   .collection("orders")
+    //   .doc(data.payload.doc.id)
+    //   .set({ completed: true }, { merge: true });
+      return new Promise<any>((resolve, reject) => {
+        this.firestore
+        .collection("Orders")
+       .doc(id).update(data) .then(res => { }, err => reject(err));
+     });
   }
 
   getOrders() {

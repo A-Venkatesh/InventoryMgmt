@@ -11,6 +11,7 @@ import { VerifyEmailComponent } from './components/verify-email/verify-email.com
 import { AddProductComponent } from './components/add-product/add-product.component';
 import { ProductListComponent } from './components/product-list/product-list.component';
 import { EditProductComponent } from './components/edit-product/edit-product.component';
+import { OrdersComponent } from './components/orders/orders.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
@@ -27,8 +28,8 @@ const routes: Routes = [
       component: EditProductComponent // another child route component that the router renders
     },
     {
-      path: '',
-      component: ProductListComponent // another child route component that the router renders
+      path: 'order',
+      component: OrdersComponent // another child route component that the router renders
     },
     {
       path: 'all',
