@@ -40,7 +40,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { StorageService } from "./shared/services/storage.service";
 import { ProductListComponent } from './components/product-list/product-list.component';
-import { EditProductComponent } from './components/edit-product/edit-product.component'
+import { EditProductComponent } from './components/edit-product/edit-product.component';
+import { TrendMgmtComponent } from './components/trend-mgmt/trend-mgmt.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,6 +55,7 @@ import { EditProductComponent } from './components/edit-product/edit-product.com
     AddProductComponent,
     ProductListComponent,
     EditProductComponent,
+    TrendMgmtComponent,
 
   ],
   imports: [

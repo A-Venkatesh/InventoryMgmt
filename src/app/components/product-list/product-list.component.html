@@ -51,9 +51,10 @@
         <div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
           <mat-card>
             <div class="row">
-              <div class="cell"><span>Description</span> </div>
+              <div class="cell3"><span>Description</span> </div>
               <div class="cell3"><button mat-button (click) ="onEdit(element.id)" >Edit</button></div>
               <div class="cell3"><button mat-button (click) ="onDelete(element.id)" >Delete</button></div>
+              <div class="cell3"><mat-slide-toggle [ngModel] = "value(element.pID)" (change)="setTrend($event, element.id)">Trend!</mat-slide-toggle> </div>
             </div>
             <div class="row">
               {{element.ProductDescription}}
