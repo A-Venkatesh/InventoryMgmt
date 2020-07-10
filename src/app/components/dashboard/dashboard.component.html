@@ -40,10 +40,12 @@
   </mat-grid-tile>
 </mat-grid-list> -->
 <div *ngIf="isMobilevar">
+  <mat-card style="height: 100;"></mat-card>
   <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
-    <mat-button-toggle value="bold" mat-list-item routerLink="all" >All</mat-button-toggle>
-    <mat-button-toggle value="italic" mat-list-item routerLink="edit" >Edit</mat-button-toggle>
-    <mat-button-toggle value="underline" mat-list-item routerLink="add" >Add</mat-button-toggle>
+    <mat-button-toggle  mat-list-item routerLink="all" >All</mat-button-toggle>
+    <mat-button-toggle  mat-list-item routerLink="order" >Orders</mat-button-toggle>
+    <mat-button-toggle  mat-list-item routerLink="add" >Add</mat-button-toggle>
+    <mat-button-toggle  mat-list-item routerLink="trend">Highlight</mat-button-toggle>
   </mat-button-toggle-group>
   <router-outlet ></router-outlet>
 </div>
