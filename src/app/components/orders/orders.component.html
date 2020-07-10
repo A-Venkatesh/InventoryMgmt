@@ -10,7 +10,7 @@
                         {{order.oid}}
                     </mat-panel-title>
                     <mat-panel-description>
-                        {{order.date}}
+                        {{order.date.toMillis() | date:'yyyy/MM/dd h:mm:ss a'}}
                     </mat-panel-description>
                 </mat-expansion-panel-header>
                 <p>
@@ -79,7 +79,7 @@
                         {{order.oid}}
                     </mat-panel-title>
                     <mat-panel-description>
-                        {{order.date}}
+                        {{order.date.toMillis() | date:'yyyy/MM/dd h:mm:ss a'}}
                     </mat-panel-description>
                 </mat-expansion-panel-header>
                 <p>
@@ -148,7 +148,7 @@
                         {{order.oid}}
                     </mat-panel-title>
                     <mat-panel-description>
-                        {{order.date}}
+                        {{order.date.toMillis() | date:'yyyy/MM/dd h:mm:ss a'}}
                     </mat-panel-description>
                 </mat-expansion-panel-header>
                 <p>
@@ -217,7 +217,7 @@
                         {{order.oid}}
                     </mat-panel-title>
                     <mat-panel-description>
-                        {{order.date}}
+                        {{order.date.toMillis() | date:'yyyy/MM/dd h:mm:ss a'}}
                     </mat-panel-description>
                 </mat-expansion-panel-header>
                 <p>

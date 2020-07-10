@@ -1,26 +1,69 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { OrdersService } from "../../shared/services/orders.service";
+import { Product } from 'src/app/shared/services/product';
+import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { Order } from 'src/app/shared/services/order';
+
 
 @Component({
   selector: 'app-order-list',
-  templateUrl: './order-list.component.html',
+  templateUrl: './order-list.component.html', animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({ height: '0px', minHeight: '0' })),
+      state('expanded', style({ height: '*' })),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
   styleUrls: ['./order-list.component.css']
 })
 export class OrderListComponent implements OnInit {
+  public columnsToDisplay = ['oid', "date", "status"];
+  public colums = ['ID', 'Name', 'LName'];
+  list = [];
+  
+  expandedElement: Product | null;
+  public dataSource = new MatTableDataSource<Product>(this.list);
 
   constructor(private ordersService: OrdersService) {}
 
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
   ngOnInit() {
+    this.ordersService.getOrders().subscribe(res =>{
+      this.list =[];
+      res.forEach(element => {
+        let id = element.payload.doc.id;
+        this.list.push({id, ...element.payload.doc.data() as Order });
+      });
+      this.setData();
+    });
+  }
+  
+  setData() {
+
+    this.dataSource = new MatTableDataSource<Product>(this.list);
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+
+    console.log(this.list);
+  }
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 
-  // coffeeOrders;
+    getMapURL(location){
+    if (location !== undefined) {
+      return 'https://www.google.com/maps/search/?api=1&query='.concat(location.lat).concat(','+ location.log);
+    } else {
+      return ' ';
+    }
 
-  // getCoffeeOrders = () =>
-  //   this.ordersService
-  //     .getCoffeeOrders()
-  //     .subscribe(res => (this.coffeeOrders = res));
+  }
 
-  // deleteOrder = data => this.ordersService.deleteCoffeeOrder(data);
-
-  // markCompleted = data => this.ordersService.updateCoffeeOrder(data);
 }

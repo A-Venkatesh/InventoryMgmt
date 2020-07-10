@@ -3,7 +3,7 @@ export interface Order {
   oid: string;
   order: Array<any>;
   status: string;
-  date: Date;
+  date: any;
   address: string;
   location: {
     lat: string,

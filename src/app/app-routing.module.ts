@@ -13,6 +13,7 @@ import { ProductListComponent } from './components/product-list/product-list.com
 import { EditProductComponent } from './components/edit-product/edit-product.component';
 import { OrdersComponent } from './components/orders/orders.component';
 import { TrendMgmtComponent } from './components/trend-mgmt/trend-mgmt.component';
+import { OrderListComponent } from './components/order-list/order-list.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
@@ -31,6 +32,10 @@ const routes: Routes = [
     {
       path: 'order',
       component: OrdersComponent // another child route component that the router renders
+    },
+    {
+      path: 'olist',
+      component: OrderListComponent // another child route component that the router renders
     },
     {
       path: 'all',

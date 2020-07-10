@@ -3,6 +3,8 @@ import { StorageService } from 'src/app/shared/services/storage.service';
 import { TrendService } from 'src/app/shared/services/trend.service';
 import { Product } from 'src/app/shared/services/product';
 import { ProductService } from 'src/app/shared/services/product.service';
+import { DeviceDetectorService } from 'ngx-device-detector';
+
 
 @Component({
   selector: 'app-trend-mgmt',
@@ -10,10 +12,25 @@ import { ProductService } from 'src/app/shared/services/product.service';
   styleUrls: ['./trend-mgmt.component.css']
 })
 export class TrendMgmtComponent implements OnInit {
+  public isMobilevar = false;
+  public isDesktopvar = false;
   tList = [];
   pList = [];
   data = [];
-  constructor(private ss: StorageService, private tr: TrendService, private ps: ProductService) { }
+  cols = 1;
+  constructor(private ss: StorageService, private tr: TrendService, private ps: ProductService, private deviceService: DeviceDetectorService) {
+  
+
+   }
+   getCols(){
+    this.isMobile();
+    this.isDesktop();
+    if (this.isDesktop) {
+      return 2;
+    }else{
+      return 1;
+    }
+   }
 
   ngOnInit(): void {
     this.tr.getTrends().subscribe(actionArray => {
@@ -73,6 +90,13 @@ export class TrendMgmtComponent implements OnInit {
     console.log('Deleted');
 
     this.tr.deleteTrend(id);
+  }
+
+  public isDesktop() {
+    this.isDesktopvar = this.deviceService.isDesktop();
+  }
+  public isMobile() {
+    this.isMobilevar = this.deviceService.isMobile();
   }
 
 
