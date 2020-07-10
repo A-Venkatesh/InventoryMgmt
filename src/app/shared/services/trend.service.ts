@@ -41,4 +41,21 @@ export class TrendService {
       .doc(id)
       .delete();
   }
+
+
+  updateMenu(data, id = 'main') {
+    return new Promise<any>((resolve, reject) => {
+       this.firestore
+      .collection("menu")
+      .doc(id).update({...data}) .then(res => { }, err => reject(err));
+    });
+  }
+  createMenu(data) {
+    return new Promise<any>((resolve, reject) => {
+      this.firestore
+        .collection("menu")
+        .add({...data})
+        .then(res => { }, err => reject(err));
+    });
+  }
 }

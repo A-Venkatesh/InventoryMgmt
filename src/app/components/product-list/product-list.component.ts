@@ -70,7 +70,7 @@ export class ProductListComponent implements OnInit {
           ...item.payload.doc.data() as Product
         }
       })
-
+// this.ss.nextTrend(this.keyP);
     });
 
 

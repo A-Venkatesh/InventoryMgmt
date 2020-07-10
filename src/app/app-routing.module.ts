@@ -12,6 +12,7 @@ import { AddProductComponent } from './components/add-product/add-product.compon
 import { ProductListComponent } from './components/product-list/product-list.component';
 import { EditProductComponent } from './components/edit-product/edit-product.component';
 import { OrdersComponent } from './components/orders/orders.component';
+import { TrendMgmtComponent } from './components/trend-mgmt/trend-mgmt.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
@@ -34,6 +35,14 @@ const routes: Routes = [
     {
       path: 'all',
       component: ProductListComponent // another child route component that the router renders
+    },
+    {
+      path: '',
+      component: ProductListComponent // another child route component that the router renders
+    },
+    {
+      path: 'trend',
+      component: TrendMgmtComponent // another child route component that the router renders
     }
   ],
    canActivate: [AuthGuard] },
