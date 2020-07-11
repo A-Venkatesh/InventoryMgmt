@@ -8,12 +8,15 @@ body {
 }
 
 body {
-  /* background-image: url(https://storage.needpix.com/rsynced_images/farmers-market-1495206921lwW.jpg); */
+  background-color: rgba(0, 0, 255, 0.3);
+  background-image: url(https://images.wallpaperscraft.com/image/pattern_symbols_ethnic_130866_3840x2160.jpg);
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
   min-height: 100vh;
   font-family: 'Roboto', sans-serif;
+  background-repeat: repeat-y;
+
 }
 
 .app-header {

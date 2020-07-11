@@ -1,8 +1,11 @@
 <div class="pTable">
-    <mat-form-field>
+  <div class="row" style="background:rgba(255,255,255, 0.5);">
+    <mat-form-field  >
       <mat-label>Search</mat-label>
-      <input matInput (keyup)="applyFilter($event)" placeholder="Ex. In-Progress" #input>
+      <input  matInput (keyup)="applyFilter($event)" placeholder="Ex. In-Progress" #input>
     </mat-form-field>
+  </div>
+    
     <table mat-table [(dataSource)]="dataSource" matSort multiTemplateDataRows class="mat-elevation-z8">
       <!-- <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay;let i = index;">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> {{this.colums[i]}} </th>

@@ -1,7 +1,7 @@
-<mat-tab-group mat-align-tabs="start">
+<mat-tab-group mat-align-tabs="start" backgroundColor="primary">
     <mat-tab label="New">
         <ng-template matTabLabel>
-            <span [matBadge]="new.length" matBadgeOverlap="false">New</span>
+            <span [matBadge]="new.length" matBadgeOverlap="false" matBadgeColor="warn">New</span>
         </ng-template>
         <div *ngFor="let order of new;">
             <mat-expansion-panel>
@@ -70,7 +70,7 @@
     </mat-tab>
     <mat-tab label="In-Process">
         <ng-template matTabLabel>
-            <span [matBadge]="inP.length" matBadgeOverlap="false">In-Process</span>
+            <span [matBadge]="inP.length" matBadgeOverlap="false" matBadgeColor="warn">In-Process</span>
         </ng-template>
         <div *ngFor="let order of inP;">
             <mat-expansion-panel>
@@ -139,7 +139,7 @@
     </mat-tab>
     <mat-tab label="Out for Deliver">
         <ng-template matTabLabel>
-            <span [matBadge]="out.length" matBadgeOverlap="false">Out for Deliver</span>
+            <span [matBadge]="out.length" matBadgeOverlap="false" matBadgeColor="warn">Out for Deliver</span>
         </ng-template>
         <div *ngFor="let order of out;">
             <mat-expansion-panel>
@@ -208,7 +208,7 @@
     </mat-tab>
     <mat-tab label="Completed">
         <ng-template matTabLabel>
-            <span [matBadge]="done.length" matBadgeOverlap="false">Completed</span>
+            <span [matBadge]="done.length" matBadgeOverlap="false" matBadgeColor="warn">Completed</span>
         </ng-template>
         <div *ngFor="let order of done;">
             <mat-expansion-panel>
