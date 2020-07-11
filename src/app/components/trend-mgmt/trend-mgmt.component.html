@@ -1,16 +1,16 @@
 
 
 
-    <mat-grid-list [cols]="getCols()" >
-<p style="text-align: center; font-size: x-large;" >Featured </p>
-        <mat-grid-tile>
-            <div class="grid-container">
+<div class="r">
+    <div [ngClass]="isDesktopvar? 'c' : 'r'">
+        <div *ngIf="tList.length > 0">
+            <div [ngClass]="isDesktopvar? 'grid-container' : 'grid-container-mobi'">
                 <mat-card class="row grid-item" *ngFor="let t of tList">
-                    <button class="btn" (click)="delete(t.id)" >X</button>
-                    <img  [src]="t.variants[0].UploadedImages[0].file">
+                    <button class="btn" (click)="delete(t.id)">X</button>
+                    <img [src]="t.variants[0].UploadedImages[0].file">
                     <div class="cell">
                         <div class="row">
-                        
+
                             <label class="cell"> {{t.ProductName}}</label>
                             <label class="cell"> {{t.ProductLocalName}}</label>
                         </div>
@@ -19,46 +19,40 @@
                             <label class="cell">{{t.Category}}</label>
                         </div>
                     </div>
-                   
+
                 </mat-card>
             </div>
-        </mat-grid-tile>
-        <mat-grid-tile>
-            <!-- <div class="row" *ngFor="let d of data">
-                <label>{{d.cat}}</label>
-                <mat-list role="list" >
-                    
-                    <mat-list-item role="listitem" *ngFor="let e of d.data" >{{e.ProductName}}</mat-list-item>
-                    <mat-divider></mat-divider>  
-                </mat-list>
-            </div>
-             -->
-             <table>  <tr> <button mat-raised-button color="primary" (click)="reload()" >Reload </button></tr>
-<tr>
-    <mat-card *ngFor="let d of data">
-        <label>{{d.cat}}</label>
-        <mat-expansion-panel hideToggle *ngFor="let e of d.data">
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-                {{e.pID}}
-              </mat-panel-title>
-              <mat-panel-description style="text-align-last: right;">
-                {{e.ProductName}} {{e.ProductLocalName}}  
-              </mat-panel-description>
-            </mat-expansion-panel-header>
-            <p  style="text-align: center;">
-            <img  [src]="e.variants[0].UploadedImages[0].file">
-            </p>
-          </mat-expansion-panel>
+        </div>
+    </div>
+    <div [ngClass]="isDesktopvar? 'c' : 'r'">
+        <div class="r">
+      <P style="text-align: center;">      <button mat-raised-button color="primary" (click)="reload()">Reload </button>
+    </P>
+        </div>
+        <div class="r">
+            <table class="center">
+                <tr>
+                    <mat-card *ngFor="let d of data">
+                        <label>{{d.cat}}</label>
+                        <mat-expansion-panel hideToggle *ngFor="let e of d.data">
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                    {{e.pID}}
+                                </mat-panel-title>
+                                <mat-panel-description style="text-align-last: right;">
+                                    {{e.ProductName}} {{e.ProductLocalName}}
+                                </mat-panel-description>
+                            </mat-expansion-panel-header>
+                            <p style="text-align: center;">
+                                <img [src]="e.variants[0].UploadedImages[0].file">
+                            </p>
+                        </mat-expansion-panel>
     
-       </mat-card>
-</tr>
-           
-</table>
-        </mat-grid-tile>
-      </mat-grid-list>
-
-      <!-- <mat-grid-list cols="2" rowHeight="2:1">
-        <mat-grid-tile>1</mat-grid-tile>
-        <mat-grid-tile>2</mat-grid-tile>
-      </mat-grid-list> -->
+                    </mat-card>
+                </tr>
+    
+            </table>
+        </div>
+       
+    </div>      
+</div>

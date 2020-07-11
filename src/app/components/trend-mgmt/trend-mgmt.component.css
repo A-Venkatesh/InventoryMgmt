@@ -4,6 +4,12 @@
     padding: 10px;
     max-width: 600px;
   }
+  .grid-container-mobi {
+    display: grid;
+    grid-template-columns: auto auto;
+    padding: 10px;
+    max-width: 600px;
+  }
   
   .grid-item {
     padding: 20px;
@@ -32,3 +38,18 @@
     right: 2px;
     top: 5px;
   }
+
+  .r{
+    width: 100%;
+    margin: 0 auto; 
+  }
+  .c{
+    width: 50%;
+    padding: 0 5px; 
+    display: table-cell;
+  }
+
+  .center { 
+    margin: 0 auto; 
+    max-width: 600px;
+    }

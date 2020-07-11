@@ -25,7 +25,7 @@ export class TranslationService {
   // }
   inTelugu = '';
   async getText(text) {
-    // var require: any;
+    var require: any;
     const axios = require("axios");
     console.log('inside service' + text);
 

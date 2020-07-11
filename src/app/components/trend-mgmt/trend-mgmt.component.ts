@@ -19,15 +19,18 @@ export class TrendMgmtComponent implements OnInit {
   data = [];
   cols = 1;
   constructor(private ss: StorageService, private tr: TrendService, private ps: ProductService, private deviceService: DeviceDetectorService) {
-  
+    this.isMobile();
+    this.isDesktop();
 
    }
    getCols(){
-    this.isMobile();
-    this.isDesktop();
-    if (this.isDesktop) {
+    // this.isMobile();
+    // this.isDesktop();
+    if (this.isDesktopvar) {
+      console.log('Desktop');
       return 2;
     }else{
+      console.log('Mobile');
       return 1;
     }
    }

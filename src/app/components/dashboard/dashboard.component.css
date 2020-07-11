@@ -4,4 +4,10 @@
 
 .example-container {
    margin-top: 40px;
+   min-height: 300px;
+}
+
+.marginTop{
+   margin-top: 25px;
+   margin-bottom: 10px;
 }
