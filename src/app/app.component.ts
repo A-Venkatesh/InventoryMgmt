@@ -11,22 +11,16 @@ export class AppComponent implements OnInit {
   constructor(public authService: AuthService) { }
 
   ngOnInit(){
-    
-    try {
-      localStorage.getItem('looged');
-    } catch (error) {
+
+    if (localStorage.getItem('looged') === null) {
       localStorage.setItem('looged', 'no' );
-    }
-    
+    }   
     
   }
   logCheck(){
-    if (localStorage.getItem('looged').match('yes')) {
-      
+    if (localStorage.getItem('looged') === 'yes') {
       return true;
-    } else {
-     
-      
+    } else {  
       return false;
     }
   }

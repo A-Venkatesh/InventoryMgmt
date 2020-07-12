@@ -1,14 +1,14 @@
 export const environment = {
   production: true,
   firebaseConfig : {
-    apiKey: "AIzaSyD9Gv-VlsppquN1cQD_BsXYnf4yuhsTgWA",
-    authDomain: "dy-proj.firebaseapp.com",
-    databaseURL: "https://dy-proj.firebaseio.com",
-    projectId: "dy-proj",
-    storageBucket: "dy-proj.appspot.com",
-    messagingSenderId: "660343636392",
-    appId: "1:660343636392:web:e33eee7e3d39fa5322dd9d",
-    measurementId: "G-20X67CTLVL"
+    apiKey: "AIzaSyC1XVSM4M2Ds_RGuiNVVgd2w74Z82FRei4",
+    authDomain: "delivery-yaar.firebaseapp.com",
+    databaseURL: "https://delivery-yaar.firebaseio.com",
+    projectId: "delivery-yaar",
+    storageBucket: "delivery-yaar.appspot.com",
+    messagingSenderId: "441357297581",
+    appId: "1:441357297581:web:47af51eae45d316ff4a324",
+    measurementId: "G-FYQBQYHLCT"
   }
 };
 
