@@ -1,9 +1,18 @@
 <div class="pTable">
+  
   <div class="row" style="background:rgba(255,255,255, 0.5);">
-    <mat-form-field  >
+
+    <mat-form-field class="cell" >
       <mat-label>Search</mat-label>
       <input  matInput (keyup)="applyFilter($event)" placeholder="Ex. In-Progress" #input>
     </mat-form-field>
+    <p class="cell" style="text-align: right;">
+      <!-- <button mat-raised-button color="primary"> Generate </button> -->
+      <button mat-fab color="primary" (click) ="download()" >
+        <mat-icon>bookmark</mat-icon>
+      </button>
+    </p>
+
   </div>
     
     <table mat-table [(dataSource)]="dataSource" matSort multiTemplateDataRows class="mat-elevation-z8">

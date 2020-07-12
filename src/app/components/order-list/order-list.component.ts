@@ -4,6 +4,7 @@ import { Product } from 'src/app/shared/services/product';
 import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Order } from 'src/app/shared/services/order';
+import { CsvService } from 'src/app/shared/services/csv.service';
 
 
 @Component({
@@ -25,7 +26,7 @@ export class OrderListComponent implements OnInit {
   expandedElement: Product | null;
   public dataSource = new MatTableDataSource<Product>(this.list);
 
-  constructor(private ordersService: OrdersService) {}
+  constructor(private ordersService: OrdersService, private csv:CsvService) {}
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -64,6 +65,15 @@ export class OrderListComponent implements OnInit {
       return ' ';
     }
 
+  }
+
+  download(){
+      console.log("Download methord");
+let now = new Date();
+      console.log(now.toLocaleDateString());
+      
+      this.csv.downloadFile(this.list, 'Orders'+ now.toLocaleDateString());
+      
   }
 
 }
