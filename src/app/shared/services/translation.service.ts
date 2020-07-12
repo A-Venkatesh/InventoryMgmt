@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import axios from "../../../../node_modules/axios";
 
 @Injectable({
   providedIn: 'root'
@@ -25,8 +26,8 @@ export class TranslationService {
   // }
   inTelugu = '';
   async getText(text) {
-    var require: any;
-    const axios = require("axios");
+    // var require: any;
+    // const axios = require("axios");
     console.log('inside service' + text);
 
     await axios({
