@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "dy-proj"
+    "default": "delivery-yaar",
+    "inventory": "delivery-yaar"
   }
 }
