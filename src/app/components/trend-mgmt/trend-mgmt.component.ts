@@ -22,18 +22,18 @@ export class TrendMgmtComponent implements OnInit {
     this.isMobile();
     this.isDesktop();
 
-   }
-   getCols(){
+  }
+  getCols() {
     // this.isMobile();
     // this.isDesktop();
     if (this.isDesktopvar) {
       console.log('Desktop');
       return 2;
-    }else{
+    } else {
       console.log('Mobile');
       return 1;
     }
-   }
+  }
 
   ngOnInit(): void {
     this.tr.getTrends().subscribe(actionArray => {
@@ -61,7 +61,7 @@ export class TrendMgmtComponent implements OnInit {
       })
 
       this.pList.forEach(element => {
-        delete element.id;
+        // delete element.id;
         const key = element.Category;
         let da = [];
         if (map.has(key)) {
@@ -82,7 +82,7 @@ export class TrendMgmtComponent implements OnInit {
       });
 
       console.log(this.data);
-      this.tr.updateMenu(this.data);
+      this.tr.updateMenu({ main: this.data });
       // this.tr.createMenu(this.data);
 
     });

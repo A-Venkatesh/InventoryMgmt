@@ -11,14 +11,10 @@ export class AppComponent implements OnInit {
   constructor(public authService: AuthService) { }
 
   ngOnInit(){
-
-    if (localStorage.getItem('looged') === null) {
-      localStorage.setItem('looged', 'no' );
-    }   
     
   }
   logCheck(){
-    if (localStorage.getItem('looged') === 'yes') {
+    if (this.authService.isLoggedIn) {
       return true;
     } else {  
       return false;
