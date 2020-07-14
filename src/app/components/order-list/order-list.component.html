@@ -9,7 +9,7 @@
     <p class="cell" style="text-align: right;">
       <!-- <button mat-raised-button color="primary"> Generate </button> -->
       <button mat-fab color="primary" (click) ="download()" >
-        <mat-icon>bookmark</mat-icon>
+        <mat-icon>get_app</mat-icon>
       </button>
     </p>
 
@@ -50,16 +50,16 @@
             <!-- </div> -->
             <div class="row">
                 <div class="cell3">
-                    <label class="row">Name: {{element.name}}</label>
-                    <label class="row">Phone: {{element.phone}}</label>
+                    <p class="row"><b>Name: </b> {{element.name}}</p>
+                    <p class="row"><b>Phone: </b>{{element.phone}}</p>
                 </div>
                 <div class="cell3">
-                    <label class="row">Address: {{element.address}}</label>
+                    <p class="row"><b>Address: </b> {{element.address}}</p>
                     <a class="row" [href]="getMapURL(element.location)">Check Location</a>
                 </div>
                 <div class="cell3">
-                    <label class="row">Payable: {{element.total}}</label>
-                    <label class="row">Items: {{element.qty}}</label>
+                    <p class="row"><b> Payable: </b> {{element.total}}</p>
+                    <p class="row"><b>Items: </b> {{element.qty}}</p>
                 </div>
             </div>
 

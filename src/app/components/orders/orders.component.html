@@ -30,16 +30,16 @@
 
                 <div class="row">
                     <div class="cell3">
-                        <label class="row">Name: {{order.name}}</label>
-                        <label class="row">Phone: {{order.phone}}</label>
+                        <p class="row"><b>Name: </b> {{order.name}}</p>
+                        <p class="row"><b>Phone: </b>{{order.phone}}</p>
                     </div>
                     <div class="cell3">
-                        <label class="row">Address: {{order.address}}</label>
+                        <p class="row"><b>Address: </b> {{order.address}}</p>
                         <a class="row" [href]="getMapURL(order.location)">Check Location</a>
                     </div>
                     <div class="cell3">
-                        <label class="row">Payable: {{order.total}}</label>
-                        <label class="row">Items: {{order.qty}}</label>
+                        <p class="row"><b> Payable: </b> {{order.total}}</p>
+                        <p class="row"><b>Items: </b> {{order.qty}}</p>
                     </div>
                 </div>
 

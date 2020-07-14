@@ -22,58 +22,55 @@ export class OrderListComponent implements OnInit {
   public columnsToDisplay = ['oid', "date", "status"];
   public colums = ['ID', 'Name', 'LName'];
   list = [];
-  
+
   expandedElement: Product | null;
   public dataSource = new MatTableDataSource<Product>(this.list);
 
-  constructor(private ordersService: OrdersService, private csv:CsvService) {}
+  constructor(private ordersService: OrdersService, private csv: CsvService) { }
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   ngOnInit() {
-    this.ordersService.getOrders().subscribe(res =>{
-      this.list =[];
+    this.ordersService.getOrders().subscribe(res => {
+      this.list = [];
       res.forEach(element => {
         let id = element.payload.doc.id;
-        this.list.push({id, ...element.payload.doc.data() as Order });
+        this.list.push({ id, ...element.payload.doc.data() as Order });
       });
       this.setData();
     });
   }
-  
+
   setData() {
 
     this.dataSource = new MatTableDataSource<Product>(this.list);
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
-
-    console.log(this.list);
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
-
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
   }
 
-    getMapURL(location){
+  getMapURL(location) {
     if (location !== undefined) {
-      return 'https://www.google.com/maps/search/?api=1&query='.concat(location.lat).concat(','+ location.log);
+      return 'https://www.google.com/maps/search/?api=1&query='.concat(location.lat).concat(',' + location.log);
     } else {
       return ' ';
     }
 
   }
 
-  download(){
-      console.log("Download methord");
-let now = new Date();
-      console.log(now.toLocaleDateString());
-      
-      this.csv.downloadFile(this.list, 'Orders'+ now.toLocaleDateString());
-      
+  download() {
+    console.log("Download methord");
+    let now = new Date();
+    console.log(now.toLocaleDateString());
+
+    this.csv.downloadFile(this.dataSource.filteredData, 'Orders' + now.toLocaleDateString());
+
   }
 
 }

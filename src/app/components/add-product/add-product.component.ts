@@ -80,17 +80,17 @@ export class AddProductComponent implements OnInit {
 
       case 'ProductPrice':
         return this.t.controls[i].get('ProductPrice').hasError('required') ? 'You must enter a value' :
-        this.t.controls[i].get('ProductMRP').value < this.t.controls[i].get('ProductPrice').value ? 'Should not be less than MRP' :
-        this.t.controls[i].get('ProductPrice').hasError('min') ? 'You can not sale anything free' :
-        this.t.controls[i].get('ProductPrice').hasError('max') ? 'Value exceed the limit' :
-              '';
+          this.t.controls[i].get('ProductMRP').value < this.t.controls[i].get('ProductPrice').value ? 'Should not be less than MRP' :
+            this.t.controls[i].get('ProductPrice').hasError('min') ? 'You can not sale anything free' :
+              this.t.controls[i].get('ProductPrice').hasError('max') ? 'Value exceed the limit' :
+                '';
         break;
-        case 'ProductMRP':
-          return this.t.controls[i].get('ProductMRP').hasError('required') ? 'You must enter a value' :''
-          break;
-          case 'quantity':
-            return this.t.controls[i].get('quantity').hasError('required') ? 'You must enter a value' :''
-            break;
+      case 'ProductMRP':
+        return this.t.controls[i].get('ProductMRP').hasError('required') ? 'You must enter a value' : ''
+        break;
+      case 'quantity':
+        return this.t.controls[i].get('quantity').hasError('required') ? 'You must enter a value' : ''
+        break;
 
       case 'Suggestion':
         return 'No suggestions found.Please try diffrent keyword';
@@ -110,7 +110,7 @@ export class AddProductComponent implements OnInit {
       case 'SubCategory':
         return this.form.controls.SubCategory.hasError('required') ? 'You must enter a SubCategory' : '';
         break;
-      
+
 
       default:
         break;
@@ -133,7 +133,7 @@ export class AddProductComponent implements OnInit {
     this.t.push(this.fb.group({
       vID: [''],
       ProductMRP: [, Validators.required],
-      ProductPrice: [, [Validators.required, Validators.min(1), Validators.max(1000000), ]],
+      ProductPrice: [, [Validators.required, Validators.min(1), Validators.max(1000000),]],
       quantity: [, Validators.required],
       metric: ['qty'],
       imageAvl: [true],
@@ -312,6 +312,7 @@ export class AddProductComponent implements OnInit {
               oneVar[position] = element;
               this.map.set(index, oneVar);
               console.log(map);
+              this.openSnackBar('Upload Success!!! '+ element.fileData.name );
 
             } else {
               console.log('else');
@@ -325,6 +326,7 @@ export class AddProductComponent implements OnInit {
             }
           },
           (err) => {
+            this.openSnackBar('Failed to Upload File: '+ element.fileData.name );
             this.error = err;
             console.log(this.error);
           }

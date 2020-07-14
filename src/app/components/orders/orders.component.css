@@ -1,7 +1,9 @@
 .mat-stepper-horizontal {
     margin-top: 8px;
   }
-  
+  b{
+    font-weight: 500;
+  }
   .mat-form-field {
     margin-top: 16px;
   }
