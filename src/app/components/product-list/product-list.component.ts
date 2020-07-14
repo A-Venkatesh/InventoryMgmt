@@ -152,6 +152,7 @@ export class ProductListComponent implements OnInit {
     console.log($event);
     if ($event.checked) {
       let data = this.list.find(p => p.id === id);
+      data.fID = data.id;
       delete data.id;
       console.log(data);
       
