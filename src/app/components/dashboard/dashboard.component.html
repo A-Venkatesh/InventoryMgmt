@@ -40,14 +40,16 @@
     <app-add-product></app-add-product->
   </mat-grid-tile>
 </mat-grid-list> -->
-<div *ngIf="isMobilevar">
-  <mat-button-toggle-group class="marginTop" name="fontStyle" aria-label="Font Style">
-    <mat-button-toggle  mat-list-item routerLink="all" >Product</mat-button-toggle>
-    <mat-button-toggle  mat-list-item routerLink="order" >Order</mat-button-toggle>
-    <mat-button-toggle  mat-list-item routerLink="olist">Order List</mat-button-toggle>
-    <mat-button-toggle  mat-list-item routerLink="add" >Add</mat-button-toggle>
-    <mat-button-toggle  mat-list-item routerLink="trend">Featured</mat-button-toggle>
-  </mat-button-toggle-group>
+<div *ngIf="!isDesktopvar" class="outer">
+  <div class="inner">
+    <mat-button-toggle-group  name="fontStyle" aria-label="Font Style">
+      <mat-button-toggle  mat-list-item routerLink="all" >Product</mat-button-toggle>
+      <mat-button-toggle  mat-list-item routerLink="order" >Order</mat-button-toggle>
+      <mat-button-toggle  mat-list-item routerLink="olist">Order List</mat-button-toggle>
+      <mat-button-toggle  mat-list-item routerLink="add" >Add</mat-button-toggle>
+      <mat-button-toggle  mat-list-item routerLink="trend">Featured</mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
   <router-outlet ></router-outlet>
 </div>
 
