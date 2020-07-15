@@ -50,6 +50,7 @@ export class EditProductComponent implements OnInit {
   keys = [];
   list = [];
   id = '';
+  pID = 0;
 
   constructor(private ss:StorageService, private route: ActivatedRoute, private ts: TranslationService, public datepipe: DatePipe, private _snackBar: MatSnackBar, private fb: FormBuilder, private is: ImgUploadService, private ps: ProductService) {
     // this.createForm();
@@ -79,6 +80,7 @@ export class EditProductComponent implements OnInit {
     
     const product = this.list.find(p => p.id === this.id);
     console.log(product);
+    this.pID = product.pID;
     this.form.controls.ProductName.setValue(product.ProductName); 
     this.form.controls.SubCategory.setValue(product.SubCategory); 
     this.form.controls.Category.setValue(product.Category); 
@@ -258,7 +260,7 @@ console.log(6);
 
 
       console.log(JSON.parse(JSON.stringify(data)));
-
+      data.pID = this.pID;
       this.ps.updateProduct(JSON.parse(JSON.stringify(data)), this.id).then(res => {
         /*do something here....maybe clear the form or give a success message*/
         console.log(res);

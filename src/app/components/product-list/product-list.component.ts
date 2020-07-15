@@ -45,7 +45,7 @@ export class ProductListComponent implements OnInit {
     }
     this.ss.sharedData.subscribe(storage => {
       this.list = storage;
-      // console.log(JSON.stringify('size' + this.list.length));
+      // console.log(JSON.stringify('size' + this.list));
     });
     this.keyP = [];
   }

@@ -215,7 +215,7 @@ export class AddProductComponent implements OnInit {
 
 
       console.log(JSON.parse(JSON.stringify(data)));
-
+      // this.stockUpdate(data.pID, data.variants);
       this.ps.createProduct(JSON.parse(JSON.stringify(data))).then(res => {
         /*do something here....maybe clear the form or give a success message*/
         console.log(res);
@@ -226,6 +226,7 @@ export class AddProductComponent implements OnInit {
     this.keys = [];
 
   }
+  
 
   // onReset() {
   //   // reset whole form back to initial state
