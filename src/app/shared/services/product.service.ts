@@ -13,27 +13,28 @@ export class ProductService {
 
   //Firestore CRUD actions example
   createProduct(data) {
-    this.stockUpdate(data.pID, data.variants);
+    
     return new Promise<any>((resolve, reject) => {
       this.firestore
         .collection("products")
         .add(data)
-        .then(res => { }, err => reject(err));
+        .then(docRef => {   this.stockUpdate(docRef.id, data.variants); }, err => reject(err));
     });
   }
 
   updateProduct(data, id) {
-    this.stockUpdate(data.pID, data.variants)
     return new Promise<any>((resolve, reject) => {
        this.firestore
       .collection("products")
-      .doc(id).update(data) .then(res => { }, err => reject(err));
+      .doc(id).update(data) .then(res => {
+        this.stockUpdate(id, data.variants)
+       }, err => reject(err));
     });
   }
 
   getProducts() {
 
-    return this.firestore.collection("products").snapshotChanges();
+    return this.firestore.collection("products",ref => ref.orderBy('pID', 'desc')).snapshotChanges();
 
   }
 
@@ -64,7 +65,7 @@ export class ProductService {
     return this.firestore.collection("stock").doc("main").ref.get();
 
   }
-  stockUpdate(pID, variants) {
+  stockUpdate(fID, variants) {
     let a = this;
     a.getStocks().then(function (doc) {
       if (doc.exists) {
@@ -73,7 +74,7 @@ export class ProductService {
         console.log(data);
         
         variants.forEach(element => {
-          const id = pID + '_' + element.vID;
+          const id = fID + '_' + element.vID;
           if (data.findIndex(p => p.id === id) > -1) {
             data[data.findIndex(p => p.id === id)] = {
               id: id,
@@ -92,7 +93,7 @@ export class ProductService {
         const data = [];
         variants.forEach(element => {
           data.push({
-            id: pID + '_' + element.vID,
+            id: fID + '_' + element.vID,
             value: element.availStock
           });          
         });

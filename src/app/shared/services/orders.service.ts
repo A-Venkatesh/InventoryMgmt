@@ -31,7 +31,7 @@ export class OrdersService {
   }
 
   getOrders() {
-    return this.firestore.collection("Orders").snapshotChanges();
+    return this.firestore.collection("Orders",ref => ref.orderBy('oid', 'desc')).snapshotChanges();
   }
 
   deleteOrder(data) {
