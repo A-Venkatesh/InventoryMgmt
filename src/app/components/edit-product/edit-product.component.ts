@@ -90,6 +90,7 @@ export class EditProductComponent implements OnInit {
     this.form.controls.ProductDetail.setValue(product.ProductDetail); 
     // this.form.controls.ProductKeys.setValue(this.keys); 
     console.log(5);
+    this.f.numberOfVariants.setValue(product.numberOfVariants);
     
     for (let i = 0; i < product.numberOfVariants; i++) {
       this.t.push(this.fb.group({
