@@ -41,7 +41,8 @@ import { DatePipe } from '@angular/common';
 import { StorageService } from "./shared/services/storage.service";
 import { ProductListComponent } from './components/product-list/product-list.component';
 import { EditProductComponent } from './components/edit-product/edit-product.component';
-import { TrendMgmtComponent } from './components/trend-mgmt/trend-mgmt.component'
+import { TrendMgmtComponent } from './components/trend-mgmt/trend-mgmt.component';
+import { StockMgmtComponent } from './components/stock-mgmt/stock-mgmt.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -56,6 +57,7 @@ import { TrendMgmtComponent } from './components/trend-mgmt/trend-mgmt.component
     ProductListComponent,
     EditProductComponent,
     TrendMgmtComponent,
+    StockMgmtComponent,
 
   ],
   imports: [

@@ -1,0 +1,24 @@
+.row{
+    width: 100%;
+    margin: 0 auto; 
+  }
+  .cell{
+    width: 50%;
+    padding: 0 5px; 
+    display: table-cell;
+  }
+  .cell3{
+    width: 25%;
+    padding: 0 5px; 
+    display: table-cell;
+  }
+  mat-tab-group {
+    padding-top: 30;
+    margin: 0 auto; 
+    max-width: 1000px;
+    max-height: 200px;
+  }
+
+  mat-card{
+      height: 50px;
+  }

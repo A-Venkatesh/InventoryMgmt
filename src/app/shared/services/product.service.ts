@@ -65,6 +65,11 @@ export class ProductService {
     return this.firestore.collection("stock").doc("main").ref.get();
 
   }
+  getStocksManyTime() {
+
+    return this.firestore.collection("stock").snapshotChanges();
+
+  }
   stockUpdate(fID, variants) {
     let a = this;
     a.getStocks().then(function (doc) {
@@ -103,4 +108,5 @@ export class ProductService {
       console.log("There was an error getting your document:", error);
     });
   }
+
 }
