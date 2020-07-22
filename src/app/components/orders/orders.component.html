@@ -12,7 +12,8 @@
         <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
         <mat-datepicker #picker2 color="primary"></mat-datepicker>
     </mat-form-field>
-    <button mat-raised-button color="primary" (click)="getDataFromDB()">Retrive</button>
+
+    <button mat-raised-button color="primary" (click)="getDataFromDB()" class="dateBtn">Retrive</button>
 </div>
 
 <mat-tab-group mat-align-tabs="start" backgroundColor="primary">

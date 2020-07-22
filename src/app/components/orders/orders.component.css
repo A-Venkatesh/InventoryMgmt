@@ -34,7 +34,11 @@
 .oneThird{
     max-width: 35%;
 }
-
+.dateBtn{
+vertical-align: middle;
+margin-left: 20px;
+margin-bottom: 10px;
+}
 .md-datepicker-input-container {
   width: 50px;
 }
