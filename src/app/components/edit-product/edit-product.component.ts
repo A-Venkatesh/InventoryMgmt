@@ -51,12 +51,16 @@ export class EditProductComponent implements OnInit {
   list = [];
   id = '';
   pID = 0;
+  stocks = [];
 
-  constructor(private ss:StorageService, private route: ActivatedRoute, private ts: TranslationService, public datepipe: DatePipe, private _snackBar: MatSnackBar, private fb: FormBuilder, private is: ImgUploadService, private ps: ProductService) {
+  constructor(private ss: StorageService, private route: ActivatedRoute, private ts: TranslationService, public datepipe: DatePipe, private _snackBar: MatSnackBar, private fb: FormBuilder, private is: ImgUploadService, private ps: ProductService) {
     // this.createForm();
     this.ss.sharedData.subscribe(storage => {
       this.list = storage;
       // console.log(JSON.stringify('size' + this.list.length));
+    });
+    this.ss.sharedStocks.subscribe(storage => {
+      this.stocks = storage;
     });
   }
 
@@ -73,25 +77,25 @@ export class EditProductComponent implements OnInit {
 
   });
 
-  setData(){
-   
+  setData() {
+
     console.log(this.id);
     console.log(this.list);
-    
+
     const product = this.list.find(p => p.id === this.id);
     console.log(product);
     this.pID = product.pID;
-    this.form.controls.ProductName.setValue(product.ProductName); 
-    this.form.controls.SubCategory.setValue(product.SubCategory); 
-    this.form.controls.Category.setValue(product.Category); 
-    this.form.controls.ProductOwner.setValue(product.ProductOwner); 
-    this.form.controls.ProductLocalName.setValue(product.ProductLocalName); 
-    this.form.controls.ProductDescription.setValue(product.ProductDescription); 
-    this.form.controls.ProductDetail.setValue(product.ProductDetail); 
+    this.form.controls.ProductName.setValue(product.ProductName);
+    this.form.controls.SubCategory.setValue(product.SubCategory);
+    this.form.controls.Category.setValue(product.Category);
+    this.form.controls.ProductOwner.setValue(product.ProductOwner);
+    this.form.controls.ProductLocalName.setValue(product.ProductLocalName);
+    this.form.controls.ProductDescription.setValue(product.ProductDescription);
+    this.form.controls.ProductDetail.setValue(product.ProductDetail);
     // this.form.controls.ProductKeys.setValue(this.keys); 
     console.log(5);
     this.f.numberOfVariants.setValue(product.numberOfVariants);
-    
+
     for (let i = 0; i < product.numberOfVariants; i++) {
       this.t.push(this.fb.group({
         vID: [product.variants[i].vID],
@@ -100,13 +104,13 @@ export class EditProductComponent implements OnInit {
         quantity: [product.variants[i].quantity, Validators.required],
         metric: [product.variants[i].metric],
         imageAvl: [product.variants[i].imageAvl],
-        availStock: [product.variants[i].availStock],
+        availStock: [this.getStockValue(this.id, i)],
         UploadedImages: [product.variants[i].UploadedImages],
       }));
-console.log(6);
+      console.log(6);
 
       if (product.variants[i].imageAvl) {
-        this.map.set(i,product.variants[i].UploadedImages );
+        this.map.set(i, product.variants[i].UploadedImages);
       }
     }
     this.keys = product.ProductKeys;
@@ -182,10 +186,10 @@ console.log(6);
     this.route.params.subscribe(params => {
       this.id = params['id'];
       console.log(this.id);
-      
+
       this.setData();
     });
-    
+
     // this.dynamicForm.controls.numberOfVariants.setValue(1);
   }
 
@@ -417,6 +421,13 @@ console.log(6);
   remove(key: any): void {
     console.log(this.keys);
     this.keys = this.keys.filter(obj => obj !== key);
+  }
+
+  getStockValue(fID, vID) {
+    const id = fID + '_' + vID;
+    const product = this.stocks.find(p => p.id === id);
+    return product === undefined ? 0 : product.value;
+
   }
 
 }

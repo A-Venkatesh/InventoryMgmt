@@ -78,7 +78,7 @@
                 <div class="cell"> MRP : {{varient.ProductMRP}} </div>
                 <div class="cell"> {{varient.metric}} : {{varient.quantity}} </div>
                 <div class="cell"> Price : {{varient.ProductPrice}} </div>
-                <div class="cell"> Available stock : {{varient.availStock}} </div>
+                <div class="cell"> Available stock : {{getStockValue(element.id, varient.vID)}} </div>
               </div>
 
             </mat-card>

@@ -25,6 +25,7 @@ export class StockMgmtComponent implements OnInit {
           ...item.payload.doc.data() as { data: any }
         }
       })
+      this.ss.nextStocks(temp[0].data);
       this.retriveDisplay(temp[0].data);
     });
 

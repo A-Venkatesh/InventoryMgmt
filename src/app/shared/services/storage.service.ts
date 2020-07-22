@@ -34,4 +34,20 @@ export class StorageService {
   nextTrend(trends: Product[]) {
     this._trends.next(trends);
   }
+
+
+
+  private stock = [];
+  private _stocks = new BehaviorSubject<any>(this.stock);
+  public get stocks_1() {
+    return this._stocks;
+  }
+  public set stocks_1(value) {
+    this._stocks = value;
+  }
+  sharedStocks = this._stocks.asObservable();
+
+  nextStocks(stocks: any) {
+    this._stocks.next(stocks);
+  }
 }

@@ -31,6 +31,7 @@ export class ProductListComponent implements OnInit {
   // columnsToDisplay = ['name', 'weight', 'symbol', 'position'];
   expandedElement: Product | null;
   public dataSource = new MatTableDataSource<Product>(this.list);
+  stocks= [];
 
 
   constructor(private router: Router, public ss: StorageService, private ps: ProductService, private deviceService: DeviceDetectorService, private tr: TrendService) {
@@ -73,7 +74,9 @@ export class ProductListComponent implements OnInit {
 // this.ss.nextTrend(this.keyP);
     });
 
-
+    this.ss.sharedStocks.subscribe(storage => {
+      this.stocks = storage;
+    });
 
   }
 
@@ -86,6 +89,13 @@ export class ProductListComponent implements OnInit {
     console.log(this.list);
 
     this.ss.nextData(this.list);
+  }
+
+  getStockValue(fID, vID){
+    const id = fID+'_'+vID;
+const product =this.stocks.find(p => p.id === id);
+    return product === undefined? 0: product.value;
+
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
