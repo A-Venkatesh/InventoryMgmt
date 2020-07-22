@@ -1,3 +1,20 @@
+<div class="date">
+    <mat-form-field color="accent" appearance="fill" class="oneThird">
+        <mat-label>Start Date</mat-label>
+        <input matInput [(ngModel)]="fromDate" [matDatepicker]="picker1" (dateInput)="changeDate('from', $event)">
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field color="accent" appearance="fill" class="oneThird">
+        <mat-label>End Date</mat-label>
+        <input matInput [(ngModel)]="toDate" [matDatepicker]="picker2" (dateInput)="changeDate('to', $event)">
+        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+        <mat-datepicker #picker2 color="primary"></mat-datepicker>
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="getDataFromDB()">Retrive</button>
+</div>
+
 <mat-tab-group mat-align-tabs="start" backgroundColor="primary">
     <mat-tab label="New">
         <ng-template matTabLabel>
@@ -18,7 +35,8 @@
                     <mat-button-toggle-group name="fontStyle" aria-label="Font Style" [value]="order.status">
                         <mat-button-toggle value="init" (change)="onValChange($event.value, order.oid)">init
                         </mat-button-toggle>
-                        <mat-button-toggle value="In-Progress" (change)="onValChange($event.value, order.oid)">In-Progress</mat-button-toggle>
+                        <mat-button-toggle value="In-Progress" (change)="onValChange($event.value, order.oid)">
+                            In-Progress</mat-button-toggle>
                         <mat-button-toggle value="Out for Delivery" (change)="onValChange($event.value, order.oid)">Out
                             for Delivery</mat-button-toggle>
                         <mat-button-toggle value="Completed" (change)="onValChange($event.value, order.oid)">Completed
@@ -53,8 +71,10 @@
                                 <mat-card-subtitle>{{prd.variant}}</mat-card-subtitle>
                             </div>
                             <div class="cell">
-          <p style="text-align: right;">                      <mat-card-title>{{prd.qty}}</mat-card-title>
-            <mat-card-subtitle>{{prd.tPrice}}</mat-card-subtitle></p>
+                                <p style="text-align: right;">
+                                    <mat-card-title>{{prd.qty}}</mat-card-title>
+                                    <mat-card-subtitle>{{prd.tPrice}}</mat-card-subtitle>
+                                </p>
                             </div>
                         </div>
                     </mat-card-header>
@@ -87,7 +107,8 @@
                     <mat-button-toggle-group name="fontStyle" aria-label="Font Style" [value]="order.status">
                         <mat-button-toggle value="init" (change)="onValChange($event.value, order.oid)">init
                         </mat-button-toggle>
-                        <mat-button-toggle value="In-Progress" (change)="onValChange($event.value, order.oid)">In-Progress</mat-button-toggle>
+                        <mat-button-toggle value="In-Progress" (change)="onValChange($event.value, order.oid)">
+                            In-Progress</mat-button-toggle>
                         <mat-button-toggle value="Out for Delivery" (change)="onValChange($event.value, order.oid)">Out
                             for Delivery</mat-button-toggle>
                         <mat-button-toggle value="Completed" (change)="onValChange($event.value, order.oid)">Completed
@@ -156,7 +177,8 @@
                     <mat-button-toggle-group name="fontStyle" aria-label="Font Style" [value]="order.status">
                         <mat-button-toggle value="init" (change)="onValChange($event.value, order.oid)">init
                         </mat-button-toggle>
-                        <mat-button-toggle value="In-Progress" (change)="onValChange($event.value, order.oid)">In-Progress</mat-button-toggle>
+                        <mat-button-toggle value="In-Progress" (change)="onValChange($event.value, order.oid)">
+                            In-Progress</mat-button-toggle>
                         <mat-button-toggle value="Out for Delivery" (change)="onValChange($event.value, order.oid)">Out
                             for Delivery</mat-button-toggle>
                         <mat-button-toggle value="Completed" (change)="onValChange($event.value, order.oid)">Completed
@@ -225,7 +247,8 @@
                     <mat-button-toggle-group name="fontStyle" aria-label="Font Style" [value]="order.status">
                         <mat-button-toggle value="init" (change)="onValChange($event.value, order.oid)">init
                         </mat-button-toggle>
-                        <mat-button-toggle value="In-Progress" (change)="onValChange($event.value, order.oid)">In-Progress</mat-button-toggle>
+                        <mat-button-toggle value="In-Progress" (change)="onValChange($event.value, order.oid)">
+                            In-Progress</mat-button-toggle>
                         <mat-button-toggle value="Out for Delivery" (change)="onValChange($event.value, order.oid)">Out
                             for Delivery</mat-button-toggle>
                         <mat-button-toggle value="Completed" (change)="onValChange($event.value, order.oid)">Completed

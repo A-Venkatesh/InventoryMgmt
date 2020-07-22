@@ -6,7 +6,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 })
 export class OrdersService {
 
-  constructor(private firestore: AngularFirestore) {}
+  constructor(private firestore: AngularFirestore) { }
 
   //Firestore CRUD actions example
   createOrder(data) {
@@ -14,7 +14,7 @@ export class OrdersService {
       this.firestore
         .collection("orders")
         .add(data)
-        .then(res => {}, err => reject(err));
+        .then(res => { }, err => reject(err));
     });
   }
 
@@ -23,15 +23,24 @@ export class OrdersService {
     //   .collection("orders")
     //   .doc(data.payload.doc.id)
     //   .set({ completed: true }, { merge: true });
-      return new Promise<any>((resolve, reject) => {
-        this.firestore
+    return new Promise<any>((resolve, reject) => {
+      this.firestore
         .collection("Orders")
-       .doc(id).update(data) .then(res => { }, err => reject(err));
-     });
+        .doc(id).update(data).then(res => { }, err => reject(err));
+    });
   }
 
   getOrders() {
-    return this.firestore.collection("Orders",ref => ref.orderBy('oid', 'desc')).snapshotChanges();
+    return this.firestore.collection("Orders", ref => ref.orderBy('oid', 'desc')).snapshotChanges();
+  }
+  getOrdersWithDate(from, to) {
+    console.log(from +'         '+ to);
+    
+    return this.firestore.collection("Orders", ref => ref
+    .where('date', '>', from)
+    .where('date', '<', to)
+    .orderBy('date','desc')
+    .orderBy('oid', 'desc')).snapshotChanges();
   }
 
   deleteOrder(data) {

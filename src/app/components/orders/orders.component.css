@@ -4,8 +4,11 @@
   b{
     font-weight: 500;
   }
-  .mat-form-field {
+  /* .mat-form-field {
     margin-top: 16px;
+  } */
+  mat-form-field {
+    margin-right: 12px;
   }
 
   .row{
@@ -22,3 +25,16 @@
     padding: 0 5px; 
     display: table-cell;
   }
+
+.date{
+  max-height: 60px;
+  background-color: rgba(255,255,255, 0.5);  
+  width: 100%;
+}
+.oneThird{
+    max-width: 35%;
+}
+
+.md-datepicker-input-container {
+  width: 50px;
+}
