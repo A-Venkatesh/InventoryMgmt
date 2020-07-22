@@ -124,7 +124,7 @@ export class AddProductComponent implements OnInit {
 
   dynamicForm: FormGroup;
   submitted = false;
-  metoptions: string[] = ['qty', 'gram', 'kg', 'litre', 'ml', 'cm'];
+  metoptions: string[] = ['Pc', 'g', 'Kg', 'Ltr', 'ml', 'cm'];
   ngOnInit() {
     this.dynamicForm = this.fb.group({
       numberOfVariants: [1],
@@ -135,7 +135,7 @@ export class AddProductComponent implements OnInit {
       ProductMRP: [, Validators.required],
       ProductPrice: [, [Validators.required, Validators.min(1), Validators.max(1000000),]],
       quantity: [, Validators.required],
-      metric: ['qty'],
+      metric: ['Pc'],
       imageAvl: [true],
       availStock: [],
       UploadedImages: [[]],

@@ -172,7 +172,7 @@ console.log(6);
 
   dynamicForm: FormGroup;
   submitted = false;
-  metoptions: string[] = ['qty', 'gram', 'kg', 'litre', 'ml', 'cm'];
+  metoptions: string[] = ['Pc', 'g', 'Kg', 'Ltr', 'ml', 'cm'];
   ngOnInit() {
 
     this.dynamicForm = this.fb.group({
