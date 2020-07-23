@@ -5,6 +5,7 @@ export interface Order {
   status: string;
   date: any;
   address: string;
+  note: string;
   location: {
     lat: string,
     log: string,

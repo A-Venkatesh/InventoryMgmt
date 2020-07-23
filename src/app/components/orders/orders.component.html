@@ -49,16 +49,17 @@
 
                 <div class="row">
                     <div class="cell3">
-                        <p class="row"><b>Name: </b> {{order.name}}</p>
-                        <p class="row"><b>Phone: </b>{{order.phone}}</p>
+                        <p class="row"><b>Name : </b> {{order.name}}</p>
+                        <p class="row"><b>Phone : </b>{{order.phone}}</p>
+                        <p class="row"><b>Note : </b>{{order.note}}</p>
                     </div>
                     <div class="cell3">
-                        <p class="row"><b>Address: </b> {{order.address}}</p>
+                        <p class="row"><b>Address : </b> {{order.address}}</p>
                         <a class="row" [href]="getMapURL(order.location)">Check Location</a>
                     </div>
                     <div class="cell3">
-                        <p class="row"><b> Payable: </b> {{order.total}}</p>
-                        <p class="row"><b>Items: </b> {{order.qty}}</p>
+                        <p class="row"><b> Payable : </b> {{order.total}}</p>
+                        <p class="row"><b>Items : </b> {{order.qty}}</p>
                     </div>
                 </div>
 
