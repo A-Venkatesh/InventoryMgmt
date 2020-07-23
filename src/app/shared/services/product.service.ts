@@ -18,7 +18,8 @@ export class ProductService {
       this.firestore
         .collection("products")
         .add(data)
-        .then(docRef => {   this.stockUpdate(docRef.id, data.variants); }, err => reject(err));
+        .then(docRef => {   this.stockUpdate(docRef.id, data.variants);
+        resolve('Sucess') }, err => reject(err));
     });
   }
 
@@ -27,6 +28,7 @@ export class ProductService {
        this.firestore
       .collection("products")
       .doc(id).update(data) .then(res => {
+        resolve('sucess');
         this.stockUpdate(id, data.variants)
        }, err => reject(err));
     });

@@ -216,17 +216,17 @@ export class AddProductComponent implements OnInit {
 
       console.log(JSON.parse(JSON.stringify(data)));
       // this.stockUpdate(data.pID, data.variants);
-      this.ps.createProduct(JSON.parse(JSON.stringify(data))).then(res => {
+      this.ps.createProduct(JSON.parse(JSON.stringify(data))).then(result => {
         /*do something here....maybe clear the form or give a success message*/
-        console.log(res);
+        console.log(result);
+        this.openSnackBar('Product as been added');
 
       });
-
     }
     this.keys = [];
 
   }
-  
+
 
   // onReset() {
   //   // reset whole form back to initial state
@@ -313,7 +313,7 @@ export class AddProductComponent implements OnInit {
               oneVar[position] = element;
               this.map.set(index, oneVar);
               console.log(map);
-              this.openSnackBar('Upload Success!!! '+ element.fileData.name );
+              this.openSnackBar('Upload Success!!! ' + element.fileData.name);
 
             } else {
               console.log('else');
@@ -327,7 +327,7 @@ export class AddProductComponent implements OnInit {
             }
           },
           (err) => {
-            this.openSnackBar('Failed to Upload File: '+ element.fileData.name );
+            this.openSnackBar('Failed to Upload File: ' + element.fileData.name);
             this.error = err;
             console.log(this.error);
           }

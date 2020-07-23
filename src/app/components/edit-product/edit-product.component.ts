@@ -11,6 +11,7 @@ import { DatePipe } from '@angular/common';
 import { TranslationService } from "../../shared/services/translation.service";
 import { ActivatedRoute } from '@angular/router';
 import { StorageService } from 'src/app/shared/services/storage.service';
+import { Location } from '@angular/common';
 
 
 export interface PreviewData {
@@ -53,7 +54,7 @@ export class EditProductComponent implements OnInit {
   pID = 0;
   stocks = [];
 
-  constructor(private ss: StorageService, private route: ActivatedRoute, private ts: TranslationService, public datepipe: DatePipe, private _snackBar: MatSnackBar, private fb: FormBuilder, private is: ImgUploadService, private ps: ProductService) {
+  constructor(private location: Location, private ss: StorageService, private route: ActivatedRoute, private ts: TranslationService, public datepipe: DatePipe, private _snackBar: MatSnackBar, private fb: FormBuilder, private is: ImgUploadService, private ps: ProductService) {
     // this.createForm();
     this.ss.sharedData.subscribe(storage => {
       this.list = storage;
@@ -266,9 +267,11 @@ export class EditProductComponent implements OnInit {
 
       console.log(JSON.parse(JSON.stringify(data)));
       data.pID = this.pID;
-      this.ps.updateProduct(JSON.parse(JSON.stringify(data)), this.id).then(res => {
+      this.ps.updateProduct(JSON.parse(JSON.stringify(data)), this.id).then(result => {
         /*do something here....maybe clear the form or give a success message*/
-        console.log(res);
+        console.log(result);
+        this.openSnackBar('Product as been added');
+        this.location.back();
 
       });
 
