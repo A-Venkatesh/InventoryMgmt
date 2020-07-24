@@ -136,12 +136,13 @@ const product =this.stocks.find(p => p.id === id);
   onEdit(id: string) {
     this.router.navigate(['dashboard/edit', id]);
   }
-  onDelete(id: string) {
+  onDelete(id: string, noOfVar) {
     console.log(id);
 
     this.ps.deleteProduct(id).then(res => {
       /*do something here....maybe clear the form or give a success message*/
       console.log(res);
+      this.ps.deleteStock(id,noOfVar, this.stocks);
 
     });
 

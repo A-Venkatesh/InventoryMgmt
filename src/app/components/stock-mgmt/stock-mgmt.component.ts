@@ -36,18 +36,24 @@ export class StockMgmtComponent implements OnInit {
     const displayStock = [];
     // this.displayStock = [];
     data.forEach(element => {
-      const fID = element.id.substr(0, 20);
-      const vID = element.id.substr(21, 22);
+      const _index = element.id.indexOf('_');
+      const id = element.id;
+      const fID = id.substr(0, _index);
+      const vID = id.substr(_index+1, id.length);
       console.log('fid :' + fID + '  vid  :' + vID);
       const prod = list.find(p => p.id === fID);
-      const row = {
-        pID: prod.pID,
-        name: prod.ProductName,
-        variant: prod.variants[vID].quantity + ' ' + prod.variants[vID].metric,
-        stock: element.value
+      try {
+        const row = {
+          pID: prod.pID,
+          name: prod.ProductName,
+          variant: prod.variants[vID].quantity + ' ' + prod.variants[vID].metric,
+          stock: element.value
+        }
+  
+        displayStock.push(row);
+      } catch (error) {
+        console.log('Error  :  fid :' + fID + '  vid  :' + vID);
       }
-
-      displayStock.push(row);
     });
 
     this.setData(displayStock);
