@@ -216,12 +216,21 @@ export class AddProductComponent implements OnInit {
 
       console.log(JSON.parse(JSON.stringify(data)));
       // this.stockUpdate(data.pID, data.variants);
-      this.ps.createProduct(JSON.parse(JSON.stringify(data))).then(result => {
+      this.ps.getPID().then(result => {
         /*do something here....maybe clear the form or give a success message*/
         console.log(result);
-        this.openSnackBar('Product as been added');
+        const pid = result.pid
+        data.pID = pid;
+        this.ps.createProduct(JSON.parse(JSON.stringify(data)), pid).then(result => {
+          /*do something here....maybe clear the form or give a success message*/
+          console.log(result);
+          this.openSnackBar('Product as been added');
 
+        });
+        this.ps.increasePID(pid);
       });
+
+
     }
     this.keys = [];
 

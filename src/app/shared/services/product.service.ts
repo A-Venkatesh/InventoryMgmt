@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 
+
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -12,31 +15,63 @@ export class ProductService {
 
 
   //Firestore CRUD actions example
-  createProduct(data) {
-    
+  createProduct(data, id) {
+
     return new Promise<any>((resolve, reject) => {
       this.firestore
         .collection("products")
-        .add(data)
-        .then(docRef => {   this.stockUpdate(docRef.id, data.variants);
-        resolve('Sucess') }, err => reject(err));
+        .doc(id + '')
+        .set(data)
+        .then(docRef => {
+          resolve('Sucess')
+          this.stockUpdate(id, data.variants);
+        }, err => reject(err));
+    });
+  }
+
+  increasePID(id) {
+    const countRef = this.firestore.collection("counter").doc("product");
+
+    countRef.update({
+      pid: 1 + id
+    });
+  }
+
+  getPID() {
+    const countRef = this.firestore.collection("counter").doc("product");
+    return new Promise<any>((resolve, reject) => {
+      countRef.get().toPromise().then(doc => {
+        if (doc.exists) {
+          const pid = doc.data();
+          console.log("Document data:", pid);
+
+          resolve(pid)
+
+        } else {
+          // doc.data() will be undefined in this case
+          console.log("No such document!");
+          reject('no id')
+        }
+      }).catch(function (error) {
+        console.log("Error getting document:", error);
+      });
     });
   }
 
   updateProduct(data, id) {
     return new Promise<any>((resolve, reject) => {
-       this.firestore
-      .collection("products")
-      .doc(id).update(data) .then(res => {
-        resolve('sucess');
-        this.stockUpdate(id, data.variants)
-       }, err => reject(err));
+      this.firestore
+        .collection("products")
+        .doc(id).update(data).then(res => {
+          resolve('sucess');
+          this.stockUpdate(id, data.variants)
+        }, err => reject(err));
     });
   }
 
   getProducts() {
 
-    return this.firestore.collection("products",ref => ref.orderBy('pID', 'desc')).snapshotChanges();
+    return this.firestore.collection("products", ref => ref.orderBy('pID', 'desc')).snapshotChanges();
 
   }
 
@@ -49,16 +84,16 @@ export class ProductService {
 
   updateStock(data, id = 'main') {
     return new Promise<any>((resolve, reject) => {
-       this.firestore
-      .collection("stock")
-      .doc(id).update({...data}) .then(res => { }, err => reject(err));
+      this.firestore
+        .collection("stock")
+        .doc(id).update({ ...data }).then(res => { }, err => reject(err));
     });
   }
   createStock(data) {
     return new Promise<any>((resolve, reject) => {
       this.firestore
         .collection("stock")
-        .add({...data})
+        .add({ ...data })
         .then(res => { }, err => reject(err));
     });
   }
@@ -79,7 +114,7 @@ export class ProductService {
         console.log(doc.data());
         const data = doc.data().data as Array<any>;
         console.log(data);
-        
+
         variants.forEach(element => {
           const id = fID + '_' + element.vID;
           if (data.findIndex(p => p.id === id) > -1) {
@@ -91,8 +126,8 @@ export class ProductService {
             data.push({
               id: id,
               value: element.availStock
-            }); 
-          }         
+            });
+          }
         });
         a.updateStock({ data: data });
       } else {
@@ -102,7 +137,7 @@ export class ProductService {
           data.push({
             id: fID + '_' + element.vID,
             value: element.availStock
-          });          
+          });
         });
         a.updateStock({ data: data });
       }
@@ -111,4 +146,15 @@ export class ProductService {
     });
   }
 
+  deleteStock(fID, no, stocks: Array<any>) {
+    for (let vID = 0; vID < no; vID++) {
+      const id = fID + '_' + vID;
+
+      const ind = stocks.findIndex(p => p.id === id);
+      if (ind > -1) {
+        stocks.splice(ind, 1);
+      }
+    }
+    this.updateStock({data: stocks});
+  }
 }
