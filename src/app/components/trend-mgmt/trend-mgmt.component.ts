@@ -62,7 +62,10 @@ export class TrendMgmtComponent implements OnInit {
 
       this.pList.forEach(element => {
         // delete element.id;
-        const key = element.Category;
+        const a ='';
+        console.log(typeof(element.Category));
+        
+        const key = element.Category.trim();
         let da = [];
         if (map.has(key)) {
           da = map.get(key);
