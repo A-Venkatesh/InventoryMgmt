@@ -34,20 +34,25 @@ export class AuthService {
 
   // Sign in with email/password
   SignIn(email, password) {
+    return new Promise<any>((resolve, reject) => {
+      this.afAuth.signInWithEmailAndPassword(email, password)
+        .then((result) => {
+          this.ngZone.run(() => {
+            localStorage.setItem('looged', 'yes');
+            localStorage.setItem('user', JSON.stringify(email));
+            //console.log('inside signin');
+            this.SetUserData(result.user);
+            this.router.navigate(['dashboard']);
+            resolve('Success');
+          });
 
-    return this.afAuth.signInWithEmailAndPassword(email, password)
-      .then((result) => {
-        this.ngZone.run(() => {
-          localStorage.setItem('looged', 'yes');
-          localStorage.setItem('user', JSON.stringify(email));
-          //console.log('inside signin');
-          this.SetUserData(result.user);
-          this.router.navigate(['dashboard']);
+        }).catch((error) => {
+          window.alert(error.message);
+          reject('Rejected');
         });
+    });
 
-      }).catch((error) => {
-        window.alert(error.message);
-      });
+
   }
 
   // Sign up with email/password

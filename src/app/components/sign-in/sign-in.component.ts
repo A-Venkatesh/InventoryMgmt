@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../shared/services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { rejects } from 'assert';
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
@@ -24,11 +25,17 @@ export class SignInComponent implements OnInit {
       this.action = 'Ask Admin';
       this.openSnackBar(this.message, this.action);
     } else {
-      this.message = 'Welcome Back';
-      this.action = 'Boss';
-      this.authService.SignIn(name, pass).then(result => {
+      this.authService.SignIn(name.toLowerCase(), pass).then(resolve => {
+        this.message = 'Welcome Back';
+        this.action = 'Boss';
         this.openSnackBar(this.message, this.action);
-      });
+      },
+        reject => {
+          this.message = 'Sorry...';
+          this.action = 'Try Again';
+          this.openSnackBar(this.message, this.action);
+        }
+      );
     }
 
   }
