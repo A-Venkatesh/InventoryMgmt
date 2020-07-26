@@ -47,3 +47,7 @@ Thumbs.db
 
 #log
 .log
+
+
+/src/cosmo_config
+/src/CosmoSecure
