@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { StorageService } from 'src/app/shared/services/storage.service';
 import { ProductService } from 'src/app/shared/services/product.service';
-import { Product } from 'src/app/shared/services/product';
+import { Product } from 'src/app/shared/model/product';
 
 @Component({
   selector: 'app-stock-mgmt',

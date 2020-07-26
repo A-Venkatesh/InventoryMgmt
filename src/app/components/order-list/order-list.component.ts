@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { OrdersService } from '../../shared/services/orders.service';
-import { Product } from 'src/app/shared/services/product';
+import { Product } from 'src/app/shared/model/product';
 import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Order } from 'src/app/shared/services/order';
+import { Order } from 'src/app/shared/model/order';
 import { CsvService } from 'src/app/shared/services/csv.service';
 
 

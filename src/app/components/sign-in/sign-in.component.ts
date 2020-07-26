@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../auth.service';
+import { AuthService } from '../../shared/services/auth.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 @Component({
   selector: 'app-sign-in',

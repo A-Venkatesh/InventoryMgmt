@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { OrdersService } from '../../shared/services/orders.service';
-import { Order } from 'src/app/shared/services/order';
+import { Order } from 'src/app/shared/model/order';
 import { MatDatepickerInputEvent } from '@angular/material';
 @Component({
   selector: 'app-orders',

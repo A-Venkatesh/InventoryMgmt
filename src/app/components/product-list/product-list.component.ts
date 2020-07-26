@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { StorageService } from 'src/app/shared/services/storage.service';
-import { Product } from 'src/app/shared/services/product';
+import { Product } from 'src/app/shared/model/product';
 import { ProductService } from 'src/app/shared/services/product.service';
 import { MatTableDataSource, MatPaginator, MatSlideToggleChange } from '@angular/material';
 import { animate, state, style, transition, trigger } from '@angular/animations';

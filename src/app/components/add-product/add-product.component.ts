@@ -5,7 +5,7 @@ import { MatChipInputEvent } from '@angular/material';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { ImgUploadService } from '../../shared/services/img-upload.service';
 import { map } from 'rxjs/operators';
-import { Product } from '../../shared/services/product';
+import { Product } from '../../shared/model/product';
 import { ProductService } from '../../shared/services/product.service';
 import { DatePipe } from '@angular/common';
 import { TranslationService } from '../../shared/services/translation.service';
