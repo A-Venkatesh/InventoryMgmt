@@ -40,7 +40,7 @@ export class StockMgmtComponent implements OnInit {
       const id = element.id;
       const fID = id.substr(0, index);
       const vID = id.substr(index + 1, id.length);
-      console.log('fid :' + fID + '  vid  :' + vID);
+      // console.log('fid :' + fID + '  vid  :' + vID);
       const prod = list.find(p => p.id === fID);
       try {
         const row = {
@@ -67,7 +67,7 @@ export class StockMgmtComponent implements OnInit {
     this.count[0] = display.filter(p => Number(p.stock) < 1).length;
     this.count[1] = display.filter(p => Number(p.stock) > 1 && Number(p.stock) < 11).length;
     this.count[2] = display.filter(p => Number(p.stock) > 11).length;
-    console.log(this.count);
+    // console.log(this.count);
 
   }
 

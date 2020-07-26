@@ -40,7 +40,7 @@ export class AuthService {
         this.ngZone.run(() => {
           localStorage.setItem('looged', 'yes');
           localStorage.setItem('user', JSON.stringify(email));
-          console.log('inside signin');
+          //console.log('inside signin');
           this.SetUserData(result.user);
           this.router.navigate(['dashboard']);
         });

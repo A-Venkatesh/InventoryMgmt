@@ -14,7 +14,7 @@ export class ImgUploadService {
   constructor(private http: HttpClient) { }
 
   addImages(fileData: any, name: string) {
-    console.log('00000000000' + fileData);
+    // console.log('00000000000' + fileData);
     return this.http.post(`${this.uri}` + '?key=' + this.key, fileData, {
       reportProgress: true,
       observe: 'events'
@@ -23,7 +23,7 @@ export class ImgUploadService {
       switch (event.type) {
 
         case HttpEventType.UploadProgress:
-          console.log(event);
+          // console.log(event);
 
           const progress = Math.round(100 * event.loaded / event.total);
           return { fname: name, status: 'progress', message: progress };

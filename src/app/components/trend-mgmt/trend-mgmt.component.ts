@@ -28,10 +28,10 @@ export class TrendMgmtComponent implements OnInit {
     // this.isMobile();
     // this.isDesktop();
     if (this.isDesktopvar) {
-      console.log('Desktop');
+      //console.log('Desktop');
       return 2;
     } else {
-      console.log('Mobile');
+      //console.log('Mobile');
       return 1;
     }
   }
@@ -45,7 +45,7 @@ export class TrendMgmtComponent implements OnInit {
         };
 
       });
-      console.log(this.tList);
+      //console.log(this.tList);
 
     });
   }
@@ -63,7 +63,7 @@ export class TrendMgmtComponent implements OnInit {
 
       this.pList.forEach(element => {
         const a = '';
-        console.log(typeof(element.Category));
+        //console.log(typeof(element.Category));
         const key = element.Category.trim();
         let da = [];
         if (map.has(key)) {
@@ -83,7 +83,7 @@ export class TrendMgmtComponent implements OnInit {
         });
       });
 
-      console.log(this.data);
+      //console.log(this.data);
       this.tr.updateMenu({ main: this.data });
       // this.tr.createMenu(this.data);
 
@@ -92,7 +92,7 @@ export class TrendMgmtComponent implements OnInit {
   }
 
   delete(id) {
-    console.log('Deleted');
+    //console.log('Deleted');
 
     this.tr.deleteTrend(id);
   }

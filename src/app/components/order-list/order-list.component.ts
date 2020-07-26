@@ -65,9 +65,9 @@ export class OrderListComponent implements OnInit {
   }
 
   download() {
-    console.log('Download methord');
+    //console.log('Download methord');
     const now = new Date();
-    console.log(now.toLocaleDateString());
+    //console.log(now.toLocaleDateString());
     this.csv.downloadFile(this.dataSource.filteredData, 'Orders' + now.toLocaleDateString());
   }
 

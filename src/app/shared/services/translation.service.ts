@@ -15,7 +15,7 @@ export class TranslationService {
   async getText(text) {
     // var require: any;
     // const axios = require("axios");
-    console.log('inside service' + text);
+    //console.log('inside service' + text);
 
     await axios({
       'method': 'GET',
@@ -34,7 +34,7 @@ export class TranslationService {
       }
     })
       .then((response) => {
-        console.log(response);
+        //console.log(response);
         console.log(response.data.responseData.translatedText);
         this.inTelugu = response.data.responseData.translatedText;
       })

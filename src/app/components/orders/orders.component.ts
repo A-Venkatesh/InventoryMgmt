@@ -21,17 +21,17 @@ export class OrdersComponent implements OnInit {
   ngOnInit() {
 
     this.getDataFromDB();
-    console.log(this.orders);
+    //console.log(this.orders);
 
   }
   getDate(days) {
     return new Date(this.toDate.getTime() - (days * 24 * 60 * 60 * 1000));
   }
   changeDate(type: string, event: MatDatepickerInputEvent<Date>) {
-    console.log(this.toDate);
+    //console.log(this.toDate);
   }
   getDataFromDB() {
-    console.log('inside get data');
+    //console.log('inside get data');
     this.ordersService.getOrdersWithDate(this.fromDate, this.toDate).subscribe(res => {
       this.orders = [];
       res.forEach(element => {
@@ -56,14 +56,14 @@ export class OrdersComponent implements OnInit {
 
   }
   onValChange(value, oid) {
-    console.log(value, oid);
+    //console.log(value, oid);
     const data = this.orders.find(o => o.oid === oid);
     data.status = value;
-    console.log(data);
-    console.log(data.id);
+    //console.log(data);
+    //console.log(data.id);
 
     this.ordersService.updateOrder(data, data.id).then(res => {
-      console.log(res);
+      //console.log(res);
 
     });
 
