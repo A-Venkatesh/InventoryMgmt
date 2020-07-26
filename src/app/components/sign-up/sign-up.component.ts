@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from "../../auth.service";
+import { AuthService } from '../../auth.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -9,7 +9,7 @@ import { AuthService } from "../../auth.service";
 
 export class SignUpComponent implements OnInit {
   Roles: any = ['Admin', 'Author', 'Reader'];
-  selected = ''
+  selected = '';
   constructor(
     public authService: AuthService
   ) { }

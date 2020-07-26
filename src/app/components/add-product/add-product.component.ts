@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormArray, FormControl, NumberValueAccessor, } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatChipInputEvent } from '@angular/material';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { ImgUploadService } from '../../shared/services/img-upload.service';
 import { map } from 'rxjs/operators';
-import { Product } from "../../shared/services/product";
-import { ProductService } from "../../shared/services/product.service";
+import { Product } from '../../shared/services/product';
+import { ProductService } from '../../shared/services/product.service';
 import { DatePipe } from '@angular/common';
-import { TranslationService } from "../../shared/services/translation.service";
+import { TranslationService } from '../../shared/services/translation.service';
 
 
 export interface PreviewData {
@@ -23,7 +23,15 @@ export interface PreviewData {
   styleUrls: ['./add-product.component.css']
 })
 export class AddProductComponent implements OnInit {
-  // angForm: FormGroup;
+
+  constructor(private ts: TranslationService, public datepipe: DatePipe,
+              private snackBar: MatSnackBar, private fb: FormBuilder,
+              private is: ImgUploadService, private ps: ProductService) {
+  }
+
+  // convenience getters for easy access to form fields
+  get f() { return this.dynamicForm.controls; }
+  get t() { return this.f.variants as FormArray; }
 
   matchFound: boolean;
   displayProgress: boolean;
@@ -40,6 +48,8 @@ export class AddProductComponent implements OnInit {
   suggestedImgList = [];
   imgBBList = [];
 
+
+
   //  chip variables
   visible = true;
   selectable = true;
@@ -47,11 +57,6 @@ export class AddProductComponent implements OnInit {
   addOnBlur = true;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   keys = [];
-
-  constructor(private ts: TranslationService, public datepipe: DatePipe, private _snackBar: MatSnackBar, private fb: FormBuilder, private is: ImgUploadService, private ps: ProductService) {
-    // this.createForm();
-  }
-
 
   form = this.fb.group({
     ProductName: ['', [Validators.required]],
@@ -65,7 +70,32 @@ export class AddProductComponent implements OnInit {
 
   });
 
-  //text ='How are you';
+  dynamicForm: FormGroup;
+  submitted = false;
+  metoptions: string[] = ['Pc', 'g', 'Kg', 'Ltr', 'ml', 'cm'];
+  private pRow: Product;
+  map = new Map();
+  ngOnInit() {
+    this.dynamicForm = this.fb.group({
+      numberOfVariants: [1],
+      variants: new FormArray([])
+    });
+    this.t.push(this.fb.group({
+      vID: [''],
+      ProductMRP: [, Validators.required],
+      ProductPrice: [, [Validators.required, Validators.min(1), Validators.max(1000000), ]],
+      quantity: [, Validators.required],
+      metric: ['Pc'],
+      imageAvl: [true],
+      availStock: [],
+      UploadedImages: [[]],
+    }));
+    // this.dynamicForm.controls.numberOfVariants.setValue(1);
+  }
+
+
+
+  // text ='How are you';
   async getTransalation() {
     await this.ts.getText(this.form.controls.ProductName.value);
     await this.form.controls.ProductLocalName.setValue(this.ts.inTelugu);
@@ -86,10 +116,10 @@ export class AddProductComponent implements OnInit {
                 '';
         break;
       case 'ProductMRP':
-        return this.t.controls[i].get('ProductMRP').hasError('required') ? 'You must enter a value' : ''
+        return this.t.controls[i].get('ProductMRP').hasError('required') ? 'You must enter a value' : '';
         break;
       case 'quantity':
-        return this.t.controls[i].get('quantity').hasError('required') ? 'You must enter a value' : ''
+        return this.t.controls[i].get('quantity').hasError('required') ? 'You must enter a value' : '';
         break;
 
       case 'Suggestion':
@@ -118,34 +148,6 @@ export class AddProductComponent implements OnInit {
 
 
   }
-  private pRow: Product;
-
-
-
-  dynamicForm: FormGroup;
-  submitted = false;
-  metoptions: string[] = ['Pc', 'g', 'Kg', 'Ltr', 'ml', 'cm'];
-  ngOnInit() {
-    this.dynamicForm = this.fb.group({
-      numberOfVariants: [1],
-      variants: new FormArray([])
-    });
-    this.t.push(this.fb.group({
-      vID: [''],
-      ProductMRP: [, Validators.required],
-      ProductPrice: [, [Validators.required, Validators.min(1), Validators.max(1000000),]],
-      quantity: [, Validators.required],
-      metric: ['Pc'],
-      imageAvl: [true],
-      availStock: [],
-      UploadedImages: [[]],
-    }));
-    // this.dynamicForm.controls.numberOfVariants.setValue(1);
-  }
-
-  // convenience getters for easy access to form fields
-  get f() { return this.dynamicForm.controls; }
-  get t() { return this.f.variants as FormArray; }
 
   onChangeVariants(e) {
     console.log('onChangeVariants' + e.value);
@@ -171,99 +173,14 @@ export class AddProductComponent implements OnInit {
     }
   }
 
-  onSubmit() {
-    this.submitted = true;
-
-    // stop here if form is invalid
-    if (this.dynamicForm.invalid || this.form.invalid) {
-      this.openSnackBar('Invalid Data');
-    } else {
-      console.log(this.form);
-      console.log(this.dynamicForm);
-      console.log(this.map);
-      console.log(this.form.value);
-      // console.log(JSON.stringify(this.dynamicForm.value));
-      this.pRow = <Product>this.form.value;
-      this.pRow.numberOfVariants = this.dynamicForm.value.numberOfVariants;
-      let varArr = new Array();
-      varArr = this.dynamicForm.value.variants;
-      varArr.forEach(element => {
-        let key = varArr.indexOf(element);
-        element.vID = key;
-        if (this.map.has(key)) {
-
-          element.UploadedImages = this.map.get(key);
-          element.UploadedImages.forEach(ele => {
-            if (ele.fileUrl.data.display_url === undefined) {
-              ele.file = "";
-            } else {
-              ele.file = ele.fileUrl.data.display_url;
-            }
-
-            element.UploadedImages[element.UploadedImages.indexOf(ele)] = ele;
-          });
-        }
-        this.dynamicForm.value.variants[key] = element;
-
-      });
-      this.pRow.variants = this.dynamicForm.value.variants;
-      console.log(this.pRow);
-      let date = new Date();
-
-      this.pRow.pID = Number(this.datepipe.transform(date, 'yyMMddHHmmss'));
-      let data = <Product>this.pRow;
-
-
-      console.log(JSON.parse(JSON.stringify(data)));
-      // this.stockUpdate(data.pID, data.variants);
-      this.ps.getPID().then(result => {
-        /*do something here....maybe clear the form or give a success message*/
-        console.log(result);
-        const pid = result.pid
-        data.pID = pid;
-        this.ps.createProduct(JSON.parse(JSON.stringify(data)), pid).then(result => {
-          /*do something here....maybe clear the form or give a success message*/
-          console.log(result);
-          this.openSnackBar('Product as been added');
-
-        });
-        this.ps.increasePID(pid);
-      });
-
-
-    }
-    this.keys = [];
-
-  }
-
-
-  // onReset() {
-  //   // reset whole form back to initial state
-  //   this.submitted = false;
-  //   this.dynamicForm.reset();
-  //   this.form.reset();
-  //   this.t.clear();
-  //   this.keys = [];
-  // }
-
-  onClear() {
-    // clear errors and reset variant fields
-    this.submitted = false;
-    this.t.reset();
-    this.keys = [];
-    this.form.reset();
-  }
-
-
   openSnackBar(message: string) {
-    this._snackBar.open(message, '', {
+    this.snackBar.open(message, '', {
       duration: 2000,
     });
   }
-  map = new Map();
   onFileSelect(event, variant) {
     //  console.log('-------------------'+ this.dynamicForm.controls.variants.value.);
-    let index = this.t.controls.indexOf(variant);
+    const index = this.t.controls.indexOf(variant);
     this.files = event.target.files;
     console.log(this.files);
 
@@ -298,15 +215,15 @@ export class AddProductComponent implements OnInit {
   }
 
   Uploader(variant) {
-    let index = this.t.controls.indexOf(variant);
+    const index = this.t.controls.indexOf(variant);
     this.displayProgress = true;
 
-    let oneVar = this.map.get(index);
+    const oneVar = this.map.get(index);
     const fd = new FormData();
 
     oneVar.forEach(element => {
       console.log(element);
-      let position = oneVar.indexOf(element);
+      const position = oneVar.indexOf(element);
       fd.append('image', element.fileData, element.fileData.name);
       if (element.Progress < 98) {
         this.is.addImages(fd, element.fileData.name).subscribe(
@@ -347,7 +264,7 @@ export class AddProductComponent implements OnInit {
 
   removeImage(key: any, variant) {
 
-    let index = this.t.controls.indexOf(variant);
+    const index = this.t.controls.indexOf(variant);
     console.log(this.map.get(index));
     let imgArr = this.map.get(index);
 
@@ -383,6 +300,79 @@ export class AddProductComponent implements OnInit {
   remove(key: any): void {
     console.log(this.keys);
     this.keys = this.keys.filter(obj => obj !== key);
+  }
+
+  onSubmit() {
+    this.submitted = true;
+
+    // stop here if form is invalid
+    if (this.dynamicForm.invalid || this.form.invalid) {
+      this.openSnackBar('Invalid Data');
+    } else {
+      console.log(this.form);
+      console.log(this.dynamicForm);
+      console.log(this.map);
+      console.log(this.form.value);
+      // console.log(JSON.stringify(this.dynamicForm.value));
+      this.pRow = (this.form.value as Product);
+      this.pRow.numberOfVariants = this.dynamicForm.value.numberOfVariants;
+      let varArr = new Array();
+      varArr = this.dynamicForm.value.variants;
+      varArr.forEach(element => {
+        const key = varArr.indexOf(element);
+        element.vID = key;
+        if (this.map.has(key)) {
+
+          element.UploadedImages = this.map.get(key);
+          element.UploadedImages.forEach(ele => {
+            if (ele.fileUrl.data.display_url === undefined) {
+              ele.file = '';
+            } else {
+              ele.file = ele.fileUrl.data.display_url;
+            }
+
+            element.UploadedImages[element.UploadedImages.indexOf(ele)] = ele;
+          });
+        }
+        this.dynamicForm.value.variants[key] = element;
+
+      });
+      this.pRow.variants = this.dynamicForm.value.variants;
+      console.log(this.pRow);
+      const date = new Date();
+
+      this.pRow.pID = Number(this.datepipe.transform(date, 'yyMMddHHmmss'));
+      const data = this.pRow as Product;
+
+
+      console.log(JSON.parse(JSON.stringify(data)));
+      // this.stockUpdate(data.pID, data.variants);
+      this.ps.getPID().then(result => {
+        /*do something here....maybe clear the form or give a success message*/
+        console.log(result);
+        const pid = result.pid;
+        data.pID = pid;
+        this.ps.createProduct(JSON.parse(JSON.stringify(data)), pid).then(result => {
+          /*do something here....maybe clear the form or give a success message*/
+          console.log(result);
+          this.openSnackBar('Product as been added');
+
+        });
+        this.ps.increasePID(pid);
+      });
+
+
+    }
+    this.keys = [];
+
+  }
+
+  onClear() {
+    // clear errors and reset variant fields
+    this.submitted = false;
+    this.t.reset();
+    this.keys = [];
+    this.form.reset();
   }
 
 }

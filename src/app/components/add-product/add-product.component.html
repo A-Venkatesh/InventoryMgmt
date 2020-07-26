@@ -1,10 +1,10 @@
-
-<mat-card class="main" >
-<form [formGroup]="form" novalidate>
+<mat-card class="main">
+  <form [formGroup]="form" novalidate>
     <!-- Name -->
     <div class="row">
       <mat-form-field style="overflow: hidden; padding-right: .5em;width: 50%">
-        <input matInput (keyup.enter)="getTransalation()" placeholder="Product Name" formControlName="ProductName" style="width: 100%" required>
+        <input matInput (keyup.enter)="getTransalation()" placeholder="Product Name" formControlName="ProductName"
+          style="width: 100%" required>
         <mat-error *ngIf="!form.controls['ProductName'].valid">{{getErrorMessage('ProductName', 0)}}</mat-error>
       </mat-form-field>
       <mat-form-field style="overflow: hidden; padding-right: .5em;width: 50%">
@@ -66,83 +66,80 @@
     </div>
 
   </form>
-<!-- Dynamic window -->
-<form [formGroup]="dynamicForm" (ngSubmit)="onSubmit()">
-  <mat-form-field>
-    <mat-select placeholder="No. of Variant" formControlName="numberOfVariants" (selectionChange)="onChangeVariants($event)"
-      [ngClass]="{ 'is-invalid': submitted && f.numberOfVariants.errors }" [value]>
-      <mat-option *ngFor="let i of [1,2,3,4,5,6,7,8,9,10]" [value]="i">{{i}}</mat-option>
-    </mat-select>
-  </mat-form-field>
-  <mat-card *ngFor="let variant of t.controls; let i = index" class="list-group list-group-flush">
-    
-    <div [formGroup]="variant" class="form-row">
-      <mat-label class="card-title">Variant {{i + 1}}</mat-label>
-      <!-- price -->
-      <div class="row example-full-width">
-        <div class="cell">
-          <mat-form-field class="example-full-width">
-            <input matInput placeholder="Product MRP" type="number" formControlName="ProductMRP" required>
-            <span matPrefix>₹&nbsp;</span>
-            <span matSuffix>.00</span>
-          <mat-error *ngIf="!t.controls[i].get('ProductMRP').valid"> {{getErrorMessage('ProductMRP', i)}} </mat-error>          
+  <!-- Dynamic window -->
+  <form [formGroup]="dynamicForm" (ngSubmit)="onSubmit()">
+    <mat-form-field>
+      <mat-select placeholder="No. of Variant" formControlName="numberOfVariants"
+        (selectionChange)="onChangeVariants($event)"
+        [ngClass]="{ 'is-invalid': submitted && f.numberOfVariants.errors }" [value]>
+        <mat-option *ngFor="let i of [1,2,3,4,5,6,7,8,9,10]" [value]="i">{{i}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-card *ngFor="let variant of t.controls; let i = index" class="list-group list-group-flush">
+
+      <div [formGroup]="variant" class="form-row">
+        <mat-label class="card-title">Variant {{i + 1}}</mat-label>
+        <!-- price -->
+        <div class="row example-full-width">
+          <div class="cell">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Product MRP" type="number" formControlName="ProductMRP" required>
+              <span matPrefix>₹&nbsp;</span>
+              <span matSuffix>.00</span>
+              <mat-error *ngIf="!t.controls[i].get('ProductMRP').valid"> {{getErrorMessage('ProductMRP', i)}}
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="cell">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="ProductPrice" formControlName="ProductPrice" type="number" required>
+              <span matPrefix>₹&nbsp;</span>
+              <span matSuffix>.00</span>
+              <mat-error *ngIf="!t.controls[i].get('ProductPrice').valid"> {{getErrorMessage('ProductPrice', i)}}
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <mat-form-field style="overflow: hidden; padding-right: .5em;width: 50%">
+          <input matInput placeholder="Quantiy" formControlName="quantity" style="width: 100%" required>
+          <mat-error *ngIf="!t.controls[i].get('quantity').valid"> {{getErrorMessage('quantity', i)}} </mat-error>
         </mat-form-field>
-        </div>
-        <div class="cell">
-          <mat-form-field class="example-full-width">
-            <input matInput placeholder="ProductPrice" formControlName="ProductPrice" type="number" required>
-            <span matPrefix>₹&nbsp;</span>
-            <span matSuffix>.00</span>
-            <mat-error *ngIf="!t.controls[i].get('ProductPrice').valid"> {{getErrorMessage('ProductPrice', i)}} </mat-error>
-          </mat-form-field>
-        </div>
-      </div>
+        <mat-form-field>
+          <mat-label>Choose an option</mat-label>
+          <mat-select formControlName="metric">
+            <mat-option *ngFor="let metric of metoptions" [value]="metric">{{metric}}</mat-option>
+          </mat-select>
+        </mat-form-field>
 
-      <mat-form-field style="overflow: hidden; padding-right: .5em;width: 50%">
-        <input matInput placeholder="Quantiy" formControlName="quantity" style="width: 100%" required>
-        <mat-error *ngIf="!t.controls[i].get('quantity').valid"> {{getErrorMessage('quantity', i)}} </mat-error>
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Choose an option</mat-label>
-        <mat-select formControlName="metric" >
-          <mat-option *ngFor="let metric of metoptions" [value]="metric">{{metric}}</mat-option>
-        </mat-select>
-      </mat-form-field>
-      
-<!-- Window -->
-      <mat-form-field class="example-full-width">
-        <input matInput placeholder="Stock available" formControlName="availStock">
-      </mat-form-field>
-      
-      <mat-slide-toggle formControlName="imageAvl">Image available</mat-slide-toggle>
+        <!-- Window -->
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Stock available" formControlName="availStock">
+        </mat-form-field>
 
-      <div class="row" *ngIf="variant.get('imageAvl').value">
-        <!-- <div class="cell"> <input type="file" name="photo" (change)="onFileSelect($event)" multiple></div>
+        <mat-slide-toggle formControlName="imageAvl">Image available</mat-slide-toggle>
+
+        <div class="row" *ngIf="variant.get('imageAvl').value">
+          <!-- <div class="cell"> <input type="file" name="photo" (change)="onFileSelect($event)" multiple></div>
         <div class="cell"> <button type="button" mat-raised-button (click)="Uploader()">Upload an Image</button></div>
        -->
 
 
-       <div class="row">
-        <div class="cell"> <input type="file" name="photo" (change)="onFileSelect($event,variant)" multiple></div>
-        <div class="cell" > <button  type="button" mat-raised-button (click)="Uploader(variant)">Upload an Image</button></div>
-        
-          
-        </div>
-      
-        
-          <!-- <button type="button" class="btn btn-success btn-s" 
-            (click)="Uploader()"  >
-                Upload an Image
-          </button> -->
+          <div class="row">
+            <div class="cell"> <input type="file" name="photo" (change)="onFileSelect($event,variant)" multiple></div>
+            <div class="cell"> <button type="button" mat-raised-button (click)="Uploader(variant)">Upload an
+                Image</button></div>
+          </div>
+
           <div class="example-full-width">
             <table>
               <tr *ngFor="let images of map.get(this.t.controls.indexOf(variant))" class="example-full-width">
                 <th style="width:50%;">
-                    <img  [src]="images.file" class="img-thumbnail thumbImage" > 
-                  
+                  <img [src]="images.file" class="img-thumbnail thumbImage">
+
                 </th>
                 <td style="width:45%">
-                    <label>{{images.fileData.name}}</label>
+                  <label>{{images.fileData.name}}</label>
                   <mat-progress-bar mode="determinate" [value]="images.Progress"></mat-progress-bar>
                 </td>
                 <td style="width: auto">
@@ -152,29 +149,13 @@
                 </td>
               </tr>
             </table>
-      
           </div>
-
+        </div>
       </div>
-
-    </div>
-
-
-
-
-  </mat-card>
-    
-
-</form>
-    <!-- <div class="row">
-      <button type="submit" mat-raised-button (click)="addProduct(form.value)">Submit</button>
-    </div> -->
-    <div class="card-footer text-center">
-      <button mat-raised-button type="button" (click)="onClear()">Clear</button>
-      <button mat-raised-button (click)="onSubmit()">Submit</button>
-      <!-- <button mat-raised-button type="reset" (click)="onReset()">Reset</button> -->
-    </div>
-
-
+    </mat-card>
+  </form>
+  <div class="card-footer text-center">
+    <button mat-raised-button type="button" (click)="onClear()">Clear</button>
+    <button mat-raised-button (click)="onSubmit()">Submit</button>
+  </div>
 </mat-card>
-

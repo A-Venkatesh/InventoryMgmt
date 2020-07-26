@@ -1,303 +1,302 @@
 <div class="date">
-    <mat-form-field color="accent" appearance="fill" class="oneThird">
-        <mat-label>Start Date</mat-label>
-        <input matInput [(ngModel)]="fromDate" [matDatepicker]="picker1" (dateInput)="changeDate('from', $event)">
-        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-        <mat-datepicker #picker1></mat-datepicker>
-    </mat-form-field>
+  <mat-form-field color="accent" appearance="fill" class="oneThird">
+    <mat-label>Start Date</mat-label>
+    <input matInput [(ngModel)]="fromDate" [matDatepicker]="picker1" (dateInput)="changeDate('from', $event)">
+    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+    <mat-datepicker #picker1></mat-datepicker>
+  </mat-form-field>
 
-    <mat-form-field color="accent" appearance="fill" class="oneThird">
-        <mat-label>End Date</mat-label>
-        <input matInput [(ngModel)]="toDate" [matDatepicker]="picker2" (dateInput)="changeDate('to', $event)">
-        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-        <mat-datepicker #picker2 color="primary"></mat-datepicker>
-    </mat-form-field>
+  <mat-form-field color="accent" appearance="fill" class="oneThird">
+    <mat-label>End Date</mat-label>
+    <input matInput [(ngModel)]="toDate" [matDatepicker]="picker2" (dateInput)="changeDate('to', $event)">
+    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+    <mat-datepicker #picker2 color="primary"></mat-datepicker>
+  </mat-form-field>
 
-    <button mat-raised-button color="primary" (click)="getDataFromDB()" class="dateBtn">Retrieve</button>
+  <button mat-raised-button color="primary" (click)="getDataFromDB()" class="dateBtn">Retrieve</button>
 </div>
 
 <mat-tab-group mat-align-tabs="start" backgroundColor="primary">
-    <mat-tab label="New">
-        <ng-template matTabLabel>
-            <span [matBadge]="new.length" matBadgeOverlap="false" matBadgeColor="warn">New</span>
-        </ng-template>
-        <div *ngFor="let order of new;">
-            <mat-expansion-panel>
-                <mat-expansion-panel-header>
-                    <mat-panel-title>
-                        {{order.oid}}
-                    </mat-panel-title>
-                    <mat-panel-description>
-                        {{order.date.toMillis() | date:'yyyy/MM/dd h:mm:ss a'}}
-                    </mat-panel-description>
-                </mat-expansion-panel-header>
-                <p>
-                    Change Status:
-                    <mat-button-toggle-group name="fontStyle" aria-label="Font Style" [value]="order.status">
-                        <mat-button-toggle value="init" (change)="onValChange($event.value, order.oid)">init
-                        </mat-button-toggle>
-                        <mat-button-toggle value="In-Progress" (change)="onValChange($event.value, order.oid)">
-                            In-Progress</mat-button-toggle>
-                        <mat-button-toggle value="Out for Delivery" (change)="onValChange($event.value, order.oid)">Out
-                            for Delivery</mat-button-toggle>
-                        <mat-button-toggle value="Completed" (change)="onValChange($event.value, order.oid)">Completed
-                        </mat-button-toggle>
-                        <mat-button-toggle value="Cancel" (change)="onValChange($event.value, order.oid)">Canceled
-                        </mat-button-toggle>
-                    </mat-button-toggle-group>
-                </p>
+  <mat-tab label="New">
+    <ng-template matTabLabel>
+      <span [matBadge]="new.length" matBadgeOverlap="false" matBadgeColor="warn">New</span>
+    </ng-template>
+    <div *ngFor="let order of new;">
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{order.oid}}
+          </mat-panel-title>
+          <mat-panel-description>
+            {{order.date.toMillis() | date:'yyyy/MM/dd h:mm:ss a'}}
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <p>
+          Change Status:
+          <mat-button-toggle-group name="fontStyle" aria-label="Font Style" [value]="order.status">
+            <mat-button-toggle value="init" (change)="onValChange($event.value, order.oid)">init
+            </mat-button-toggle>
+            <mat-button-toggle value="In-Progress" (change)="onValChange($event.value, order.oid)">
+              In-Progress</mat-button-toggle>
+            <mat-button-toggle value="Out for Delivery" (change)="onValChange($event.value, order.oid)">Out
+              for Delivery</mat-button-toggle>
+            <mat-button-toggle value="Completed" (change)="onValChange($event.value, order.oid)">Completed
+            </mat-button-toggle>
+            <mat-button-toggle value="Cancel" (change)="onValChange($event.value, order.oid)">Canceled
+            </mat-button-toggle>
+          </mat-button-toggle-group>
+        </p>
 
-                <div class="row">
-                    <div class="cell3">
-                        <p class="row"><b>Name : </b> {{order.name}}</p>
-                        <p class="row"><b>Phone : </b>{{order.phone}}</p>
-                        <p class="row"><b>Note : </b>{{order.note}}</p>
-                    </div>
-                    <div class="cell3">
-                        <p class="row"><b>Address : </b> {{order.address}}</p>
-                        <a class="row" [href]="getMapURL(order.location)">Check Location</a>
-                    </div>
-                    <div class="cell3">
-                        <p class="row"><b> Payable : </b> {{order.total}}</p>
-                        <p class="row"><b>Items : </b> {{order.qty}}</p>
-                    </div>
-                </div>
-
-
-                <mat-card *ngFor="let prd of order.order" class="example-card">
-                    <mat-card-header>
-                        <img mat-card-avatar [src]="prd.image" alt="">
-                        <div class="row">
-                            <div class="cell">
-                                <mat-card-title>{{prd.name}}</mat-card-title>
-                                <mat-card-subtitle>{{prd.variant}}</mat-card-subtitle>
-                            </div>
-                            <div class="cell">
-                                <p style="text-align: right;">
-                                    <mat-card-title>{{prd.qty}}</mat-card-title>
-                                    <mat-card-subtitle>{{prd.tPrice}}</mat-card-subtitle>
-                                </p>
-                            </div>
-                        </div>
-                    </mat-card-header>
-                    <mat-card-content class="cell">
-                        {{prd.mrpText}}
-                    </mat-card-content>
-                    <mat-card-content class="cell">
-                        {{prd.priceText}}
-                    </mat-card-content>
-                </mat-card>
-            </mat-expansion-panel>
+        <div class="row">
+          <div class="cell3">
+            <p class="row"><b>Name : </b> {{order.name}}</p>
+            <p class="row"><b>Phone : </b>{{order.phone}}</p>
+            <p class="row"><b>Note : </b>{{order.note}}</p>
+          </div>
+          <div class="cell3">
+            <p class="row"><b>Address : </b> {{order.address}}</p>
+            <a class="row" [href]="getMapURL(order.location)">Check Location</a>
+          </div>
+          <div class="cell3">
+            <p class="row"><b> Payable : </b> {{order.total}}</p>
+            <p class="row"><b>Items : </b> {{order.qty}}</p>
+          </div>
         </div>
-    </mat-tab>
-    <mat-tab label="In-Process">
-        <ng-template matTabLabel>
-            <span [matBadge]="inP.length" matBadgeOverlap="false" matBadgeColor="warn">In-Process</span>
-        </ng-template>
-        <div *ngFor="let order of inP;">
-            <mat-expansion-panel>
-                <mat-expansion-panel-header>
-                    <mat-panel-title>
-                        {{order.oid}}
-                    </mat-panel-title>
-                    <mat-panel-description>
-                        {{order.date.toMillis() | date:'yyyy/MM/dd h:mm:ss a'}}
-                    </mat-panel-description>
-                </mat-expansion-panel-header>
-                <p>
-                    Change Status:
-                    <mat-button-toggle-group name="fontStyle" aria-label="Font Style" [value]="order.status">
-                        <mat-button-toggle value="init" (change)="onValChange($event.value, order.oid)">init
-                        </mat-button-toggle>
-                        <mat-button-toggle value="In-Progress" (change)="onValChange($event.value, order.oid)">
-                            In-Progress</mat-button-toggle>
-                        <mat-button-toggle value="Out for Delivery" (change)="onValChange($event.value, order.oid)">Out
-                            for Delivery</mat-button-toggle>
-                        <mat-button-toggle value="Completed" (change)="onValChange($event.value, order.oid)">Completed
-                        </mat-button-toggle>
-                        <mat-button-toggle value="Cancel" (change)="onValChange($event.value, order.oid)">Canceled
-                        </mat-button-toggle>
-                    </mat-button-toggle-group>
+
+
+        <mat-card *ngFor="let prd of order.order" class="example-card">
+          <mat-card-header>
+            <img mat-card-avatar [src]="prd.image" alt="">
+            <div class="row">
+              <div class="cell">
+                <mat-card-title>{{prd.name}}</mat-card-title>
+                <mat-card-subtitle>{{prd.variant}}</mat-card-subtitle>
+              </div>
+              <div class="cell">
+                <p style="text-align: right;">
+                  <mat-card-title>{{prd.qty}}</mat-card-title>
+                  <mat-card-subtitle>{{prd.tPrice}}</mat-card-subtitle>
                 </p>
+              </div>
+            </div>
+          </mat-card-header>
+          <mat-card-content class="cell">
+            {{prd.mrpText}}
+          </mat-card-content>
+          <mat-card-content class="cell">
+            {{prd.priceText}}
+          </mat-card-content>
+        </mat-card>
+      </mat-expansion-panel>
+    </div>
+  </mat-tab>
+  <mat-tab label="In-Process">
+    <ng-template matTabLabel>
+      <span [matBadge]="inP.length" matBadgeOverlap="false" matBadgeColor="warn">In-Process</span>
+    </ng-template>
+    <div *ngFor="let order of inP;">
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{order.oid}}
+          </mat-panel-title>
+          <mat-panel-description>
+            {{order.date.toMillis() | date:'yyyy/MM/dd h:mm:ss a'}}
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <p>
+          Change Status:
+          <mat-button-toggle-group name="fontStyle" aria-label="Font Style" [value]="order.status">
+            <mat-button-toggle value="init" (change)="onValChange($event.value, order.oid)">init
+            </mat-button-toggle>
+            <mat-button-toggle value="In-Progress" (change)="onValChange($event.value, order.oid)">
+              In-Progress</mat-button-toggle>
+            <mat-button-toggle value="Out for Delivery" (change)="onValChange($event.value, order.oid)">Out
+              for Delivery</mat-button-toggle>
+            <mat-button-toggle value="Completed" (change)="onValChange($event.value, order.oid)">Completed
+            </mat-button-toggle>
+            <mat-button-toggle value="Cancel" (change)="onValChange($event.value, order.oid)">Canceled
+            </mat-button-toggle>
+          </mat-button-toggle-group>
+        </p>
 
-                <div class="row">
-                    <div class="cell3">
-                        <label class="row">Name: {{order.name}}</label>
-                        <label class="row">Phone: {{order.phone}}</label>
-                    </div>
-                    <div class="cell3">
-                        <label class="row">Address: {{order.address}}</label>
-                        <a class="row" [href]="getMapURL(order.location)">Check Location</a>
-                    </div>
-                    <div class="cell3">
-                        <label class="row">Payable: {{order.total}}</label>
-                        <label class="row">Items: {{order.qty}}</label>
-                    </div>
-                </div>
-
-
-                <mat-card *ngFor="let prd of order.order" class="example-card">
-                    <mat-card-header>
-                        <img mat-card-avatar [src]="prd.image" alt="">
-                        <div class="row">
-                            <div class="cell">
-                                <mat-card-title>{{prd.name}}</mat-card-title>
-                                <mat-card-subtitle>{{prd.variant}}</mat-card-subtitle>
-                            </div>
-                            <div class="cell">
-                                <mat-card-title>{{prd.qty}}</mat-card-title>
-                                <mat-card-subtitle>{{prd.tPrice}}</mat-card-subtitle>
-                            </div>
-                        </div>
-                    </mat-card-header>
-                    <mat-card-content class="cell">
-                        {{prd.mrpText}}
-                    </mat-card-content>
-                    <mat-card-content class="cell">
-                        {{prd.priceText}}
-                    </mat-card-content>
-                </mat-card>
-            </mat-expansion-panel>
+        <div class="row">
+          <div class="cell3">
+            <label class="row">Name: {{order.name}}</label>
+            <label class="row">Phone: {{order.phone}}</label>
+          </div>
+          <div class="cell3">
+            <label class="row">Address: {{order.address}}</label>
+            <a class="row" [href]="getMapURL(order.location)">Check Location</a>
+          </div>
+          <div class="cell3">
+            <label class="row">Payable: {{order.total}}</label>
+            <label class="row">Items: {{order.qty}}</label>
+          </div>
         </div>
-    </mat-tab>
-    <mat-tab label="Out for Deliver">
-        <ng-template matTabLabel>
-            <span [matBadge]="out.length" matBadgeOverlap="false" matBadgeColor="warn">Out for Deliver</span>
-        </ng-template>
-        <div *ngFor="let order of out;">
-            <mat-expansion-panel>
-                <mat-expansion-panel-header>
-                    <mat-panel-title>
-                        {{order.oid}}
-                    </mat-panel-title>
-                    <mat-panel-description>
-                        {{order.date.toMillis() | date:'yyyy/MM/dd h:mm:ss a'}}
-                    </mat-panel-description>
-                </mat-expansion-panel-header>
-                <p>
-                    Change Status:
-                    <mat-button-toggle-group name="fontStyle" aria-label="Font Style" [value]="order.status">
-                        <mat-button-toggle value="init" (change)="onValChange($event.value, order.oid)">init
-                        </mat-button-toggle>
-                        <mat-button-toggle value="In-Progress" (change)="onValChange($event.value, order.oid)">
-                            In-Progress</mat-button-toggle>
-                        <mat-button-toggle value="Out for Delivery" (change)="onValChange($event.value, order.oid)">Out
-                            for Delivery</mat-button-toggle>
-                        <mat-button-toggle value="Completed" (change)="onValChange($event.value, order.oid)">Completed
-                        </mat-button-toggle>
-                        <mat-button-toggle value="Cancel" (change)="onValChange($event.value, order.oid)">Canceled
-                        </mat-button-toggle>
-                    </mat-button-toggle-group>
-                </p>
-
-                <div class="row">
-                    <div class="cell3">
-                        <label class="row">Name: {{order.name}}</label>
-                        <label class="row">Phone: {{order.phone}}</label>
-                    </div>
-                    <div class="cell3">
-                        <label class="row">Address: {{order.address}}</label>
-                        <a class="row" [href]="getMapURL(order.location)">Check Location</a>
-                    </div>
-                    <div class="cell3">
-                        <label class="row">Payable: {{order.total}}</label>
-                        <label class="row">Items: {{order.qty}}</label>
-                    </div>
-                </div>
 
 
-                <mat-card *ngFor="let prd of order.order" class="example-card">
-                    <mat-card-header>
-                        <img mat-card-avatar [src]="prd.image" alt="">
-                        <div class="row">
-                            <div class="cell">
-                                <mat-card-title>{{prd.name}}</mat-card-title>
-                                <mat-card-subtitle>{{prd.variant}}</mat-card-subtitle>
-                            </div>
-                            <div class="cell">
-                                <mat-card-title>{{prd.qty}}</mat-card-title>
-                                <mat-card-subtitle>{{prd.tPrice}}</mat-card-subtitle>
-                            </div>
-                        </div>
-                    </mat-card-header>
-                    <mat-card-content class="cell">
-                        {{prd.mrpText}}
-                    </mat-card-content>
-                    <mat-card-content class="cell">
-                        {{prd.priceText}}
-                    </mat-card-content>
-                </mat-card>
-            </mat-expansion-panel>
+        <mat-card *ngFor="let prd of order.order" class="example-card">
+          <mat-card-header>
+            <img mat-card-avatar [src]="prd.image" alt="">
+            <div class="row">
+              <div class="cell">
+                <mat-card-title>{{prd.name}}</mat-card-title>
+                <mat-card-subtitle>{{prd.variant}}</mat-card-subtitle>
+              </div>
+              <div class="cell">
+                <mat-card-title>{{prd.qty}}</mat-card-title>
+                <mat-card-subtitle>{{prd.tPrice}}</mat-card-subtitle>
+              </div>
+            </div>
+          </mat-card-header>
+          <mat-card-content class="cell">
+            {{prd.mrpText}}
+          </mat-card-content>
+          <mat-card-content class="cell">
+            {{prd.priceText}}
+          </mat-card-content>
+        </mat-card>
+      </mat-expansion-panel>
+    </div>
+  </mat-tab>
+  <mat-tab label="Out for Deliver">
+    <ng-template matTabLabel>
+      <span [matBadge]="out.length" matBadgeOverlap="false" matBadgeColor="warn">Out for Deliver</span>
+    </ng-template>
+    <div *ngFor="let order of out;">
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{order.oid}}
+          </mat-panel-title>
+          <mat-panel-description>
+            {{order.date.toMillis() | date:'yyyy/MM/dd h:mm:ss a'}}
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <p>
+          Change Status:
+          <mat-button-toggle-group name="fontStyle" aria-label="Font Style" [value]="order.status">
+            <mat-button-toggle value="init" (change)="onValChange($event.value, order.oid)">init
+            </mat-button-toggle>
+            <mat-button-toggle value="In-Progress" (change)="onValChange($event.value, order.oid)">
+              In-Progress</mat-button-toggle>
+            <mat-button-toggle value="Out for Delivery" (change)="onValChange($event.value, order.oid)">Out
+              for Delivery</mat-button-toggle>
+            <mat-button-toggle value="Completed" (change)="onValChange($event.value, order.oid)">Completed
+            </mat-button-toggle>
+            <mat-button-toggle value="Cancel" (change)="onValChange($event.value, order.oid)">Canceled
+            </mat-button-toggle>
+          </mat-button-toggle-group>
+        </p>
+
+        <div class="row">
+          <div class="cell3">
+            <label class="row">Name: {{order.name}}</label>
+            <label class="row">Phone: {{order.phone}}</label>
+          </div>
+          <div class="cell3">
+            <label class="row">Address: {{order.address}}</label>
+            <a class="row" [href]="getMapURL(order.location)">Check Location</a>
+          </div>
+          <div class="cell3">
+            <label class="row">Payable: {{order.total}}</label>
+            <label class="row">Items: {{order.qty}}</label>
+          </div>
         </div>
-    </mat-tab>
-    <mat-tab label="Completed">
-        <ng-template matTabLabel>
-            <span [matBadge]="done.length" matBadgeOverlap="false" matBadgeColor="warn">Completed</span>
-        </ng-template>
-        <div *ngFor="let order of done;">
-            <mat-expansion-panel>
-                <mat-expansion-panel-header>
-                    <mat-panel-title>
-                        {{order.oid}}
-                    </mat-panel-title>
-                    <mat-panel-description>
-                        {{order.date.toMillis() | date:'yyyy/MM/dd h:mm:ss a'}}
-                    </mat-panel-description>
-                </mat-expansion-panel-header>
-                <p>
-                    Change Status:
-                    <mat-button-toggle-group name="fontStyle" aria-label="Font Style" [value]="order.status">
-                        <mat-button-toggle value="init" (change)="onValChange($event.value, order.oid)">init
-                        </mat-button-toggle>
-                        <mat-button-toggle value="In-Progress" (change)="onValChange($event.value, order.oid)">
-                            In-Progress</mat-button-toggle>
-                        <mat-button-toggle value="Out for Delivery" (change)="onValChange($event.value, order.oid)">Out
-                            for Delivery</mat-button-toggle>
-                        <mat-button-toggle value="Completed" (change)="onValChange($event.value, order.oid)">Completed
-                        </mat-button-toggle>
-                        <mat-button-toggle value="Cancel" (change)="onValChange($event.value, order.oid)">Canceled
-                        </mat-button-toggle>
-                    </mat-button-toggle-group>
-                </p>
 
-                <div class="row">
-                    <div class="cell3">
-                        <label class="row">Name: {{order.name}}</label>
-                        <label class="row">Phone: {{order.phone}}</label>
-                    </div>
-                    <div class="cell3">
-                        <label class="row">Address: {{order.address}}</label>
-                        <a class="row" [href]="getMapURL(order.location)">Check Location</a>
-                    </div>
-                    <div class="cell3">
-                        <label class="row">Payable: {{order.total}}</label>
-                        <label class="row">Items: {{order.qty}}</label>
-                    </div>
-                </div>
+        <mat-card *ngFor="let prd of order.order" class="example-card">
+          <mat-card-header>
+            <img mat-card-avatar [src]="prd.image" alt="">
+            <div class="row">
+              <div class="cell">
+                <mat-card-title>{{prd.name}}</mat-card-title>
+                <mat-card-subtitle>{{prd.variant}}</mat-card-subtitle>
+              </div>
+              <div class="cell">
+                <mat-card-title>{{prd.qty}}</mat-card-title>
+                <mat-card-subtitle>{{prd.tPrice}}</mat-card-subtitle>
+              </div>
+            </div>
+          </mat-card-header>
+          <mat-card-content class="cell">
+            {{prd.mrpText}}
+          </mat-card-content>
+          <mat-card-content class="cell">
+            {{prd.priceText}}
+          </mat-card-content>
+        </mat-card>
+      </mat-expansion-panel>
+    </div>
+  </mat-tab>
+  <mat-tab label="Completed">
+    <ng-template matTabLabel>
+      <span [matBadge]="done.length" matBadgeOverlap="false" matBadgeColor="warn">Completed</span>
+    </ng-template>
+    <div *ngFor="let order of done;">
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{order.oid}}
+          </mat-panel-title>
+          <mat-panel-description>
+            {{order.date.toMillis() | date:'yyyy/MM/dd h:mm:ss a'}}
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <p>
+          Change Status:
+          <mat-button-toggle-group name="fontStyle" aria-label="Font Style" [value]="order.status">
+            <mat-button-toggle value="init" (change)="onValChange($event.value, order.oid)">init
+            </mat-button-toggle>
+            <mat-button-toggle value="In-Progress" (change)="onValChange($event.value, order.oid)">
+              In-Progress</mat-button-toggle>
+            <mat-button-toggle value="Out for Delivery" (change)="onValChange($event.value, order.oid)">Out
+              for Delivery</mat-button-toggle>
+            <mat-button-toggle value="Completed" (change)="onValChange($event.value, order.oid)">Completed
+            </mat-button-toggle>
+            <mat-button-toggle value="Cancel" (change)="onValChange($event.value, order.oid)">Canceled
+            </mat-button-toggle>
+          </mat-button-toggle-group>
+        </p>
 
-
-                <mat-card *ngFor="let prd of order.order" class="example-card">
-                    <mat-card-header>
-                        <img mat-card-avatar [src]="prd.image" alt="">
-                        <div class="row">
-                            <div class="cell">
-                                <mat-card-title>{{prd.name}}</mat-card-title>
-                                <mat-card-subtitle>{{prd.variant}}</mat-card-subtitle>
-                            </div>
-                            <div class="cell">
-                                <mat-card-title>{{prd.qty}}</mat-card-title>
-                                <mat-card-subtitle>{{prd.tPrice}}</mat-card-subtitle>
-                            </div>
-                        </div>
-                    </mat-card-header>
-                    <mat-card-content class="cell">
-                        {{prd.mrpText}}
-                    </mat-card-content>
-                    <mat-card-content class="cell">
-                        {{prd.priceText}}
-                    </mat-card-content>
-                </mat-card>
-            </mat-expansion-panel>
+        <div class="row">
+          <div class="cell3">
+            <label class="row">Name: {{order.name}}</label>
+            <label class="row">Phone: {{order.phone}}</label>
+          </div>
+          <div class="cell3">
+            <label class="row">Address: {{order.address}}</label>
+            <a class="row" [href]="getMapURL(order.location)">Check Location</a>
+          </div>
+          <div class="cell3">
+            <label class="row">Payable: {{order.total}}</label>
+            <label class="row">Items: {{order.qty}}</label>
+          </div>
         </div>
-    </mat-tab>
+
+
+        <mat-card *ngFor="let prd of order.order" class="example-card">
+          <mat-card-header>
+            <img mat-card-avatar [src]="prd.image" alt="">
+            <div class="row">
+              <div class="cell">
+                <mat-card-title>{{prd.name}}</mat-card-title>
+                <mat-card-subtitle>{{prd.variant}}</mat-card-subtitle>
+              </div>
+              <div class="cell">
+                <mat-card-title>{{prd.qty}}</mat-card-title>
+                <mat-card-subtitle>{{prd.tPrice}}</mat-card-subtitle>
+              </div>
+            </div>
+          </mat-card-header>
+          <mat-card-content class="cell">
+            {{prd.mrpText}}
+          </mat-card-content>
+          <mat-card-content class="cell">
+            {{prd.priceText}}
+          </mat-card-content>
+        </mat-card>
+      </mat-expansion-panel>
+    </div>
+  </mat-tab>
 </mat-tab-group>

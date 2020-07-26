@@ -1,46 +1,46 @@
 <mat-tab-group backgroundColor="primary">
-    <mat-tab label="Out of Stock">
-        <ng-template matTabLabel>
-            <span [matBadge]="count[0]" matBadgeOverlap="false" matBadgeColor="warn">Out of Stock</span>
-        </ng-template>
-        <div *ngFor="let e of displayStock">
-            <mat-card *ngIf="e.stock <=0">
-                <div class="row">
-                    <p class="cell3">{{e.name}} </p>
-                    <p class="cell3">{{e.variant}} </p>
-                    <p class="cell3">{{e.stock}}</p>
-                    <p class="cell3">{{e.pID}}</p>
-                </div>
-            </mat-card>
+  <mat-tab label="Out of Stock">
+    <ng-template matTabLabel>
+      <span [matBadge]="count[0]" matBadgeOverlap="false" matBadgeColor="warn">Out of Stock</span>
+    </ng-template>
+    <div *ngFor="let e of displayStock">
+      <mat-card *ngIf="e.stock <=0">
+        <div class="row">
+          <p class="cell3">{{e.name}} </p>
+          <p class="cell3">{{e.variant}} </p>
+          <p class="cell3">{{e.stock}}</p>
+          <p class="cell3">{{e.pID}}</p>
         </div>
-    </mat-tab>
-    <mat-tab label="Low Stock">
-        <ng-template matTabLabel>
-            <span [matBadge]="count[1]" matBadgeOverlap="false" matBadgeColor="warn">Low Stock</span>
-        </ng-template>
-        <div *ngFor="let e of displayStock">
-            <mat-card *ngIf="e.stock < 11 && e.stock > 0">
-                <div class="row">
-                    <p class="cell3">{{e.name}} </p>
-                    <p class="cell3">{{e.variant}} </p>
-                    <p class="cell3">{{e.stock}}</p>
-                </div>
-            </mat-card>
+      </mat-card>
+    </div>
+  </mat-tab>
+  <mat-tab label="Low Stock">
+    <ng-template matTabLabel>
+      <span [matBadge]="count[1]" matBadgeOverlap="false" matBadgeColor="warn">Low Stock</span>
+    </ng-template>
+    <div *ngFor="let e of displayStock">
+      <mat-card *ngIf="e.stock < 11 && e.stock > 0">
+        <div class="row">
+          <p class="cell3">{{e.name}} </p>
+          <p class="cell3">{{e.variant}} </p>
+          <p class="cell3">{{e.stock}}</p>
         </div>
-    </mat-tab>
+      </mat-card>
+    </div>
+  </mat-tab>
 
-    <mat-tab label="Instock">
-        <ng-template matTabLabel>
-            <span [matBadge]="count[2]" matBadgeOverlap="false" matBadgeColor="warn">Instock</span>
-        </ng-template>
-        <div *ngFor="let e of displayStock">
-            <mat-card *ngIf="e.stock > 10">
-                <div class="row">
-                    <p class="cell3">{{e.name}} </p>
-                    <p class="cell3">{{e.variant}} </p>
-                    <p class="cell3">{{e.stock}}</p>
-                </div>
-            </mat-card>
+  <mat-tab label="Instock">
+    <ng-template matTabLabel>
+      <span [matBadge]="count[2]" matBadgeOverlap="false" matBadgeColor="warn">Instock</span>
+    </ng-template>
+    <div *ngFor="let e of displayStock">
+      <mat-card *ngIf="e.stock > 10">
+        <div class="row">
+          <p class="cell3">{{e.name}} </p>
+          <p class="cell3">{{e.variant}} </p>
+          <p class="cell3">{{e.stock}}</p>
         </div>
-    </mat-tab>
+      </mat-card>
+    </div>
+  </mat-tab>
 </mat-tab-group>

@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { OrdersService } from '../../shared/services/orders.service';
-import { NgForm } from "@angular/forms";
 import { Order } from 'src/app/shared/services/order';
-import { getLocaleDateFormat } from '@angular/common';
 import { MatDatepickerInputEvent } from '@angular/material';
 @Component({
   selector: 'app-orders',
@@ -22,7 +20,7 @@ export class OrdersComponent implements OnInit {
 
   ngOnInit() {
 
-    this.getDataFromDB()
+    this.getDataFromDB();
     console.log(this.orders);
 
   }
@@ -30,30 +28,14 @@ export class OrdersComponent implements OnInit {
     return new Date(this.toDate.getTime() - (days * 24 * 60 * 60 * 1000));
   }
   changeDate(type: string, event: MatDatepickerInputEvent<Date>) {
-    // this.events.push(`${type}: ${event.value}`);
-    // switch (type) {
-    //   case 'from':
-    //     // console.log(typeof(event.value));
-    //     this.fromDate = event.value;
-
-    //     break;
-
-    //   case 'to':
-    //     this.toDate = event.value;
-    //     break;
-
-    //   default:
-    //     break;
-    // }
     console.log(this.toDate);
-    
   }
   getDataFromDB() {
     console.log('inside get data');
     this.ordersService.getOrdersWithDate(this.fromDate, this.toDate).subscribe(res => {
       this.orders = [];
       res.forEach(element => {
-        let id = element.payload.doc.id;
+        const id = element.payload.doc.id;
         this.orders.push({ id, ...element.payload.doc.data() as Order });
         this.setValue();
       });
@@ -81,9 +63,7 @@ export class OrdersComponent implements OnInit {
     console.log(data.id);
 
     this.ordersService.updateOrder(data, data.id).then(res => {
-      /*do something here....maybe clear the form or give a success message*/
       console.log(res);
-      // this.setValue();
 
     });
 

@@ -9,7 +9,7 @@ body {
 
 body {
   background-color: rgba(0, 0, 255, 0.3);
-  background-image: url(https://i.ibb.co/SRNbdXJ/Bg-1920x1080.jpg);
+  background-image: url(./assets/bg-1920x1080.jpg);
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -36,7 +36,7 @@ body {
 .title {
   text-decoration: #ffdfeb;
   color: #ffffff;
-  
+
 }
 .title:active{
   text-decoration: #ffdfeb;

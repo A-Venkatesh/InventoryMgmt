@@ -5,10 +5,10 @@ import { MatChipInputEvent } from '@angular/material';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { ImgUploadService } from '../../shared/services/img-upload.service';
 import { map } from 'rxjs/operators';
-import { Product } from "../../shared/services/product";
-import { ProductService } from "../../shared/services/product.service";
+import { Product } from '../../shared/services/product';
+import { ProductService } from '../../shared/services/product.service';
 import { DatePipe } from '@angular/common';
-import { TranslationService } from "../../shared/services/translation.service";
+import { TranslationService } from '../../shared/services/translation.service';
 import { ActivatedRoute } from '@angular/router';
 import { StorageService } from 'src/app/shared/services/storage.service';
 import { Location } from '@angular/common';
@@ -26,7 +26,22 @@ export interface PreviewData {
   styleUrls: ['./edit-product.component.css']
 })
 export class EditProductComponent implements OnInit {
-  // angForm: FormGroup;
+
+  constructor(private location: Location, private ss: StorageService, private route: ActivatedRoute,
+              private ts: TranslationService, public datepipe: DatePipe, private snackBar: MatSnackBar,
+              private fb: FormBuilder, private is: ImgUploadService, private ps: ProductService) {
+    this.ss.sharedData.subscribe(storage => {
+      this.list = storage;
+    });
+    this.ss.sharedStocks.subscribe(storage => {
+      this.stocks = storage;
+    });
+  }
+
+
+  // convenience getters for easy access to form fields
+  get f() { return this.dynamicForm.controls; }
+  get t() { return this.f.variants as FormArray; }
 
   matchFound: boolean;
   displayProgress: boolean;
@@ -54,17 +69,7 @@ export class EditProductComponent implements OnInit {
   pID = 0;
   stocks = [];
 
-  constructor(private location: Location, private ss: StorageService, private route: ActivatedRoute, private ts: TranslationService, public datepipe: DatePipe, private _snackBar: MatSnackBar, private fb: FormBuilder, private is: ImgUploadService, private ps: ProductService) {
-    // this.createForm();
-    this.ss.sharedData.subscribe(storage => {
-      this.list = storage;
-      // console.log(JSON.stringify('size' + this.list.length));
-    });
-    this.ss.sharedStocks.subscribe(storage => {
-      this.stocks = storage;
-    });
-  }
-
+  private pRow: Product;
 
   form = this.fb.group({
     ProductName: ['', [Validators.required]],
@@ -78,11 +83,29 @@ export class EditProductComponent implements OnInit {
 
   });
 
+
+  dynamicForm: FormGroup;
+  submitted = false;
+  metoptions: string[] = ['Pc', 'g', 'Kg', 'Ltr', 'ml', 'cm'];
+  map = new Map();
+  ngOnInit() {
+
+    this.dynamicForm = this.fb.group({
+      numberOfVariants: [1],
+      variants: new FormArray([])
+    });
+    this.route.params.subscribe(params => {
+      this.id = params.id;
+      console.log(this.id);
+      this.setData();
+    });
+
+  }
+
   setData() {
 
     console.log(this.id);
     console.log(this.list);
-
     const product = this.list.find(p => p.id === this.id);
     console.log(product);
     this.pID = product.pID;
@@ -93,7 +116,7 @@ export class EditProductComponent implements OnInit {
     this.form.controls.ProductLocalName.setValue(product.ProductLocalName);
     this.form.controls.ProductDescription.setValue(product.ProductDescription);
     this.form.controls.ProductDetail.setValue(product.ProductDetail);
-    // this.form.controls.ProductKeys.setValue(this.keys); 
+    // this.form.controls.ProductKeys.setValue(this.keys);
     console.log(5);
     this.f.numberOfVariants.setValue(product.numberOfVariants);
 
@@ -101,7 +124,7 @@ export class EditProductComponent implements OnInit {
       this.t.push(this.fb.group({
         vID: [product.variants[i].vID],
         ProductMRP: [product.variants[i].ProductMRP, Validators.required],
-        ProductPrice: [product.variants[i].ProductPrice, [Validators.required, Validators.min(1), Validators.max(1000000),]],
+        ProductPrice: [product.variants[i].ProductPrice, [Validators.required, Validators.min(1), Validators.max(1000000), ]],
         quantity: [product.variants[i].quantity, Validators.required],
         metric: [product.variants[i].metric],
         imageAvl: [product.variants[i].imageAvl],
@@ -117,7 +140,6 @@ export class EditProductComponent implements OnInit {
     this.keys = product.ProductKeys;
   }
 
-  //text ='How are you';
   async getTransalation() {
     await this.ts.getText(this.form.controls.ProductName.value);
     await this.form.controls.ProductLocalName.setValue(this.ts.inTelugu);
@@ -139,10 +161,10 @@ export class EditProductComponent implements OnInit {
                 '';
         break;
       case 'ProductMRP':
-        return this.t.controls[i].get('ProductMRP').hasError('required') ? 'You must enter a value' : ''
+        return this.t.controls[i].get('ProductMRP').hasError('required') ? 'You must enter a value' : '';
         break;
       case 'quantity':
-        return this.t.controls[i].get('quantity').hasError('required') ? 'You must enter a value' : ''
+        return this.t.controls[i].get('quantity').hasError('required') ? 'You must enter a value' : '';
         break;
 
       case 'Suggestion':
@@ -171,32 +193,6 @@ export class EditProductComponent implements OnInit {
 
 
   }
-  private pRow: Product;
-
-
-
-  dynamicForm: FormGroup;
-  submitted = false;
-  metoptions: string[] = ['Pc', 'g', 'Kg', 'Ltr', 'ml', 'cm'];
-  ngOnInit() {
-
-    this.dynamicForm = this.fb.group({
-      numberOfVariants: [1],
-      variants: new FormArray([])
-    });
-    this.route.params.subscribe(params => {
-      this.id = params['id'];
-      console.log(this.id);
-
-      this.setData();
-    });
-
-    // this.dynamicForm.controls.numberOfVariants.setValue(1);
-  }
-
-  // convenience getters for easy access to form fields
-  get f() { return this.dynamicForm.controls; }
-  get t() { return this.f.variants as FormArray; }
 
   onChangeVariants(e) {
     console.log('onChangeVariants' + e.value);
@@ -234,19 +230,19 @@ export class EditProductComponent implements OnInit {
       console.log(this.map);
       console.log(this.form.value);
       // console.log(JSON.stringify(this.dynamicForm.value));
-      this.pRow = <Product>this.form.value;
+      this.pRow = this.form.value as Product;
       this.pRow.numberOfVariants = this.dynamicForm.value.numberOfVariants;
       let varArr = new Array();
       varArr = this.dynamicForm.value.variants;
       varArr.forEach(element => {
-        let key = varArr.indexOf(element);
+        const key = varArr.indexOf(element);
         element.vID = key;
         if (this.map.has(key)) {
 
           element.UploadedImages = this.map.get(key);
           element.UploadedImages.forEach(ele => {
             if (ele.fileUrl.data.display_url === undefined) {
-              ele.file = "";
+              ele.file = '';
             } else {
               ele.file = ele.fileUrl.data.display_url;
             }
@@ -259,10 +255,10 @@ export class EditProductComponent implements OnInit {
       });
       this.pRow.variants = this.dynamicForm.value.variants;
       console.log(this.pRow);
-      let date = new Date();
+      const date = new Date();
 
       this.pRow.pID = Number(this.datepipe.transform(date, 'yyMMddHHmmss'));
-      let data = <Product>this.pRow;
+      const data = this.pRow as Product;
 
 
       console.log(JSON.parse(JSON.stringify(data)));
@@ -299,14 +295,13 @@ export class EditProductComponent implements OnInit {
 
 
   openSnackBar(message: string) {
-    this._snackBar.open(message, '', {
+    this.snackBar.open(message, '', {
       duration: 2000,
     });
   }
-  map = new Map();
   onFileSelect(event, variant) {
     //  console.log('-------------------'+ this.dynamicForm.controls.variants.value.);
-    let index = this.t.controls.indexOf(variant);
+    const index = this.t.controls.indexOf(variant);
     this.files = event.target.files;
     console.log(this.files);
 
@@ -341,15 +336,15 @@ export class EditProductComponent implements OnInit {
   }
 
   Uploader(variant) {
-    let index = this.t.controls.indexOf(variant);
+    const index = this.t.controls.indexOf(variant);
     this.displayProgress = true;
 
-    let oneVar = this.map.get(index);
+    const oneVar = this.map.get(index);
     const fd = new FormData();
 
     oneVar.forEach(element => {
       console.log(element);
-      let position = oneVar.indexOf(element);
+      const position = oneVar.indexOf(element);
       fd.append('image', element.fileData, element.fileData.name);
       if (element.Progress < 98) {
         this.is.addImages(fd, element.fileData.name).subscribe(
@@ -388,7 +383,7 @@ export class EditProductComponent implements OnInit {
 
   removeImage(key: any, variant) {
 
-    let index = this.t.controls.indexOf(variant);
+    const index = this.t.controls.indexOf(variant);
     console.log(this.map.get(index));
     let imgArr = this.map.get(index);
 

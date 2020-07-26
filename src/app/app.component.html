@@ -1,16 +1,16 @@
-<div> 
+<div>
   <mat-toolbar color="primary" class="app-header">
-  <div><a  routerLink="" class="title">Delivery Yaar Inventory</a></div>
-  <span class="nav-tool-items">
-    <div  *ngIf="logCheck()">
-      <a mat-button  (click)="authService.SignOut()" >Log out</a>
-    </div>
-    <div  *ngIf="!logCheck()">
-    <a mat-button routerLink="sign-in" routerLinkActive="active">Log in</a>
-    <a mat-button mat-raised-button routerLink="register-user" routerLinkActive="active">Register</a>
-  </div>
-  </span>
-</mat-toolbar>
+    <div><a routerLink="" class="title">Delivery Yaar Inventory</a></div>
+    <span class="nav-tool-items">
+      <div *ngIf="logCheck()">
+        <a mat-button (click)="authService.SignOut()">Log out</a>
+      </div>
+      <div *ngIf="!logCheck()">
+        <a mat-button routerLink="sign-in" routerLinkActive="active">Log in</a>
+        <a mat-button mat-raised-button routerLink="register-user" routerLinkActive="active">Register</a>
+      </div>
+    </span>
+  </mat-toolbar>
 </div>
 <div>
   <router-outlet></router-outlet>

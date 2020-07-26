@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { StorageService } from 'src/app/shared/services/storage.service';
-import { Product } from "src/app/shared/services/product";
+import { Product } from 'src/app/shared/services/product';
 import { ProductService } from 'src/app/shared/services/product.service';
 import { MatTableDataSource, MatPaginator, MatSlideToggleChange } from '@angular/material';
 import { animate, state, style, transition, trigger } from '@angular/animations';
@@ -31,17 +31,18 @@ export class ProductListComponent implements OnInit {
   // columnsToDisplay = ['name', 'weight', 'symbol', 'position'];
   expandedElement: Product | null;
   public dataSource = new MatTableDataSource<Product>(this.list);
-  stocks= [];
+  stocks = [];
 
 
-  constructor(private router: Router, public ss: StorageService, private ps: ProductService, private deviceService: DeviceDetectorService, private tr: TrendService) {
+  constructor(private router: Router, public ss: StorageService, private ps: ProductService,
+              private deviceService: DeviceDetectorService, private tr: TrendService) {
     this.isMobile();
     this.isDesktop();
     if (this.isDesktopvar) {
-      this.columnsToDisplay = ['pID', "ProductName", "ProductLocalName", 'ProductOwner', 'numberOfVariants', 'Category', 'SubCategory'];
+      this.columnsToDisplay = ['pID', 'ProductName', 'ProductLocalName', 'ProductOwner', 'numberOfVariants', 'Category', 'SubCategory'];
 
     } else {
-      this.columnsToDisplay = ['pID', "ProductName", "ProductLocalName", 'ProductOwner', 'numberOfVariants'];
+      this.columnsToDisplay = ['pID', 'ProductName', 'ProductLocalName', 'ProductOwner', 'numberOfVariants'];
 
     }
     this.ss.sharedData.subscribe(storage => {
@@ -60,8 +61,8 @@ export class ProductListComponent implements OnInit {
         return {
           id: item.payload.doc.id,
           ...item.payload.doc.data() as Product
-        }
-      })
+        };
+      });
       this.setData();
     });
     this.tr.getTrends().subscribe(actionArray => {
@@ -69,8 +70,8 @@ export class ProductListComponent implements OnInit {
         return {
           id: item.payload.doc.id,
           ...item.payload.doc.data() as Product
-        }
-      })
+        };
+      });
 // this.ss.nextTrend(this.keyP);
     });
 
@@ -92,9 +93,9 @@ export class ProductListComponent implements OnInit {
   }
 
   getStockValue(fID, vID){
-    const id = fID+'_'+vID;
-const product =this.stocks.find(p => p.id === id);
-    return product === undefined? 0: product.value;
+    const id = fID + '_' + vID;
+    const product = this.stocks.find(p => p.id === id);
+    return product === undefined ? 0 : product.value;
 
   }
   applyFilter(event: Event) {
@@ -140,10 +141,8 @@ const product =this.stocks.find(p => p.id === id);
     console.log(id);
 
     this.ps.deleteProduct(id).then(res => {
-      /*do something here....maybe clear the form or give a success message*/
       console.log(res);
-      this.ps.deleteStock(id,noOfVar, this.stocks);
-
+      this.ps.deleteStock(id, noOfVar, this.stocks);
     });
 
   }
@@ -162,17 +161,13 @@ const product =this.stocks.find(p => p.id === id);
     console.log(id);
     console.log($event);
     if ($event.checked) {
-      let data = this.list.find(p => p.id === id);
+      const data = this.list.find(p => p.id === id);
       data.fID = data.id;
       delete data.id;
       console.log(data);
-      
       this.tr.createTrend(data);
-      // this.keyP.push(this.list.find(p=> p.id === id))
     } else {
-      // this.keyP.splice(this.list.indexOf(p => p.id === id), 1)
       console.log(this.keyP.find(p => p.pID === this.list.find(p => p.id === id).pID).id);
-      
       this.tr.deleteTrend(this.keyP.find(p => p.pID === this.list.find(p => p.id === id).pID).id);
     }
     console.log(this.keyP);

@@ -18,7 +18,8 @@ export class TrendMgmtComponent implements OnInit {
   pList = [];
   data = [];
   cols = 1;
-  constructor(private ss: StorageService, private tr: TrendService, private ps: ProductService, private deviceService: DeviceDetectorService) {
+  constructor(private ss: StorageService, private tr: TrendService, private ps: ProductService,
+              private deviceService: DeviceDetectorService) {
     this.isMobile();
     this.isDesktop();
 
@@ -41,30 +42,28 @@ export class TrendMgmtComponent implements OnInit {
         return {
           id: item.payload.doc.id,
           ...item.payload.doc.data() as Product
-        }
+        };
 
-      })
+      });
       console.log(this.tList);
 
     });
   }
 
   reload() {
-    let map = new Map();
+    const map = new Map();
     this.data = [];
     this.ps.getProducts().subscribe(actionArray => {
       this.pList = actionArray.map(item => {
         return {
           id: item.payload.doc.id,
           ...item.payload.doc.data() as Product
-        }
-      })
+        };
+      });
 
       this.pList.forEach(element => {
-        // delete element.id;
-        const a ='';
+        const a = '';
         console.log(typeof(element.Category));
-        
         const key = element.Category.trim();
         let da = [];
         if (map.has(key)) {

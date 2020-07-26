@@ -1,5 +1,5 @@
 export interface Order {
-    uid: string;
+  uid: string;
   oid: string;
   order: Array<any>;
   status: string;

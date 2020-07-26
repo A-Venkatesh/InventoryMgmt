@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 // Reactive Form
-import { ReactiveFormsModule } from "@angular/forms";
+import { ReactiveFormsModule } from '@angular/forms';
 
 // App routing modules
 import { AppRoutingModule } from './app-routing.module';
@@ -16,13 +16,13 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
 import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
 
 // Firebase services + enviorment module
-import { AngularFireModule } from "@angular/fire";
-import { AngularFireAuthModule } from "@angular/fire/auth";
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from '../environments/environment';
 
 // Auth service
-import { AuthService } from "./auth.service";
+import { AuthService } from './auth.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularMaterialModule } from './angular-material/angular-material.module';
@@ -31,18 +31,18 @@ import { FlexLayoutModule, LAYOUT_CONFIG, BREAKPOINT } from '@angular/flex-layou
 import { FormsModule } from '@angular/forms';
 import { OrdersComponent } from './components/orders/orders.component';
 import { OrderListComponent } from './components/order-list/order-list.component';
-import { OrdersService } from "./shared/services/orders.service";
+import { OrdersService } from './shared/services/orders.service';
 import { AddProductComponent } from './components/add-product/add-product.component';
 
 
-import {DeviceDetectorModule} from 'ngx-device-detector';
+import { DeviceDetectorModule } from 'ngx-device-detector';
 import { HttpClientModule } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
-import { StorageService } from "./shared/services/storage.service";
+import { StorageService } from './shared/services/storage.service';
 import { ProductListComponent } from './components/product-list/product-list.component';
 import { EditProductComponent } from './components/edit-product/edit-product.component';
 import { TrendMgmtComponent } from './components/trend-mgmt/trend-mgmt.component';
-import { StockMgmtComponent } from './components/stock-mgmt/stock-mgmt.component'
+import { StockMgmtComponent } from './components/stock-mgmt/stock-mgmt.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -77,7 +77,7 @@ import { StockMgmtComponent } from './components/stock-mgmt/stock-mgmt.component
 
 
   ],
-  providers: [AuthService,OrdersService,DatePipe, StorageService],
+  providers: [AuthService, OrdersService, DatePipe, StorageService],
   bootstrap: [AppComponent]
 })
 

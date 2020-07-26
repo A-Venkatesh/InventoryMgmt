@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { OrdersService } from "../../shared/services/orders.service";
+import { OrdersService } from '../../shared/services/orders.service';
 import { Product } from 'src/app/shared/services/product';
 import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 import { animate, state, style, transition, trigger } from '@angular/animations';
@@ -19,7 +19,7 @@ import { CsvService } from 'src/app/shared/services/csv.service';
   styleUrls: ['./order-list.component.css']
 })
 export class OrderListComponent implements OnInit {
-  public columnsToDisplay = ['oid', "date", "status"];
+  public columnsToDisplay = ['oid', 'date', 'status'];
   public colums = ['ID', 'Name', 'LName'];
   list = [];
 
@@ -34,7 +34,7 @@ export class OrderListComponent implements OnInit {
     this.ordersService.getOrders().subscribe(res => {
       this.list = [];
       res.forEach(element => {
-        let id = element.payload.doc.id;
+        const id = element.payload.doc.id;
         this.list.push({ id, ...element.payload.doc.data() as Order });
       });
       this.setData();
@@ -65,12 +65,10 @@ export class OrderListComponent implements OnInit {
   }
 
   download() {
-    console.log("Download methord");
-    let now = new Date();
+    console.log('Download methord');
+    const now = new Date();
     console.log(now.toLocaleDateString());
-
     this.csv.downloadFile(this.dataSource.filteredData, 'Orders' + now.toLocaleDateString());
-
   }
 
 }

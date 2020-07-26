@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from "../../auth.service";
+import { AuthService } from '../../auth.service';
 import { DeviceDetectorService } from 'ngx-device-detector';
 @Component({
   selector: 'app-dashboard',
@@ -25,15 +25,15 @@ export class DashboardComponent implements OnInit {
   public detectDevice() {
     this.deviceInfo = this.deviceService.getDeviceInfo();
   }
- 
+
   public isMobile() {
     this.isMobilevar = this.deviceService.isMobile();
   }
- 
+
   public isTablet() {
     this.isTabletvar = this.deviceService.isTablet();
   }
- 
+
   public isDesktop() {
     this.isDesktopvar = this.deviceService.isDesktop();
   }

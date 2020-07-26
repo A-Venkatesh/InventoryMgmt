@@ -1,5 +1,5 @@
-import { Component, OnInit} from '@angular/core';
-import { AuthService } from "./auth.service";
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from './auth.service';
 
 @Component({
   selector: 'app-root',
@@ -10,13 +10,13 @@ export class AppComponent implements OnInit {
   title = 'Inventory';
   constructor(public authService: AuthService) { }
 
-  ngOnInit(){
-    
+  ngOnInit() {
+
   }
-  logCheck(){
+  logCheck() {
     if (this.authService.isLoggedIn) {
       return true;
-    } else {  
+    } else {
       return false;
     }
   }
