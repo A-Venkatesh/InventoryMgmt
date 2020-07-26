@@ -3,7 +3,7 @@
 }
 
 .example-container {
-   margin-top: 40px;
+   margin-top: 62px;
    min-height: 540px;
    background-color: rgba(0, 0, 255, 0.3);
 }
@@ -18,8 +18,12 @@
    width: 100%;
    text-align: center;
  }
- 
+
  .inner {
-   margin-top: 28px;
+   margin-top: 50px;
    display: inline-block;
+ }
+
+ .mat-button-toggle-group {
+  width: 100%;
  }
