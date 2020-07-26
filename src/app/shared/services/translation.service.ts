@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import axios from '../../../../node_modules/axios';
+import { trans } from '../../../DY/translation_API';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +24,7 @@ export class TranslationService {
       'headers': {
         'content-type': 'application/octet-stream',
         'x-rapidapi-host': 'translated-mymemory---translation-memory.p.rapidapi.com',
-        'x-rapidapi-key': '8499b29baemsh2b35fe6042fe3c5p1e4141jsn22ca4819ecad',
+        'x-rapidapi-key': trans.key,
         'useQueryString': true
       }, 'params': {
         'mt': '1',

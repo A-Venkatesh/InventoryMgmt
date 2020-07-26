@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpEvent, HttpErrorResponse, HttpEventType } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { img } from '../../../DY/imgBB_API';
 
 @Injectable({
   providedIn: 'root'
@@ -8,13 +9,13 @@ import { map } from 'rxjs/operators';
 export class ImgUploadService {
 
   uri = 'https://api.imgbb.com/1/upload';
-  key = '6ed3942e8c6f6f9a839e4e1e93cfe787';
+  key = img.key;
   prog = '';
 
   constructor(private http: HttpClient) { }
 
   addImages(fileData: any, name: string) {
-    // console.log('00000000000' + fileData);
+
     return this.http.post(`${this.uri}` + '?key=' + this.key, fileData, {
       reportProgress: true,
       observe: 'events'
