@@ -1,5 +1,6 @@
 {
   "projects": {
-    "inventory": "delivery-yaar"
+    "inventory": "delivery-yaar",
+    "default": "delivery-yaar"
   }
 }
