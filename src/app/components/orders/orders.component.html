@@ -34,7 +34,7 @@
         <p>
           Change Status:
           <mat-button-toggle-group name="fontStyle" aria-label="Font Style" [value]="order.status">
-            <mat-button-toggle value="init" (change)="onValChange($event.value, order.oid)">init
+            <mat-button-toggle value="Order Placed" (change)="onValChange($event.value, order.oid)">init
             </mat-button-toggle>
             <mat-button-toggle value="In-Progress" (change)="onValChange($event.value, order.oid)">
               In-Progress</mat-button-toggle>
