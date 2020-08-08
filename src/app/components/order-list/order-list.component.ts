@@ -31,11 +31,12 @@ export class OrderListComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   ngOnInit() {
-    this.ordersService.getOrders().subscribe(res => {
+    const events = this.ordersService.getOrders();
+    events.get().toPromise().then((querySnapshot) => {
       this.list = [];
-      res.forEach(element => {
-        const id = element.payload.doc.id;
-        this.list.push({ id, ...element.payload.doc.data() as Order });
+      querySnapshot.forEach((doc) => {
+        const id = doc.id;
+        this.list.push({ id, ...doc.data() as Order });
       });
       this.setData();
     });

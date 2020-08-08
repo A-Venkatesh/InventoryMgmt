@@ -7,6 +7,7 @@ export interface Product {
   ProductDetail: string;
   ProductOwner: string;
   ProductKeys: string[];
+  SKey: string;
   Category: string;
   SubCategory: string;
   numberOfVariants: number;

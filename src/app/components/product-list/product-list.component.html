@@ -43,7 +43,10 @@
         <div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
           <mat-card>
             <div class="row">
-              <div class="cell3"></div>
+              <div class="cell3">
+                <span>Special Tag:</span>
+                <p>{{element.SKey}}</p>
+              </div>
               <div class="cell3"><button mat-button (click)="onEdit(element.id)">Edit</button></div>
               <div class="cell3"><button mat-button
                   (click)="onDelete(element.id, element.numberOfVariants)">Delete</button></div>

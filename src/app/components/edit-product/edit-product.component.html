@@ -51,18 +51,26 @@
       </div>
     </div>
     <!-- Key -->
-    <div>
-      <mat-form-field class="example-full-width">
-        <mat-chip-list #chipList aria-label="Category selection">
-          <mat-chip [selectable]="selectable" [removable]="removable" (removed)="remove(cat)" *ngFor="let cat of keys">
-            {{cat}}
-            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-          </mat-chip>
-          <input placeholder="Key Words" [matChipInputFor]="chipList"
-            [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
-            (matChipInputTokenEnd)="add($event)">
-        </mat-chip-list>
-      </mat-form-field>
+    <div class="row">
+      <div class="cell">
+        <mat-form-field class="example-full-width">
+          <mat-chip-list #chipList aria-label="Category selection">
+            <mat-chip [selectable]="selectable" [removable]="removable" (removed)="remove(cat)" *ngFor="let cat of keys">
+              {{cat}}
+              <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+            </mat-chip>
+            <input placeholder="Key Words" [matChipInputFor]="chipList"
+              [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+              (matChipInputTokenEnd)="add($event)">
+          </mat-chip-list>
+        </mat-form-field>
+      </div>
+      <div class="cell">
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Special Key" formControlName="SKey" >
+          <!-- <mat-error *ngIf="!form.controls['SubCategory'].valid">{{getErrorMessage('SubCategory', 0)}}</mat-error> -->
+        </mat-form-field>
+      </div>
     </div>
 
   </form>

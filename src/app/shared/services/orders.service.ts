@@ -27,7 +27,7 @@ export class OrdersService {
   }
 
   getOrders() {
-    return this.firestore.collection('Orders', ref => ref.orderBy('oid', 'desc')).snapshotChanges();
+    return this.firestore.collection('Orders', ref => ref.orderBy('oid', 'desc'));
   }
   getOrdersWithDate(from, to) {
     // console.log(from + '         ' + to);

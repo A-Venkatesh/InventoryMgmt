@@ -65,6 +65,7 @@ export class AddProductComponent implements OnInit {
     ProductDetail: [''],
     ProductOwner: ['', [Validators.required]],
     ProductKeys: [this.keys],
+    SKey: [''],
     Category: ['', [Validators.required]],
     SubCategory: ['', [Validators.required]],
 
@@ -150,7 +151,7 @@ export class AddProductComponent implements OnInit {
   }
 
   onChangeVariants(e) {
-    //console.log('onChangeVariants' + e.value);
+    // console.log('onChangeVariants' + e.value);
 
     const numberOfVariants = e.value || 0;
     if (this.t.length < numberOfVariants) {
@@ -181,7 +182,7 @@ export class AddProductComponent implements OnInit {
   onFileSelect(event, variant) {
     const index = this.t.controls.indexOf(variant);
     this.files = event.target.files;
-    //console.log(this.files);
+    // console.log(this.files);
 
     for (const sta of this.files) {
 
@@ -197,8 +198,8 @@ export class AddProductComponent implements OnInit {
         fileData = sta;
         const viewFile: PreviewData = { file, fileData, Progress, fileUrl };
         let variantArray = new Array();
-        //console.log('map size :' + this.map.size);
-        //console.log(viewFile);
+        // console.log('map size :' + this.map.size);
+        // console.log(viewFile);
 
         if (this.map.size > 0 && this.map.get(index) !== undefined) {
           variantArray = this.map.get(index);
@@ -209,7 +210,7 @@ export class AddProductComponent implements OnInit {
       };
 
     }
-    //console.log(this.map);
+    // console.log(this.map);
 
   }
 
@@ -221,7 +222,7 @@ export class AddProductComponent implements OnInit {
     const fd = new FormData();
 
     oneVar.forEach(element => {
-      //console.log(element);
+      // console.log(element);
       const position = oneVar.indexOf(element);
       fd.append('image', element.fileData, element.fileData.name);
       if (element.Progress < 98) {
@@ -229,21 +230,21 @@ export class AddProductComponent implements OnInit {
           (res) => {
             this.serverData = res;
             if (typeof this.serverData === 'string') {
-              //console.log('if');
-              //console.log(res);
+              // console.log('if');
+              // console.log(res);
             } else if (res.hasOwnProperty('data')) {
-              //console.log('pdata');
-              //console.log(res);
+              // console.log('pdata');
+              // console.log(res);
               element.fileUrl = this.serverData;
               oneVar[position] = element;
               this.map.set(index, oneVar);
-              //console.log(map);
+              // console.log(map);
               this.openSnackBar('Upload Success!!! ' + element.fileData.name);
 
             } else {
-              //console.log('else');
-              //console.log(this.serverData.fname);
-              //console.log(this.serverData.message);
+              // console.log('else');
+              // console.log(this.serverData.fname);
+              // console.log(this.serverData.message);
               const a = this.serverData.fname;
               const b = oneVar[position];
               b.Progress = this.serverData.message;
@@ -254,7 +255,7 @@ export class AddProductComponent implements OnInit {
           (err) => {
             this.openSnackBar('Failed to Upload File: ' + element.fileData.name);
             this.error = err;
-            //console.log(this.error);
+            // console.log(this.error);
           }
         );
       }
@@ -264,11 +265,11 @@ export class AddProductComponent implements OnInit {
   removeImage(key: any, variant) {
 
     const index = this.t.controls.indexOf(variant);
-    //console.log(this.map.get(index));
+    // console.log(this.map.get(index));
     let imgArr = this.map.get(index);
 
     imgArr = imgArr.filter(obj => obj !== key);
-    //console.log(imgArr);
+    // console.log(imgArr);
     this.map.set(index, imgArr);
     // variant.set('UploadedImages').value = variant.get('UploadedImages').value.delete(key);
   }
@@ -278,9 +279,9 @@ export class AddProductComponent implements OnInit {
 
     const input = event.input;
     const value = event.value;
-    //console.log('value' + event);
-    //console.log(input);
-    //console.log('vs  ' + this.keys);
+    // console.log('value' + event);
+    // console.log(input);
+    // console.log('vs  ' + this.keys);
 
     // Add our category
     if ((value || '').trim()) {
@@ -297,7 +298,7 @@ export class AddProductComponent implements OnInit {
   }
 
   remove(key: any): void {
-    //console.log(this.keys);
+    // console.log(this.keys);
     this.keys = this.keys.filter(obj => obj !== key);
   }
 
@@ -308,10 +309,10 @@ export class AddProductComponent implements OnInit {
     if (this.dynamicForm.invalid || this.form.invalid) {
       this.openSnackBar('Invalid Data');
     } else {
-      //console.log(this.form);
-      //console.log(this.dynamicForm);
-      //console.log(this.map);
-      //console.log(this.form.value);
+      // console.log(this.form);
+      // console.log(this.dynamicForm);
+      // console.log(this.map);
+      // console.log(this.form.value);
       // console.log(JSON.stringify(this.dynamicForm.value));
       this.pRow = (this.form.value as Product);
       this.pRow.numberOfVariants = this.dynamicForm.value.numberOfVariants;
@@ -337,23 +338,23 @@ export class AddProductComponent implements OnInit {
 
       });
       this.pRow.variants = this.dynamicForm.value.variants;
-      //console.log(this.pRow);
+      // console.log(this.pRow);
       const date = new Date();
 
       this.pRow.pID = Number(this.datepipe.transform(date, 'yyMMddHHmmss'));
       const data = this.pRow as Product;
 
 
-      //console.log(JSON.parse(JSON.stringify(data)));
+      // console.log(JSON.parse(JSON.stringify(data)));
       // this.stockUpdate(data.pID, data.variants);
       this.ps.getPID().then(result => {
         /*do something here....maybe clear the form or give a success message*/
-        //console.log(result);
+        // console.log(result);
         const pid = result.pid;
         data.pID = pid;
         this.ps.createProduct(JSON.parse(JSON.stringify(data)), pid).then(result => {
           /*do something here....maybe clear the form or give a success message*/
-          //console.log(result);
+          // console.log(result);
           this.openSnackBar('Product as been added');
 
         });
