@@ -117,6 +117,8 @@ export class EditProductComponent implements OnInit {
     this.form.controls.ProductLocalName.setValue(product.ProductLocalName);
     this.form.controls.ProductDescription.setValue(product.ProductDescription);
     this.form.controls.ProductDetail.setValue(product.ProductDetail);
+    this.form.controls.SKey.setValue(product.SKey);
+
     // this.form.controls.ProductKeys.setValue(this.keys);
     // console.log(5);
     this.f.numberOfVariants.setValue(product.numberOfVariants);

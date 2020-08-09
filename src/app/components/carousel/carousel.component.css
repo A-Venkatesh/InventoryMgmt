@@ -1,0 +1,16 @@
+.main {
+  margin: 0 auto;
+  max-width: 700px;
+  /* margin-top: 100; */
+  }
+  ::ng-deep .mat-form-field-flex > .mat-form-field-infix { padding: 0.4em 0px !important;}
+  ::ng-deep .mat-form-field-label-wrapper { top: -1.5em; }
+
+  ::ng-deep .mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label {
+      transform: translateY(-1.1em) scale(.75);
+      width: 133.33333%;
+  }
+
+  .bs-linebreak {
+    height:10px;
+  }

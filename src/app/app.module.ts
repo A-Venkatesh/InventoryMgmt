@@ -43,6 +43,7 @@ import { ProductListComponent } from './components/product-list/product-list.com
 import { EditProductComponent } from './components/edit-product/edit-product.component';
 import { TrendMgmtComponent } from './components/trend-mgmt/trend-mgmt.component';
 import { StockMgmtComponent } from './components/stock-mgmt/stock-mgmt.component';
+import { CarouselComponent } from './components/carousel/carousel.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,6 +59,7 @@ import { StockMgmtComponent } from './components/stock-mgmt/stock-mgmt.component
     EditProductComponent,
     TrendMgmtComponent,
     StockMgmtComponent,
+    CarouselComponent,
 
   ],
   imports: [

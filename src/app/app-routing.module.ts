@@ -1,3 +1,4 @@
+import { CarouselComponent } from './components/carousel/carousel.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -49,6 +50,10 @@ const routes: Routes = [
       {
         path: 'trend',
         component: TrendMgmtComponent // another child route component that the router renders
+      },
+      {
+        path: 'crl',
+        component: CarouselComponent // another child route component that the router renders
       }
     ],
     canActivate: [AuthGuard]

@@ -157,4 +157,22 @@ export class ProductService {
     }
     this.updateStock({ data: stocks });
   }
+
+  getAd() {
+
+    return this.firestore.collection('ad').doc('slide');
+
+  }
+  updateAd(data, id = 'slide') {
+    return new Promise<any>((resolve, reject) => {
+      this.firestore
+        .collection('ad')
+        .doc(id).update({ ...data }).then(res => { resolve('sucess');
+                                                   window.alert('Ads updated successfully'); }
+                                                   , err => {
+                                                    window.alert('ERROR try again');
+                                                    reject(err)
+                                                   });
+    });
+  }
 }

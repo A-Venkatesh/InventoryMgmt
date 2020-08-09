@@ -1,0 +1,82 @@
+<mat-card class="container w-75">
+
+  <div class="row">
+    <div class="col-6"> <input type="file" name="photo" (change)="uploadFile($event)"></div>
+    <div class="col-4">
+      <div>{{ uploadPercent | async }}</div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 bs-linebreak">
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-8 border-0">
+    <a [href]="downloadURL | async">{{ downloadURL | async }}</a>
+    </div>
+    <div class="col-2">
+      <button mat-raised-button color="Accent" (click)="copyMessage()">Copy</button>
+      <!-- <button  -->
+    </div>
+
+  </div>
+  <div class="row">
+    <div class="col-md-12 bs-linebreak">
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <mat-form-field appearance="outline">
+        <mat-label>AD 1</mat-label>
+        <input matInput placeholder="Special Key" [(ngModel)]="ads[0].key">
+        <mat-icon matSuffix>vpn_key</mat-icon>
+      </mat-form-field>
+    </div>
+    <div class="col-8 ml-1">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Image</mat-label>
+        <input matInput placeholder="URL" [(ngModel)]="ads[0].value">
+        <mat-icon matSuffix>image</mat-icon>
+      </mat-form-field>
+    </div>
+
+  </div>
+  <div class="row">
+    <div class="col">
+      <mat-form-field appearance="outline">
+        <mat-label>AD 2</mat-label>
+        <input matInput placeholder="Special Key" [(ngModel)]="ads[1].key">
+        <mat-icon matSuffix>vpn_key</mat-icon>
+      </mat-form-field>
+    </div>
+    <div class="col-8 ml-1">
+      <mat-form-field appearance="outline"class="w-100" >
+        <mat-label>Image</mat-label>
+        <input matInput placeholder="URL" [(ngModel)]="ads[1].value">
+        <mat-icon matSuffix>image</mat-icon>
+      </mat-form-field>
+    </div>
+
+    <!-- <label text="AD 2"></label> -->
+  </div>
+  <div class="row">
+    <div class="col">
+      <mat-form-field appearance="outline">
+        <mat-label>AD 3</mat-label>
+        <input matInput placeholder="Special Key" [(ngModel)]="ads[2].key">
+        <mat-icon matSuffix>vpn_key</mat-icon>
+      </mat-form-field>
+    </div>
+    <div class="col-8 ml-1">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Image</mat-label>
+        <input matInput placeholder="URL" [(ngModel)]="ads[2].value">
+        <mat-icon matSuffix>image</mat-icon>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <button mat-raised-button color="primary" (click)="modifyAd()">Update</button>
+</mat-card>
