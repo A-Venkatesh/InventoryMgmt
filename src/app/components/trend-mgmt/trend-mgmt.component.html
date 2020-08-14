@@ -5,7 +5,7 @@
         <mat-card class="row grid-item" *ngFor="let t of tList">
           <mat-card-content>
             <button class="btn" (click)="delete(t.id)">X</button>
-            <img [src]="t.variants[0].UploadedImages[0].file">
+            <img [src]="t.variants[0].UploadedImages[0] !== undefined ? t.variants[0].UploadedImages[0].file : 'https://upload.wikimedia.org/wikipedia/commons/0/0a/No-image-available.png'">
           </mat-card-content>
           <div class="cell">
             <div class="row">
@@ -41,7 +41,7 @@
                 </mat-panel-description>
               </mat-expansion-panel-header>
               <p style="text-align: center;">
-                <img [src]="e.variants[0].UploadedImages[0].file">
+                <img [src]="e.variants[0].UploadedImages[0] !== undefined ? e.variants[0].UploadedImages[0].file : 'https://upload.wikimedia.org/wikipedia/commons/0/0a/No-image-available.png'">
               </p>
             </mat-expansion-panel>
 
