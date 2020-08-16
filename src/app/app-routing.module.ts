@@ -45,7 +45,7 @@ const routes: Routes = [
       },
       {
         path: '',
-        component: ProductListComponent // another child route component that the router renders
+        component: OrdersComponent // another child route component that the router renders
       },
       {
         path: 'trend',

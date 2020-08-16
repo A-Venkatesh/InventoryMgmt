@@ -11,7 +11,7 @@ export class DashboardComponent implements OnInit {
   public isMobilevar = false;
   public isTabletvar = false;
   public isDesktopvar = false;
-
+  opened: boolean;
   constructor(public authService: AuthService, private deviceService: DeviceDetectorService) {
     this.detectDevice();
     this.isMobile();

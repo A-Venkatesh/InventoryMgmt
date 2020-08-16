@@ -2,11 +2,11 @@
 
   <div class="row" style="background:rgba(255,255,255, 0.5);">
 
-    <mat-form-field class="cell">
+    <mat-form-field class="w-75 cell">
       <mat-label>Search</mat-label>
       <input matInput (keyup)="applyFilter($event)" placeholder="Ex. In-Progress" #input>
     </mat-form-field>
-    <p class="cell" style="text-align: right;">
+    <p class="w-25 cell" style="text-align: right;">
       <button mat-fab color="primary" (click)="download()">
         <mat-icon>get_app</mat-icon>
       </button>

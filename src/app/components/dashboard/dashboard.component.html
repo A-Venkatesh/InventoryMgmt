@@ -19,7 +19,7 @@
 
 <!-- Mobile view -->
 <div *ngIf="!isDesktopvar" class="outer">
-  <div class="inner">
+  <!-- <div class="inner">
     <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
       <mat-button-toggle mat-list-item routerLink="all">Product</mat-button-toggle>
       <mat-button-toggle mat-list-item routerLink="order">Order</mat-button-toggle>
@@ -28,6 +28,16 @@
       <mat-button-toggle mat-list-item routerLink="trend">Featured</mat-button-toggle>
       <mat-button-toggle mat-list-item routerLink="crl">Carousel</mat-button-toggle>
     </mat-button-toggle-group>
-  </div>
+  </div> -->
+  <ul>
+    <li><a routerLink="all">Product</a></li>
+    <li><a routerLink="order">Order</a></li>
+    <li><a routerLink="olist">Order List</a></li>
+    <li><a routerLink="add">Add</a></li>
+    <li><a routerLink="trend">Featured</a></li>
+    <li><a  routerLink="crl">Carousel</a></li>
+
+    <!-- <li><a class="active" href="#home">Home</a></li> -->
+  </ul>
   <router-outlet></router-outlet>
 </div>

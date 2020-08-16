@@ -1,4 +1,4 @@
-<mat-card class="container w-75">
+<mat-card class="container main">
 
   <div class="row">
     <div class="col-6"> <input type="file" name="photo" (change)="uploadFile($event)"></div>
@@ -13,9 +13,9 @@
 
   <div class="row">
     <div class="col-8 border-0">
-    <a [href]="downloadURL | async">{{ downloadURL | async }}</a>
+      <a [href]="downloadURL | async">{{ downloadURL | async }}</a>
     </div>
-    <div class="col-2">
+    <div class="col-4">
       <button mat-raised-button color="Accent" (click)="copyMessage()">Copy</button>
       <!-- <button  -->
     </div>
@@ -26,55 +26,78 @@
     </div>
   </div>
 
-  <div class="row">
-    <div class="col">
-      <mat-form-field appearance="outline">
-        <mat-label>AD 1</mat-label>
-        <input matInput placeholder="Special Key" [(ngModel)]="ads[0].key">
-        <mat-icon matSuffix>vpn_key</mat-icon>
-      </mat-form-field>
-    </div>
-    <div class="col-8 ml-1">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Image</mat-label>
-        <input matInput placeholder="URL" [(ngModel)]="ads[0].value">
-        <mat-icon matSuffix>image</mat-icon>
-      </mat-form-field>
-    </div>
+  <div class="mx-auto">
+    <div class="row">
+      <p class="mx-3">
+        <mat-form-field appearance="outline">
+          <mat-label class="px-3">AD 1</mat-label>
+          <mat-icon matPrefix>vpn_key</mat-icon>
+          <input matInput placeholder="Special Key" class="pl-3" [(ngModel)]="ads[0].key">
+          <button mat-button *ngIf="ads[0].key" matSuffix mat-icon-button aria-label="Clear" (click)="ads[0].key=''">
+            <mat-icon matSuffix>close</mat-icon>
+          </button>
+        </mat-form-field>
+      </p>
+      <p class="mx-3">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label class="px-3">Image</mat-label>
+          <input matInput placeholder="URL" [(ngModel)]="ads[0].value">
+          <mat-icon matPrefix>image</mat-icon>
+          <button mat-button *ngIf="ads[0].value" matSuffix mat-icon-button aria-label="Clear"
+            (click)="ads[0].value=''">
+            <mat-icon matSuffix>close</mat-icon>
+          </button>
+        </mat-form-field>
+      </p>
 
-  </div>
-  <div class="row">
-    <div class="col">
-      <mat-form-field appearance="outline">
-        <mat-label>AD 2</mat-label>
-        <input matInput placeholder="Special Key" [(ngModel)]="ads[1].key">
-        <mat-icon matSuffix>vpn_key</mat-icon>
-      </mat-form-field>
     </div>
-    <div class="col-8 ml-1">
-      <mat-form-field appearance="outline"class="w-100" >
-        <mat-label>Image</mat-label>
-        <input matInput placeholder="URL" [(ngModel)]="ads[1].value">
-        <mat-icon matSuffix>image</mat-icon>
-      </mat-form-field>
-    </div>
+    <div class="row">
+      <p class="mx-3">
+        <mat-form-field appearance="outline">
+          <mat-label class="px-3">AD 2</mat-label>
+          <input matInput placeholder="Special Key" class="pl-3" [(ngModel)]="ads[1].key">
+          <mat-icon matPrefix>vpn_key</mat-icon>
+          <button mat-button *ngIf="ads[1].key" matSuffix mat-icon-button aria-label="Clear" (click)="ads[1].key=''">
+            <mat-icon matSuffix>close</mat-icon>
+          </button>
+        </mat-form-field>
+      </p>
+      <p class="mx-3">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label class="px-3">Image</mat-label>
+          <input matInput placeholder="URL" [(ngModel)]="ads[1].value">
+          <mat-icon matPrefix>image</mat-icon>
+          <button mat-button *ngIf="ads[1].value" matSuffix mat-icon-button aria-label="Clear"
+            (click)="ads[1].value=''">
+            <mat-icon matSuffix>close</mat-icon>
+          </button>
+        </mat-form-field>
+      </p>
 
-    <!-- <label text="AD 2"></label> -->
-  </div>
-  <div class="row">
-    <div class="col">
-      <mat-form-field appearance="outline">
-        <mat-label>AD 3</mat-label>
-        <input matInput placeholder="Special Key" [(ngModel)]="ads[2].key">
-        <mat-icon matSuffix>vpn_key</mat-icon>
-      </mat-form-field>
+      <!-- <label text="AD 2"></label> -->
     </div>
-    <div class="col-8 ml-1">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Image</mat-label>
-        <input matInput placeholder="URL" [(ngModel)]="ads[2].value">
-        <mat-icon matSuffix>image</mat-icon>
-      </mat-form-field>
+    <div class="row">
+      <p class="mx-3">
+        <mat-form-field appearance="outline">
+          <mat-label class="px-3">AD 3</mat-label>
+          <input matInput placeholder="Special Key" class="pl-3" [(ngModel)]="ads[2].key">
+          <mat-icon matPrefix>vpn_key</mat-icon>
+          <button mat-button *ngIf="ads[2].key" matSuffix mat-icon-button aria-label="Clear" (click)="ads[2].key=''">
+            <mat-icon matSuffix>close</mat-icon>
+          </button>
+        </mat-form-field>
+      </p>
+      <p class="mx-3">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label class="px-3">Image</mat-label>
+          <input matInput placeholder="URL" [(ngModel)]="ads[2].value">
+          <mat-icon matPrefix>image</mat-icon>
+          <button mat-button *ngIf="ads[2].value" matSuffix mat-icon-button aria-label="Clear"
+            (click)="ads[2].value=''">
+            <mat-icon matSuffix>close</mat-icon>
+          </button>
+        </mat-form-field>
+      </p>
     </div>
   </div>
 
