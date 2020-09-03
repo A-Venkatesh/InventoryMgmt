@@ -269,7 +269,7 @@ export class EditProductComponent implements OnInit {
       this.ps.updateProduct(JSON.parse(JSON.stringify(data)), this.id).then(result => {
         /*do something here....maybe clear the form or give a success message*/
         // console.log(result);
-        this.openSnackBar('Product as been added');
+        this.openSnackBar('Product as been updated');
         this.location.back();
 
       });
