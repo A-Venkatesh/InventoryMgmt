@@ -32,7 +32,7 @@ export class ProductListComponent implements OnInit {
   expandedElement: Product | null;
   public dataSource = new MatTableDataSource<Product>(this.list);
   stocks = [];
-
+// mySet: Set<string> = new Set<string>();
 
   constructor(private router: Router, public ss: StorageService, private ps: ProductService,
               private deviceService: DeviceDetectorService, private tr: TrendService) {
@@ -48,6 +48,7 @@ export class ProductListComponent implements OnInit {
     this.ss.sharedData.subscribe(storage => {
       this.list = storage;
       // //console.log(JSON.stringify('size' + this.list));
+      // this.subc();
     });
     this.keyP = [];
   }
@@ -87,7 +88,7 @@ export class ProductListComponent implements OnInit {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
 
-    //console.log(this.list);
+    // console.log(this.list);
 
     this.ss.nextData(this.list);
   }
@@ -96,7 +97,6 @@ export class ProductListComponent implements OnInit {
     const id = fID + '_' + vID;
     const product = this.stocks.find(p => p.id === id);
     return product === undefined ? 0 : product.value;
-
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -138,10 +138,10 @@ export class ProductListComponent implements OnInit {
     this.router.navigate(['dashboard/edit', id]);
   }
   onDelete(id: string, noOfVar) {
-    //console.log(id);
+    // console.log(id);
 
     this.ps.deleteProduct(id).then(res => {
-      //console.log(res);
+      // console.log(res);
       this.ps.deleteStock(id, noOfVar, this.stocks);
     });
 
@@ -158,19 +158,32 @@ export class ProductListComponent implements OnInit {
   }
   setTrend($event: MatSlideToggleChange, id) {
 
-    //console.log(id);
-    //console.log($event);
+    // console.log(id);
+    // console.log($event);
     if ($event.checked) {
       const data = this.list.find(p => p.id === id);
       data.fID = data.id;
       delete data.id;
-      //console.log(data);
+      // console.log(data);
       this.tr.createTrend(data);
     } else {
-      //console.log(this.keyP.find(p => p.pID === this.list.find(p => p.id === id).pID).id);
+      // console.log(this.keyP.find(p => p.pID === this.list.find(p => p.id === id).pID).id);
       this.tr.deleteTrend(this.keyP.find(p => p.pID === this.list.find(p => p.id === id).pID).id);
     }
-    //console.log(this.keyP);
+    // console.log(this.keyP);
 
   }
+
+//   subc() {
+//     try {
+//       this.list.forEach(element => {
+//         this.mySet.add(element.SubCategory);
+       
+//       });
+//       console.log(this.mySet);
+//     } catch (error) {
+// console.log('error');
+
+//     }
+//   }
 }
