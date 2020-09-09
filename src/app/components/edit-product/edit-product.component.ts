@@ -4,7 +4,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatChipInputEvent } from '@angular/material';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { ImgUploadService } from '../../shared/services/img-upload.service';
-import { map } from 'rxjs/operators';
 import { Product } from '../../shared/model/product';
 import { ProductService } from '../../shared/services/product.service';
 import { DatePipe } from '@angular/common';
@@ -12,7 +11,8 @@ import { TranslationService } from '../../shared/services/translation.service';
 import { ActivatedRoute } from '@angular/router';
 import { StorageService } from 'src/app/shared/services/storage.service';
 import { Location } from '@angular/common';
-
+import {Observable} from 'rxjs';
+import {map, startWith} from 'rxjs/operators';
 
 export interface PreviewData {
   file: any;
@@ -26,7 +26,45 @@ export interface PreviewData {
   styleUrls: ['./edit-product.component.css']
 })
 export class EditProductComponent implements OnInit {
-
+  options: string[] = ['Atta| flours and sooji',
+  'Dals and pulses',
+  'sugar| salt and jaggery',
+  'oils and spices',
+  'oils',
+  'spices',
+  'masalas',
+  'pickles',
+  'Rice',
+  'Dry Fruits',
+  'seeds',
+  'noodles',
+  'vermecilli',
+  'pastha',
+  'soups',
+  'Breakfast Cereals',
+  'Spreads| sauces and ketchups',
+  'Snacks',
+  'Health Drinks',
+  'Tea',
+  'Coffee',
+  'Cool Drinks',
+  'Dairy',
+  'Breads',
+  'Cookies',
+  'Feminine Hygiene',
+  'Oral Care',
+  'Hair Care',
+  'Talcum Powders',
+  'Bath| Face & HandWash',
+  'Skin Care',
+  'Mens Grooming',
+  'MakeUp',
+  'Detergents andDishwasher',
+  'Bathroom and floor Cleaners',
+  'Air Freshners',
+  'Pest Repellents',
+  ];
+  filteredOptions: Observable<string[]>;
   constructor(private location: Location, private ss: StorageService, private route: ActivatedRoute,
               private ts: TranslationService, public datepipe: DatePipe, private snackBar: MatSnackBar,
               private fb: FormBuilder, private is: ImgUploadService, private ps: ProductService) {
@@ -101,6 +139,16 @@ export class EditProductComponent implements OnInit {
       this.setData();
     });
 
+    this.filteredOptions = this.form.controls.SubCategory.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value))
+    );
+  }
+
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.options.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
   }
 
   setData() {

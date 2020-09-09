@@ -45,7 +45,12 @@
       </div>
       <div class="cell">
         <mat-form-field class="example-full-width">
-          <input matInput placeholder="Sub Category" formControlName="SubCategory" required>
+          <input matInput placeholder="Sub Category" formControlName="SubCategory" [matAutocomplete]="auto" required>
+          <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+              {{option}}
+            </mat-option>
+          </mat-autocomplete>
           <mat-error *ngIf="!form.controls['SubCategory'].valid">{{getErrorMessage('SubCategory', 0)}}</mat-error>
         </mat-form-field>
       </div>
