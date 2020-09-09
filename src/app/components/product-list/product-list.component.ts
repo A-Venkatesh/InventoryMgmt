@@ -32,7 +32,7 @@ export class ProductListComponent implements OnInit {
   expandedElement: Product | null;
   public dataSource = new MatTableDataSource<Product>(this.list);
   stocks = [];
-// mySet: Set<string> = new Set<string>();
+mySet: Set<string> = new Set<string>();
 
   constructor(private router: Router, public ss: StorageService, private ps: ProductService,
               private deviceService: DeviceDetectorService, private tr: TrendService) {
@@ -48,7 +48,7 @@ export class ProductListComponent implements OnInit {
     this.ss.sharedData.subscribe(storage => {
       this.list = storage;
       // //console.log(JSON.stringify('size' + this.list));
-      // this.subc();
+      this.subc();
     });
     this.keyP = [];
   }
@@ -174,16 +174,22 @@ export class ProductListComponent implements OnInit {
 
   }
 
-//   subc() {
+  subc() {
 //     try {
 //       this.list.forEach(element => {
-//         this.mySet.add(element.SubCategory);
+//         this.mySet.add(element.Category);
        
 //       });
 //       console.log(this.mySet);
+//       let t ='';
+//       this.mySet.forEach(element => {
+//         t = t + '|' + element + '| +';
+//       });
+//       console.log(t);
+      
 //     } catch (error) {
 // console.log('error');
 
 //     }
-//   }
+  }
 }

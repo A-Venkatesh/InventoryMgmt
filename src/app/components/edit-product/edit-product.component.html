@@ -39,7 +39,12 @@
     <div class="row">
       <div class="cell">
         <mat-form-field class="example-full-width">
-          <input matInput placeholder="Category" formControlName="Category" required>
+          <input matInput placeholder="Category" formControlName="Category" [matAutocomplete]="autoC" required>
+          <mat-autocomplete #autoC="matAutocomplete">
+            <mat-option *ngFor="let option of optionsC" [value]="option">
+              {{option}}
+            </mat-option>
+          </mat-autocomplete>
           <mat-error *ngIf="!form.controls['Category'].valid">{{getErrorMessage('Category', 0)}}</mat-error>
         </mat-form-field>
       </div>

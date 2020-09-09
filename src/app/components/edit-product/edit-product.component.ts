@@ -26,6 +26,7 @@ export interface PreviewData {
   styleUrls: ['./edit-product.component.css']
 })
 export class EditProductComponent implements OnInit {
+  optionsC: string[] = ['Grocery', 'Vegetables', 'Fruits', 'Cakes', 'Meat', 'Sweet and Savories'];
   options: string[] = ['Atta| flours and sooji',
   'Dals and pulses',
   'sugar| salt and jaggery',
