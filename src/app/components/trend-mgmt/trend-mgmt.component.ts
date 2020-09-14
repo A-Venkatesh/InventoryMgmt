@@ -64,7 +64,8 @@ export class TrendMgmtComponent implements OnInit {
       this.pList.forEach(element => {
         const a = '';
         //console.log(typeof(element.Category));
-        const key = element.Category.trim();
+        let key = element.Category.trim();
+        key = key[0].toUpperCase() + key.slice(1);
         let da = [];
         if (map.has(key)) {
           da = map.get(key);

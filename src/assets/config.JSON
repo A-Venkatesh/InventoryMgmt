@@ -1,0 +1,65 @@
+{
+  "subc": [{
+      "key": "Ready To Cook",
+      "value": "https://i.ibb.co/zNyLF3V/Breakfast-cereals-ketchups-and-spreads.jpg",
+      "skeys": ["noodles",
+        "vermecilli",
+        "pastha",
+        "soups"
+      ]
+    },
+    {
+      "key": "Household needs",
+      "value": "https://i.ibb.co/KbTpbdB/Cleaning-and-Households.jpg",
+      "skeys": ["Detergents andDishwasher",
+        "Bathroom and floor Cleaners",
+        "Air Freshners",
+        "Pest Repellents"
+      ]
+    },
+    {
+      "key": "Dals and Pulses",
+      "value": "https://i.ibb.co/g4v9wqH/Dals-pulses-and-cooking-essentials-1.jpg",
+      "skeys": ["Atta| flours and sooji",
+        "Dals and pulses",
+        "sugar| salt and jaggery"
+      ]
+    },
+    {
+      "key": "Oils, Spices and Masala",
+      "value": "https://i.ibb.co/sH1qMm8/Oils-Spices-and-masalas.jpg",
+      "skeys": ["oils",
+        "spices",
+        "masalas",
+        "pickles"
+      ]
+    },
+    {
+      "key": "Personal Care",
+      "value": "https://i.ibb.co/yXszcPd/Personal-Care.jpg",
+      "skeys": ["Feminine Hygiene",
+        "Oral Care",
+        "Hair Care",
+        "Talcum Powders",
+        "Bath| Face & HandWash",
+        "Skin Care",
+        "Mens Grooming",
+        "MakeUp"
+      ]
+    },
+    {
+      "key": "Rice Bags",
+      "value": "https://i.ibb.co/pPdBLn9/RiceBags.jpg",
+      "skeys": ["Rice"]
+    },
+    {
+      "key": "Beverages",
+      "value": "https://i.ibb.co/0XhKkn0/beverages.jpg",
+      "skeys": ["Health Drinks",
+        "Tea",
+        "Coffee",
+        "Cool Drinks"
+      ]
+    }
+  ]
+}
