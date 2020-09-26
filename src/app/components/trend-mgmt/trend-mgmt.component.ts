@@ -19,7 +19,7 @@ export class TrendMgmtComponent implements OnInit {
   data = [];
   cols = 1;
   constructor(private ss: StorageService, private tr: TrendService, private ps: ProductService,
-              private deviceService: DeviceDetectorService) {
+    private deviceService: DeviceDetectorService) {
     this.isMobile();
     this.isDesktop();
 
@@ -64,16 +64,27 @@ export class TrendMgmtComponent implements OnInit {
       this.pList.forEach(element => {
         const a = '';
         //console.log(typeof(element.Category));
-        let key = element.Category.trim();
-        key = key[0].toUpperCase() + key.slice(1);
-        let da = [];
-        if (map.has(key)) {
-          da = map.get(key);
-          da.push(element);
-          map.set(key, da);
-        } else {
-          da.push(element);
-          map.set(key, da);
+        // const name = element.ProductLocalName.concat(element.ProductName);
+        // console.log(element.variants[0].ProductPrice);
+        // console.log(element.variants[0].ProductMRP);
+
+        try {
+          if (element.ProductName.length < 14 && (element.variants[0].ProductPrice !== element.variants[0].ProductMRP)) {
+            let key = element.Category.trim();
+            key = key[0].toUpperCase() + key.slice(1);
+            let da = [];
+            if (map.has(key)) {
+              da = map.get(key);
+              da.push(element);
+              map.set(key, da);
+            } else {
+              da.push(element);
+              map.set(key, da);
+            }
+          }
+        } catch (error) {
+          console.log(error);
+
         }
       });
 
