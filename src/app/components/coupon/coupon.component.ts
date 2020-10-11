@@ -20,7 +20,7 @@ export class CouponComponent implements OnInit {
     CType: ['All', [Validators.required]],
     DType: ['', [Validators.required]],
     List: [''],
-    MinCart: ['',[Validators.required]],
+    MinCart: ['', [Validators.required]],
     Amount: ['', [Validators.min(1), Validators.pattern('^\\d+$')]],
     Percent: ['', [Validators.min(1), Validators.max(100), Validators.pattern('[+-]?([0-9]*[.])?[0-9]+')]],
     SType: [true],
@@ -34,17 +34,17 @@ export class CouponComponent implements OnInit {
     this.items = this.itemsCollection.valueChanges();
     console.log(this.items);
     // this.itemsCollection.
-   }
+  }
 
   ngOnInit(): void {
 
-    
+
   }
-  getThis(item) { 
+  getThis(item) {
     console.log(typeof (item));
     console.log(item);
-    
-    
+
+
     return item.coupon;
   }
   onSubmit() {
@@ -71,7 +71,7 @@ export class CouponComponent implements OnInit {
     }
 
   }
-  onChangeVariants(event) { 
+  onChangeVariants(event) {
 
   }
   openSnackBar(message: string) {
@@ -80,7 +80,7 @@ export class CouponComponent implements OnInit {
     });
   }
 
-  delete(id) { 
+  delete(id) {
     this.os.deleteOrder(id);
   }
 }

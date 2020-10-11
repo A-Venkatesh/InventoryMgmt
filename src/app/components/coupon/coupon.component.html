@@ -12,37 +12,29 @@
           </mat-panel-description>
         </mat-expansion-panel-header>
         <table>
-            <tr>
-                <td>
-                    <p>Coupon Type : {{item.DType}}</p>
-                  </td>
-                <td>
-                  <p>Min Cart value: {{item.MinCart}}</p>
-                </td>
-                <td>
-                  <p>Amount : {{item.Amount}}</p>
-                </td>
-                
-              </tr>
           <tr>
-              <td>
-                  <p>Percent : {{item.Percent}}</p>
-                </td>
+            <td>
+              <p>Coupon Type : {{item.DType}}</p>
+            </td>
+            <td>
+              <p>Min Cart value: {{item.MinCart}}</p>
+            </td>
+            <td>
+              <p>Amount : {{item.Amount}}</p>
+            </td>
+
+          </tr>
+          <tr>
+            <td>
+              <p>Percent : {{item.Percent}}</p>
+            </td>
             <td>
               <p>List : {{item.List.toString()}}</p>
             </td>
             <td>
-                <p>  <button mat-raised-button color="primary" (click) = "delete(item.coupon)" >Delete</button></p>
-              </td>
+              <p> <button mat-raised-button color="primary" (click)="delete(item.coupon)">Delete</button></p>
+            </td>
           </tr>
-          <!-- <tr>
-            <td></td>
-            <td></td>
-              <td>
-                <p>  <button mat-raised-button color="primary">Delete</button></p>
-              </td>
-            </tr> -->
-
         </table>
       </mat-expansion-panel>
     </mat-accordion>
