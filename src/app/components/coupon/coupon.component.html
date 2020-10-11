@@ -1,0 +1,94 @@
+<mat-card class="container main">
+
+  <div>
+    <mat-accordion>
+      <mat-expansion-panel *ngFor="let item of items | async">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <p>{{item.coupon}}</p>
+          </mat-panel-title>
+          <mat-panel-description>
+            <p>Applied To {{item.CType}}</p>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <table>
+            <tr>
+                <td>
+                    <p>Coupon Type : {{item.DType}}</p>
+                  </td>
+                <td>
+                  <p>Min Cart value: {{item.MinCart}}</p>
+                </td>
+                <td>
+                  <p>Amount : {{item.Amount}}</p>
+                </td>
+                
+              </tr>
+          <tr>
+              <td>
+                  <p>Percent : {{item.Percent}}</p>
+                </td>
+            <td>
+              <p>List : {{item.List.toString()}}</p>
+            </td>
+            <td>
+                <p>  <button mat-raised-button color="primary" (click) = "delete(item.coupon)" >Delete</button></p>
+              </td>
+          </tr>
+          <!-- <tr>
+            <td></td>
+            <td></td>
+              <td>
+                <p>  <button mat-raised-button color="primary">Delete</button></p>
+              </td>
+            </tr> -->
+
+        </table>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+  <hr>
+  <form [formGroup]="cForm" (ngSubmit)="onSubmit()">
+    <mat-form-field>
+      <input matInput formControlName="coupon" placeholder="Coupon">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-select placeholder="Coupons Applied To" formControlName="CType" (selectionChange)="onChangeVariants($event)">
+        <mat-option *ngFor="let i of cType" [value]="i">{{i}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-select placeholder="Coupon Type" formControlName="DType">
+        <mat-option *ngFor="let i of dType" [value]="i">{{i}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <hr>
+    <mat-form-field *ngIf="cForm.controls['CType'].value !== 'All'">
+      <textarea matInput placeholder="Comma seperated list" formControlName="List"></textarea>
+    </mat-form-field>
+    <!-- <hr> -->
+    <hr>
+    <div *ngIf="cForm.controls['DType'].value !== ''">
+      <mat-form-field *ngIf="cForm.controls['DType'].value === 'Percentage'">
+        <input matInput formControlName="Percent" placeholder="Percentage">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Cart value</mat-label>
+        <input matInput formControlName="MinCart" placeholder="Min Value">
+      </mat-form-field>
+      <mat-slide-toggle *ngIf="cForm.controls['DType'].value === 'Shipping'" formControlName="SType">Free
+      </mat-slide-toggle>
+      <mat-form-field *ngIf="cForm.controls['DType'].value !== 'Shipping'">
+        <mat-label>Amount</mat-label>
+        <input matInput formControlName="Amount" placeholder="Max Value">
+      </mat-form-field>
+      <div *ngIf="cForm.controls['DType'].value === 'Shipping'">
+        <mat-form-field *ngIf="!cForm.controls['SType'].value">
+          <mat-label>Shipping charge</mat-label>
+          <input matInput formControlName="Amount" placeholder="Max Value">
+        </mat-form-field>
+      </div>
+      <button mat-raised-button>Add coupon</button>
+    </div>
+  </form>
+</mat-card>

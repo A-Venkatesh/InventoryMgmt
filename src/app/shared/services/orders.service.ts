@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { Coupon } from '../model/coupon';
 @Injectable({
   providedIn: 'root'
 })
@@ -43,6 +44,26 @@ export class OrdersService {
     return this.firestore
       .collection('orders')
       .doc(data.payload.doc.id)
+      .delete();
+  }
+
+  createCupon(data: Coupon) {
+    return new Promise<any>((resolve, reject) => {
+      this.firestore
+        .collection('coupons')
+        .doc(data.coupon)
+        .set(data)
+        .then(res => { }, err => reject(err));
+    });
+  }
+  getCoupons() {
+    return this.firestore.collection<Coupon>('coupons');
+  }
+
+  deleteCoupon(id) {
+    return this.firestore
+      .collection('coupons')
+      .doc(id)
       .delete();
   }
 }

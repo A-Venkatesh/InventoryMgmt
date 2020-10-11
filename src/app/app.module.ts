@@ -44,6 +44,7 @@ import { EditProductComponent } from './components/edit-product/edit-product.com
 import { TrendMgmtComponent } from './components/trend-mgmt/trend-mgmt.component';
 import { StockMgmtComponent } from './components/stock-mgmt/stock-mgmt.component';
 import { CarouselComponent } from './components/carousel/carousel.component';
+import { CouponComponent } from './components/coupon/coupon.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -60,14 +61,15 @@ import { CarouselComponent } from './components/carousel/carousel.component';
     TrendMgmtComponent,
     StockMgmtComponent,
     CarouselComponent,
+    CouponComponent,
 
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFirestoreModule.enablePersistence(),
     AngularFireAuthModule,
-    AngularFirestoreModule,
     ReactiveFormsModule,
     NgbModule.forRoot(),
     BrowserAnimationsModule,

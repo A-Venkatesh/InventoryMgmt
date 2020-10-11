@@ -1,0 +1,13 @@
+.main {
+    margin: 0 auto;
+    max-width: 90%;
+    /* margin-top: 100; */
+    }
+
+    td{
+        padding-right: 50px;
+        padding-bottom: 20px;
+    }
+    button{
+        margin:auto;
+    }
