@@ -25,12 +25,17 @@
 
           </tr>
           <tr>
-            <td>
+            <td *ngIf="item.DType === 'Percentage'">
               <p>Percent : {{item.Percent}}</p>
             </td>
-            <td>
+            <td *ngIf="item.CType !== 'All'">
               <p>List : {{item.List.toString()}}</p>
             </td>
+            <td>
+              <p>Per user Limit : {{item.uLimit}}</p>
+            </td>
+          </tr>
+          <tr>
             <td>
               <p> <button mat-raised-button color="primary" (click)="delete(item.coupon)">Delete</button></p>
             </td>
@@ -53,6 +58,9 @@
       <mat-select placeholder="Coupon Type" formControlName="DType">
         <mat-option *ngFor="let i of dType" [value]="i">{{i}}</mat-option>
       </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Valid number of use" formControlName="uLimit">
     </mat-form-field>
     <hr>
     <mat-form-field *ngIf="cForm.controls['CType'].value !== 'All'">

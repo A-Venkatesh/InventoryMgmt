@@ -24,6 +24,7 @@ export class CouponComponent implements OnInit {
     Amount: ['', [Validators.min(1), Validators.pattern('^\\d+$')]],
     Percent: ['', [Validators.min(1), Validators.max(100), Validators.pattern('[+-]?([0-9]*[.])?[0-9]+')]],
     SType: [true],
+    uLimit: ['', [Validators.required]],
   });
   private itemsCollection: AngularFirestoreCollection<Coupon>;
   items: Observable<Coupon[]>;
@@ -51,7 +52,6 @@ export class CouponComponent implements OnInit {
     const oj = this.cForm.value as Coupon;
     console.log(oj);
     console.log(JSON.stringify(oj));
-
     if (this.cForm.valid) {
       let ar = oj.List;
       console.log(ar);
@@ -64,6 +64,7 @@ export class CouponComponent implements OnInit {
         }
       }
       oj.List = ar;
+      oj.coupon = oj.coupon.toUpperCase();
       this.os.createCupon(oj);
       console.log(oj);
     } else {

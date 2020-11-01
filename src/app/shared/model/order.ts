@@ -20,4 +20,6 @@ export interface Order {
   total: number;
   qty: number;
   save: number;
+  coupon: string;
+  cSave: number;
 }

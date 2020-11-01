@@ -7,4 +7,5 @@ export interface Coupon {
   Amount: number;
   Percent: number;
   SType: boolean;
+  uLimit: number;
 }
