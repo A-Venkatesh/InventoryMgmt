@@ -3,6 +3,9 @@
     <div><a routerLink="" class="title">Delivery Yaar Inventory</a></div>
     <span class="nav-tool-items">
       <div *ngIf="logCheck()">
+        <a mat-button (click)="requestPermission()" style="width:30%; height:20%">
+          <mat-icon>notifications</mat-icon>
+        </a>
         <a mat-button (click)="authService.SignOut()">Log out</a>
       </div>
       <div *ngIf="!logCheck()">

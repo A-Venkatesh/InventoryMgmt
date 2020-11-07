@@ -66,4 +66,13 @@ export class OrdersService {
       .doc(id)
       .delete();
   }
+
+
+  updateNotificationToken(data, id) {
+    return new Promise<any>((resolve, reject) => {
+      this.firestore
+        .collection('notificationToken')
+        .doc(id).set(data).then(res => { }, err => reject(err));
+    });
+  }
 }

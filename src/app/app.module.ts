@@ -45,6 +45,10 @@ import { TrendMgmtComponent } from './components/trend-mgmt/trend-mgmt.component
 import { StockMgmtComponent } from './components/stock-mgmt/stock-mgmt.component';
 import { CarouselComponent } from './components/carousel/carousel.component';
 import { CouponComponent } from './components/coupon/coupon.component';
+
+
+import { AngularFireMessagingModule } from '@angular/fire/messaging';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -70,6 +74,7 @@ import { CouponComponent } from './components/coupon/coupon.component';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule.enablePersistence(),
     AngularFireAuthModule,
+    AngularFireMessagingModule,
     ReactiveFormsModule,
     NgbModule.forRoot(),
     BrowserAnimationsModule,
