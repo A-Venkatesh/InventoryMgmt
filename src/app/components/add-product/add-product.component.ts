@@ -57,7 +57,7 @@ export class AddProductComponent implements OnInit {
     'Skin Care',
     'Mens Grooming',
     'MakeUp',
-    'Detergents andDishwasher',
+    'Detergents and Dishwasher',
     'Bathroom and floor Cleaners',
     'Air Freshners',
     'Pest Repellents',
