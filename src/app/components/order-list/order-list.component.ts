@@ -72,4 +72,15 @@ export class OrderListComponent implements OnInit {
     this.csv.downloadFile(this.dataSource.filteredData, 'Orders' + now.toLocaleDateString());
   }
 
+  getDate(timestamp: any) {
+    let date = '';
+    try {
+      date = timestamp.toDate().toLocaleString();
+    } catch (error) {
+      date = new Date(timestamp).toLocaleString();
+      console.log('error : ' + date);
+    }
+    return date;
+  }
+
 }

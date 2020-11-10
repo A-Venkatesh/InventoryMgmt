@@ -21,7 +21,7 @@
     </ng-container>
     <ng-container matColumnDef="date">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Date </th>
-      <td mat-cell *matCellDef="let element"> {{element.date.toMillis() | date:'yyyy/MM/dd h:mm:ss a'}} </td>
+      <td mat-cell *matCellDef="let element">{{getDate( element.date) }} </td>
     </ng-container>
     <ng-container matColumnDef="status">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
@@ -43,8 +43,29 @@
               <a class="row" [href]="getMapURL(element.location)">Check Location</a>
             </div>
             <div class="cell3">
-              <p class="row"><b> Payable : </b> {{element.total}}</p>
+              <!-- <p class="row"><b> Payable : </b> {{element.total}}</p>
               <p class="row"><b>Items : </b> {{element.qty}}</p>
+              <p class="row"><b>Coupon : </b> {{element.coupon}}</p> -->
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="cell3">
+            
+              <p class="row"><b>Qty : </b> {{element.qty}}</p>
+              <p class="row"><b>Products : </b>{{element.order.length}}</p>
+              <p class="row"><b>Coupon : </b> {{element.coupon}}</p>
+            </div>
+            <div class="cell3">
+                <p class="row"><b>Total MRP : </b> {{element.cartValue + element.save}}</p>
+              <p class="row"><b>Save : - </b> {{element.save}}</p>
+              <p class="row"><b>Cart Value : </b> {{element.cartValue}}</p>
+            
+            </div>
+            <div class="cell3">
+                <p class="row"><b> Shipping Charge : </b> {{element.shippingCharge}}</p>
+                <p class="row"><b>Coupon Discount : - </b> {{element.cSave}}</p>
+              <p class="row h6"><b> Payable : </b> {{element.total}}</p>
             </div>
           </div>
 

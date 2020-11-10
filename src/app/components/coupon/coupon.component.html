@@ -1,5 +1,53 @@
 <mat-card class="container main">
-
+  <div class="h4"> Coupon Manager</div>
+  <hr>
+    <form [formGroup]="cForm" (ngSubmit)="onSubmit()">
+        <mat-form-field>
+          <input matInput formControlName="coupon" placeholder="Coupon">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select placeholder="Coupons Applied To" formControlName="CType" (selectionChange)="onChangeVariants($event)">
+            <mat-option *ngFor="let i of cType" [value]="i">{{i}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select placeholder="Coupon Type" formControlName="DType">
+            <mat-option *ngFor="let i of dType" [value]="i">{{i}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Valid number of use" formControlName="uLimit">
+        </mat-form-field>
+        <hr>
+        <mat-form-field *ngIf="cForm.controls['CType'].value !== 'All'">
+          <textarea matInput placeholder="Comma seperated list" formControlName="List"></textarea>
+        </mat-form-field>
+        <!-- <hr> -->
+        <hr>
+        <div *ngIf="cForm.controls['DType'].value !== ''">
+          <mat-form-field *ngIf="cForm.controls['DType'].value === 'Percentage'">
+            <input matInput formControlName="Percent" placeholder="Percentage">
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Cart value</mat-label>
+            <input matInput formControlName="MinCart" placeholder="Min Value">
+          </mat-form-field>
+          <mat-slide-toggle *ngIf="cForm.controls['DType'].value === 'Shipping'" formControlName="SType">Free
+          </mat-slide-toggle>
+          <mat-form-field *ngIf="cForm.controls['DType'].value !== 'Shipping'">
+            <mat-label>Amount</mat-label>
+            <input matInput formControlName="Amount" placeholder="Max Value">
+          </mat-form-field>
+          <div *ngIf="cForm.controls['DType'].value === 'Shipping'">
+            <mat-form-field *ngIf="!cForm.controls['SType'].value">
+              <mat-label>Shipping charge</mat-label>
+              <input matInput formControlName="Amount" placeholder="Max Value">
+            </mat-form-field>
+          </div>
+          <button mat-raised-button>Add coupon</button>
+        </div>
+      </form>
+      <hr>
   <div>
     <mat-accordion>
       <mat-expansion-panel *ngFor="let item of items | async">
@@ -44,51 +92,6 @@
       </mat-expansion-panel>
     </mat-accordion>
   </div>
-  <hr>
-  <form [formGroup]="cForm" (ngSubmit)="onSubmit()">
-    <mat-form-field>
-      <input matInput formControlName="coupon" placeholder="Coupon">
-    </mat-form-field>
-    <mat-form-field>
-      <mat-select placeholder="Coupons Applied To" formControlName="CType" (selectionChange)="onChangeVariants($event)">
-        <mat-option *ngFor="let i of cType" [value]="i">{{i}}</mat-option>
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field>
-      <mat-select placeholder="Coupon Type" formControlName="DType">
-        <mat-option *ngFor="let i of dType" [value]="i">{{i}}</mat-option>
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput placeholder="Valid number of use" formControlName="uLimit">
-    </mat-form-field>
-    <hr>
-    <mat-form-field *ngIf="cForm.controls['CType'].value !== 'All'">
-      <textarea matInput placeholder="Comma seperated list" formControlName="List"></textarea>
-    </mat-form-field>
-    <!-- <hr> -->
-    <hr>
-    <div *ngIf="cForm.controls['DType'].value !== ''">
-      <mat-form-field *ngIf="cForm.controls['DType'].value === 'Percentage'">
-        <input matInput formControlName="Percent" placeholder="Percentage">
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Cart value</mat-label>
-        <input matInput formControlName="MinCart" placeholder="Min Value">
-      </mat-form-field>
-      <mat-slide-toggle *ngIf="cForm.controls['DType'].value === 'Shipping'" formControlName="SType">Free
-      </mat-slide-toggle>
-      <mat-form-field *ngIf="cForm.controls['DType'].value !== 'Shipping'">
-        <mat-label>Amount</mat-label>
-        <input matInput formControlName="Amount" placeholder="Max Value">
-      </mat-form-field>
-      <div *ngIf="cForm.controls['DType'].value === 'Shipping'">
-        <mat-form-field *ngIf="!cForm.controls['SType'].value">
-          <mat-label>Shipping charge</mat-label>
-          <input matInput formControlName="Amount" placeholder="Max Value">
-        </mat-form-field>
-      </div>
-      <button mat-raised-button>Add coupon</button>
-    </div>
-  </form>
+
+
 </mat-card>

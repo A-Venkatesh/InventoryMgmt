@@ -62,7 +62,25 @@
             <p class="row"><b>Items : </b> {{order.qty}}</p>
           </div>
         </div>
-
+        <div class="row">
+            <div class="cell3">
+            
+              <p class="row"><b>Qty : </b> {{order.qty}}</p>
+              <p class="row"><b>Products : </b>{{order.order.length}}</p>
+              <p class="row"><b>Coupon : </b> {{order.coupon}}</p>
+            </div>
+            <div class="cell3">
+                <p class="row"><b>Total MRP : </b> {{order.cartValue + order.save}}</p>
+              <p class="row"><b>Save : - </b> {{order.save}}</p>
+              <p class="row"><b>Cart Value : </b> {{order.cartValue}}</p>
+            
+            </div>
+            <div class="cell3">
+                <p class="row"><b> Shipping Charge : </b> {{order.shippingCharge}}</p>
+                <p class="row"><b>Coupon Discount : - </b> {{order.cSave}}</p>
+              <p class="row h6"><b> Payable : </b> {{order.total}}</p>
+            </div>
+          </div>
 
         <mat-card *ngFor="let prd of order.order" class="example-card">
           <mat-card-header>
