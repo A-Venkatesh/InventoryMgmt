@@ -58,10 +58,11 @@
             <a class="row" [href]="getMapURL(order.location)">Check Location</a>
           </div>
           <div class="cell3">
-            <p class="row"><b> Payable : </b> {{order.total}}</p>
-            <p class="row"><b>Items : </b> {{order.qty}}</p>
+            <!-- <p class="row"><b> Payable : </b> {{order.total}}</p>
+            <p class="row"><b>Items : </b> {{order.qty}}</p> -->
           </div>
         </div>
+        <hr>
         <div class="row">
             <div class="cell3">
             
@@ -81,7 +82,7 @@
               <p class="row h6"><b> Payable : </b> {{order.total}}</p>
             </div>
           </div>
-
+        <hr>
         <mat-card *ngFor="let prd of order.order" class="example-card">
           <mat-card-header>
             <img mat-card-avatar [src]="prd.image" alt="">
@@ -148,11 +149,30 @@
             <a class="row" [href]="getMapURL(order.location)">Check Location</a>
           </div>
           <div class="cell3">
-            <label class="row">Payable: {{order.total}}</label>
-            <label class="row">Items: {{order.qty}}</label>
+            <!-- <label class="row">Payable: {{order.total}}</label>
+            <label class="row">Items: {{order.qty}}</label> -->
           </div>
         </div>
-
+        <hr>
+        <div class="row">
+            <div class="cell3">
+            
+              <p class="row"><b>Qty : </b> {{order.qty}}</p>
+              <p class="row"><b>Products : </b>{{order.order.length}}</p>
+              <p class="row"><b>Coupon : </b> {{order.coupon}}</p>
+            </div>
+            <div class="cell3">
+                <p class="row"><b>Total MRP : </b> {{order.cartValue + order.save}}</p>
+              <p class="row"><b>Save : - </b> {{order.save}}</p>
+              <p class="row"><b>Cart Value : </b> {{order.cartValue}}</p>
+            
+            </div>
+            <div class="cell3">
+                <p class="row"><b> Shipping Charge : </b> {{order.shippingCharge}}</p>
+                <p class="row"><b>Coupon Discount : - </b> {{order.cSave}}</p>
+              <p class="row h6"><b> Payable : </b> {{order.total}}</p>
+            </div>
+          </div>
 
         <mat-card *ngFor="let prd of order.order" class="example-card">
           <mat-card-header>
@@ -218,11 +238,31 @@
             <a class="row" [href]="getMapURL(order.location)">Check Location</a>
           </div>
           <div class="cell3">
-            <label class="row">Payable: {{order.total}}</label>
-            <label class="row">Items: {{order.qty}}</label>
+            <!-- <label class="row">Payable: {{order.total}}</label>
+            <label class="row">Items: {{order.qty}}</label> -->
           </div>
         </div>
-
+        <hr>
+        <div class="row">
+            <div class="cell3">
+            
+              <p class="row"><b>Qty : </b> {{order.qty}}</p>
+              <p class="row"><b>Products : </b>{{order.order.length}}</p>
+              <p class="row"><b>Coupon : </b> {{order.coupon}}</p>
+            </div>
+            <div class="cell3">
+                <p class="row"><b>Total MRP : </b> {{order.cartValue + order.save}}</p>
+              <p class="row"><b>Save : - </b> {{order.save}}</p>
+              <p class="row"><b>Cart Value : </b> {{order.cartValue}}</p>
+            
+            </div>
+            <div class="cell3">
+                <p class="row"><b> Shipping Charge : </b> {{order.shippingCharge}}</p>
+                <p class="row"><b>Coupon Discount : - </b> {{order.cSave}}</p>
+              <p class="row h6"><b> Payable : </b> {{order.total}}</p>
+            </div>
+          </div>
+        <hr>
         <mat-card *ngFor="let prd of order.order" class="example-card">
           <mat-card-header>
             <img mat-card-avatar [src]="prd.image" alt="">
@@ -287,12 +327,31 @@
             <a class="row" [href]="getMapURL(order.location)">Check Location</a>
           </div>
           <div class="cell3">
-            <label class="row">Payable: {{order.total}}</label>
-            <label class="row">Items: {{order.qty}}</label>
+            <!-- <label class="row">Payable: {{order.total}}</label>
+            <label class="row">Items: {{order.qty}}</label> -->
           </div>
         </div>
-
-
+        <hr>
+        <div class="row">
+            <div class="cell3">
+            
+              <p class="row"><b>Qty : </b> {{order.qty}}</p>
+              <p class="row"><b>Products : </b>{{order.order.length}}</p>
+              <p class="row"><b>Coupon : </b> {{order.coupon}}</p>
+            </div>
+            <div class="cell3">
+                <p class="row"><b>Total MRP : </b> {{order.cartValue + order.save}}</p>
+              <p class="row"><b>Save : - </b> {{order.save}}</p>
+              <p class="row"><b>Cart Value : </b> {{order.cartValue}}</p>
+            
+            </div>
+            <div class="cell3">
+                <p class="row"><b> Shipping Charge : </b> {{order.shippingCharge}}</p>
+                <p class="row"><b>Coupon Discount : - </b> {{order.cSave}}</p>
+              <p class="row h6"><b> Payable : </b> {{order.total}}</p>
+            </div>
+          </div>
+          <hr>
         <mat-card *ngFor="let prd of order.order" class="example-card">
           <mat-card-header>
             <img mat-card-avatar [src]="prd.image" alt="">
